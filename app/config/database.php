@@ -57,7 +57,7 @@ return array(
 			'host'      => 'localhost',
 			'database'  => 'accountingbook',
 			'username'  => 'root',
-			'password'  => '',
+			'password'  => 'AccBook',
 			'charset'   => 'utf8',
 			'collation' => 'utf8_unicode_ci',
 			'prefix'    => '',
