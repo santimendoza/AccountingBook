@@ -4,8 +4,9 @@
         <title>Accounting Book</title>
         <meta name='viewport' content='width=device-width, initial-scale=1.0'>
         {{ HTML::style('resources/bootstrap/css/bootstrap.min.css' , array('media'=>'screen')) }}
+        {{ HTML::style('resources/css/style.css' , array('media'=>'screen')) }}
     </head>
-    <body>
+    <body id="loginform">
         <nav class="navbar navbar-default">
             <div class="container-fluid">
                 <div class="navbar-header">
@@ -13,7 +14,7 @@
                 </div>
             </div>
         </nav>
-        <div class="container">
+        <div class="container-fluid">
             <div class="row">
                 <div class="col-xs-12 col-sm-6 col-sm-offset-3">
                     {{ Form::open(array('action' => 'SessionsController@store', 'method' => 'post')) }}
@@ -25,9 +26,9 @@
                         {{ Form::label('password', 'Contraseña:', array('class' => 'awesome')) }}
                         {{ Form::password('password', array('class' => 'form-control')) }}
                     </div>
-                    @if(isset($message))
+                    @if($errors->first() != null)
                     <div class="alert alert-danger" role="alert">
-                        {{ $message }}
+                        {{ $errors->first() }}
                     </div>
                     @endif
                     <div class="form-group">

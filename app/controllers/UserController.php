@@ -4,7 +4,7 @@ class UserController extends \BaseController {
 
     public function index() {
         Auth::user();
-        return View::make('user.userprofile');
+        return View::make('user.profile');
     }
 
     public function create() {
@@ -15,8 +15,9 @@ class UserController extends \BaseController {
         //
     }
 
-    public function show($id) {
-        //
+    public function show($username) {
+        $user = User::where('username', '=', $username)->first();
+        return View::make('user.userprofile')->with('user', $user);
     }
 
     public function edit($id) {

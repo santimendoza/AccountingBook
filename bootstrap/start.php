@@ -26,7 +26,7 @@ $app = new Illuminate\Foundation\Application;
 
 $env = $app->detectEnvironment(array(
 
-	'local' => array('ITGCOCTG-JCPDRZ'),
+	'local' => array('ITGCOCTG-JCPDRZ', 'idea-PC'),
         'production' => array('AccountingBook'),
 ));
 

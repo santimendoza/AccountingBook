@@ -4,6 +4,7 @@
         <title>Accounting Book</title>
         <meta name='viewport' content='width=device-width, initial-scale=1.0'>
         {{ HTML::style('resources/bootstrap/css/bootstrap.min.css' , array('media'=>'screen')) }}
+        {{ HTML::style('resources/css/style.css' , array('media'=>'screen')) }}
     </head>
     <body>
         @section('header')
@@ -17,16 +18,16 @@
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
                     </button>
-                    <a class="navbar-brand" href="#">Brand</a>
+                    <a class="navbar-brand" href="#">AccountingBook</a>
                 </div>
                 <!-- Collect the nav links, forms, and other content for toggling -->
                 <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                     <ul class="nav navbar-nav">
-                        <li class="active"><a href="#">Link <span class="sr-only">(current)</span></a></li>
                         <li><a href="#">Link</a></li>
                     </ul>
                     <ul class="nav navbar-nav navbar-right">
-                        <li><a href="#">Link</a></li>
+                        <li><a href="/profile">Logout</a></li>
+                        <li><a href="/logout">Logout</a></li>
                     </ul>
                 </div><!-- /.navbar-collapse -->
             </div><!-- /.container-fluid -->
@@ -40,7 +41,7 @@
                 @yield('footer')
             </div>
         </footer>
-        {{ HTML::script('resources/js/jquery-1.9.1.min.js') }}
+        {{ HTML::script('resources/js/jquery.min.js') }}
         {{ HTML::script('resources/bootstrap/js/bootstrap.min.js') }}
     </body>
 </html>

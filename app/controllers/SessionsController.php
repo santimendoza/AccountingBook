@@ -16,19 +16,10 @@ class SessionsController extends \BaseController {
         if (Auth::attempt(array('username' => $username, 'password' => $password))) {
             return Redirect::intended('user');
         } else {
-            return Redirect::to('login')->with('error', 'Login failed!');
+            return Redirect::to('login')->withErrors('Login failed!');
         }
     }
-
-    public function show($id) {
-    }
-
-    public function edit($id) {
-    }
-
-    public function update($id) {
-    }
-
+    
     public function destroy() {
         if (Auth::check()) {
             Auth::logout();

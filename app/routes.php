@@ -11,4 +11,4 @@ Route::get('/', 'HomeController@showWelcome');
 
 Route::resource('/sessions', 'SessionsController');
 Route::get('/login', 'SessionsController@create');
-
+Route::get('/user/{{username}}', 'UserController@show');
