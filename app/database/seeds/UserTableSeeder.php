@@ -11,7 +11,8 @@ class UserTableSeeder extends Seeder {
             'username' => 'sanmen1593',
             'name' => 'Santiago',
             'lastname' => 'Mendoza Ramirez',
-            'password' => Hash::make('sanmen')
+            'password' => Hash::make('sanmen'),
+            'currency' => 1
         ));
     }
 

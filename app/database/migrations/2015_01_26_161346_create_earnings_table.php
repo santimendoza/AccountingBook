@@ -11,9 +11,9 @@ class CreateEarningsTable extends Migration {
             $table->double('amount');
             $table->text('description')->nullable();
             $table->string('category');
+            $table->string('date', 8);
             $table->integer('user_id')->unsigned();
             $table->foreign('user_id')->references('id')->on('users');
-            $table->date('date');
             $table->timestamps();
         });
     }

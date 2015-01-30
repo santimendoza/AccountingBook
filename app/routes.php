@@ -7,8 +7,12 @@ Route::group(array('before' => 'auth'), function() {
 });
 
 
-Route::get('/', 'HomeController@showWelcome');
+Route::get('/', 'SessionsController@create');
 
 Route::resource('/sessions', 'SessionsController');
+Route::resource('/categories', 'CategoriesController');
+
+
+Route::get('/newcategory', 'CategoriesController@create');
 Route::get('/login', 'SessionsController@create');
 Route::get('/user/{{username}}', 'UserController@show');

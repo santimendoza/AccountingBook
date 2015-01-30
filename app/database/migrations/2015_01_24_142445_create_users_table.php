@@ -18,6 +18,7 @@ class CreateUsersTable extends Migration {
             $table->string('lastname');
             $table->string('email')->unique();
             $table->string('password');
+            $table->integer('currency'); // 1. COP 2. USD 3. EUR
             $table->string('remember_token')->nullable();
             $table->timestamps();
         });

@@ -2,11 +2,12 @@
 
 class SessionsController extends \BaseController {
 
-    public function index() {
-    }
-
     public function create() {
-        return View::make('login');
+        if (Auth::check()) {
+            return Redirect::to('user');
+        } else {
+            return View::make('login');
+        }
     }
 
     public function store() {
@@ -19,7 +20,7 @@ class SessionsController extends \BaseController {
             return Redirect::to('login')->withErrors('Login failed!');
         }
     }
-    
+
     public function destroy() {
         if (Auth::check()) {
             Auth::logout();
