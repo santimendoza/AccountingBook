@@ -9,16 +9,17 @@
         <h1>Lista de categorías</h1>
     </div>
     <div class="col-sm-12">
-        {{dd($categories)}}
         @foreach($categories[0] as $categorysup)
         <div class="list-group">
             <a href="#" class="list-group-item active">
                 {{$categorysup->slug}}
             </a>
             @foreach($categories[1] as $categoryinf)
-            @if($categoryinf->superior_cat == $categorysup->id)
-            <a href="#" class="list-group-item">{{$categoryinf->slug}}</a>
+            @foreach($categoryinf as $category)
+            @if($category->superior_cat == $categorysup->id)
+            <a href="#" class="list-group-item">{{$category->slug}}</a>
             @endif
+            @endforeach
             @endforeach
         </div>
         @endforeach

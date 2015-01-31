@@ -14,7 +14,7 @@
         {{ Form::text('slug' , null, array('class' => 'form-control')) }}
     </div>
     <div class="form-group">
-        @if(count($categories) > 1)
+        @if(count($categories) >= 1)
         <select name="superior_cat" id="superior_cat" class="form-control">
             @foreach($categories as $category)
             <option value="{{$category->id}}">{{$category->slug}}</option>

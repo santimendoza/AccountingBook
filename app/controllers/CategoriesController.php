@@ -3,29 +3,27 @@
 class CategoriesController extends \BaseController {
 
     public function index() {
-        $categories = Category::where('user_id', '=', Auth::user()->id);
+        $categories = Category::where('user_id', '=', Auth::user()->id)->get();
         $superiorcategories = array();
         $categoriessuperior = array();
         $totalcategories = 0;
         foreach ($categories as $category) {
-            dd($category);
             if ($category->superior_cat == null) {
                 $superiorcategories[$category->id] = array();
                 array_push($categoriessuperior, $category);
                 $totalcategories +=1;
             }
-            if($category->superior_cat != null){
-                array_push($superiorcategories[$category->superior_cat],$category);
+            if ($category->superior_cat != null) {
+                array_push($superiorcategories[$category->superior_cat], $category);
             }
         }
-        dd($categories);
         $categoriesarray[0] = $categoriessuperior;
         $categoriesarray[1] = $superiorcategories;
         return View::make('categories.indexcategory')->with('categories', $categoriesarray);
     }
 
     public function create() {
-        $categories = Category::where('users_id', '=', Auth::user()->id);
+        $categories = Category::whereRaw('user_id  = ?', array(Auth::user()->id))->whereNull('superior_cat')->get();
         return View::make('categories.createcategory')->with('categories', $categories);
     }
 
