@@ -6,20 +6,20 @@
 
 <div id="content" class="col-xs-12 col-sm-6 col-sm-offset-3">
     <div class="page-header">
-        <h1>Crear categoria</h1>
+        <div class="pull-right">
+            <button data-toggle="tooltip" data-placement="top" title="Tooltip on left" class="btn btn-info"><span class="glyphicon glyphicon-plus-sign"></span> Ayuda</button>
+        </div>
+
+        <h1>Editar categoría {{$category->slug}}</h1>
+
     </div>
-    @if($errors->first() != null)
-    <div class="alert alert-info" role="alert">
-        {{ $errors->first() }}
-    </div>
-    @endif
     {{ Form::open(array('action' => 'CategoriesController@store', 'method' => 'post')) }}
     <div class="form-group">
         {{ Form::label('slug', 'Nombre:', array('class' => 'awesome')) }}
-        {{ Form::text('slug' , null, array('class' => 'form-control', 'required')) }}
+        {{ Form::text('slug' , $category->slug, array('class' => 'form-control', 'required')) }}
     </div>
     <div class="form-group">
-        <label>Categoría superior (opcional)</label>
+        <label >Categoría superior (opcional)</label>
         @if(count($categories) >= 1)
         <select name="superior_cat" id="superior_cat" class="form-control">
             <option value="-1">Ninguna</option>
@@ -37,10 +37,17 @@
         </select>
     </div>
     <div class="form-group">
-        {{ Form::submit('Crear', array('class' => 'btn btn-info')) }}
+        {{ Form::submit('Crear', array('class' => 'btn btn-success')) }}
         <a href="/categories" class="btn btn-danger">Regresar</a>
     </div>
-    {{ Form::close() }} 
+    {{ Form::close() }}
 </div>
-
+<button type="button" class="btn btn-default" data-toggle="tooltip" data-placement="top" title="Tooltip on top">Tooltip on top</button>
+<script>
+//    $(document).ready(function() {
+        $(function() {
+            $('[data-toggle="tooltip"]').tooltip();
+        });
+    //});
+</script>
 @stop

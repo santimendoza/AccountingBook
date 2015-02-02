@@ -9,9 +9,9 @@
     <body>
         <div id="container" class="container-fluid">
             @section('header')
-            <div data-spy="affix" id="sidebar-container" class="col-sm-2">
+            <div data-spy="affix" id="sidebar-container" class="col-sm-2 hidden-xs">
                 <div id="sidebar" class="col-sm-12">
-                    <h2>Accounting Book</h2>
+                    <h2><a href="/">Accounting Book</a></h2>
                     <div id="profileinfo" class="media">
                         <div class="media-left">
                             <a href="/user">
@@ -19,7 +19,7 @@
                             </a>
                         </div>
                         <div class="media-body">
-                            <h4 class="media-heading">{{Auth::user()->name}} {{Auth::user()->lastname}}</h4>
+                            <h4 class="media-heading"><a href="/user">{{Auth::user()->name}} {{Auth::user()->lastname}}</a></h4>
                         </div>
                     </div>
                     <nav>
@@ -27,7 +27,7 @@
                             <li><a href="/user">Dashboard</a></li>
                             <li><a href="#">Ingresos</a></li>
                             <li><a href="#">Egresos</a></li>
-                            <li><a href="#">Categorías</a></li>
+                            <li><a href="/categories">Categorías</a></li>
                         </ul>
                     </nav>
                 </div>
