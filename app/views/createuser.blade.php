@@ -78,7 +78,7 @@
                     </div>
                     @endif
                     <div class="form-group">
-                        {{ Form::submit('Registrarse', array('class' => 'form-control', 'required')) }}
+                        {{ Form::submit('Registrarse', array('class' => 'form-control btn btn-success', 'required')) }}
                     </div>
                     {{ Form::close() }}
                 </div>
