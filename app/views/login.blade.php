@@ -17,6 +17,11 @@
         <div class="container-fluid">
             <div class="row">
                 <div class="col-xs-12 col-sm-6 col-sm-offset-3">
+                    @if($errors->registroexitoso->first())
+                    <div class='alert alert-info'>
+                        {{$errors->registroexitoso->first()}}
+                    </div>
+                    @endif
                     {{ Form::open(array('action' => 'SessionsController@store', 'method' => 'post')) }}
                     <div class="form-group">
                         {{ Form::label('username', 'Usuario:', array('class' => 'awesome')) }}

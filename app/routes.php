@@ -12,3 +12,5 @@ Route::group(array('before' => 'auth'), function() {
 Route::get('/', 'SessionsController@create');
 Route::resource('/sessions', 'SessionsController');
 Route::get('/login', 'SessionsController@create');
+Route::get('/signup', 'UserController@create');
+Route::post('/user', 'UserController@store');
