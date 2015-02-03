@@ -47,3 +47,7 @@ img{
     border-top: #C3C3C3 ridge thin;
     //box-shadow: 0px 1px 0px 10px #C3C3C3;
 }
+
+#register-button{
+    margin-top: 5px;
+}

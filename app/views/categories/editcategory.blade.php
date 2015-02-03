@@ -23,8 +23,10 @@
         @if(count($categories) >= 1)
         <select name="superior_cat" id="superior_cat" class="form-control">
             <option value="-1">Ninguna</option>
-            @foreach($categories as $category)
-            <option value="{{$category->id}}">{{$category->slug}}</option>
+            @foreach($categories as $categoria)
+            @if($categoria->id != $category->id)
+            <option value="{{$categoria->id}}">{{$categoria->slug}}</option>
+            @endif
             @endforeach
         </select>
         @endif

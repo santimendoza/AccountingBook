@@ -34,8 +34,10 @@ class CategoriesController extends \BaseController {
     public function store() {
         $data = Input::all();
         $data['user_id'] = Auth::user()->id;
-        if ($data['superior_cat'] == -1) {
-            $data['superior_cat'] = null;
+        if (isset($data['superior_cat'])) {
+            if ($data['superior_cat'] == -1) {
+                $data['superior_cat'] = null;
+            }
         }
         $rules = array(
             'slug' => 'required',
@@ -57,8 +59,8 @@ class CategoriesController extends \BaseController {
         $category = Category::find($id);
         $categories = Category::whereRaw('user_id  = ?', array(Auth::user()->id))->whereNull('superior_cat')->get();
         $data = array(
-            'categories'    => $categories,
-            'category'      => $category,
+            'categories' => $categories,
+            'category' => $category,
         );
         return View::make('categories.editcategory')->with($data);
     }

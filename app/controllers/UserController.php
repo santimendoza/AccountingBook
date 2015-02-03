@@ -21,13 +21,21 @@ class UserController extends \BaseController {
             'currency' => 'required|min:1|max:3'
         );
         $validator = Validator::make($data, $rules);
+        $data['confirmation_code'] = str_random(32);
+        while (User::where('status', '=', 0)->whereRaw('confirmation_code = ?', array('confirmation_code', $data['confirmation_code']))->count() > 0) {
+            $data['confirmation_code'] = str_random(32);
+        }
+        $data['password'] = Hash::make($data['password']);
         if ($validator->fails()) {
             return Redirect::to('signup')->withErrors($validator, 'signup');
         } else {
-            $data['password'] = Hash::make($data['password']);
+            Mail::send('mail.confirmemail', array('user' => $data), function($message) {
+                $data = Input::only('name', 'email');
+                $message->to($data['email'], $data['name'])->subject('Bienvenido!');
+            });
             User::create($data);
             $message = array(
-                'message' => 'Registro exitoso!',
+                'message' => 'Para iniciar sesión, ve a tu correo y confirma tu cuenta.',
             );
             return Redirect::to('login')->withErrors($message, 'registroexitoso');
         }
@@ -48,6 +56,19 @@ class UserController extends \BaseController {
 
     public function destroy($id) {
         //
+    }
+
+    public function confirm($confirmationcode) {
+        $user = User::whereConfirmationCode($confirmationcode)->first();
+        //$user = User::where('confirmation_code', '=', $confirmationcode)->first();
+        if (!$user) {
+            return Redirect::to('login')->withErrors('El codigo de confirmación no es valido.', 'confirmation');
+        } else {
+            $user->status = 1;
+            $user->confirmation_code = NULL;
+            $user->save();
+            return Redirect::to('login')->withErrors('Tu cuenta ha sido confirmada.', 'confirmation');
+        }
     }
 
 }

@@ -14,10 +14,16 @@ class SessionsController extends \BaseController {
         $data = Input::all();
         $username = $data['username'];
         $password = $data['password'];
+        $user = User::where('username', '=', $username)->first();
+        if ($user != null) {
+            if ($user->status == 0) {
+                return Redirect::intended('login')->withErrors('Confirma tu correo antes de iniciar sesión.', 'confirmemail');
+            }
+        }
         if (Auth::attempt(array('username' => $username, 'password' => $password))) {
             return Redirect::intended('user');
         } else {
-            return Redirect::to('login')->withErrors('Login failed!');
+            return Redirect::to('login')->withErrors('Login failed!', 'login');
         }
     }
 

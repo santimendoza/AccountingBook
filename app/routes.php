@@ -14,3 +14,14 @@ Route::resource('/sessions', 'SessionsController');
 Route::get('/login', 'SessionsController@create');
 Route::get('/signup', 'UserController@create');
 Route::post('/user', 'UserController@store');
+Route::get('/code/{confirmationcode}', [
+    'as' => 'confirmation_path',
+    'uses' => 'UserController@confirm'
+]);
+
+Route::get('/password-recovery', function() {
+    return "Olvide mi contraseña: En construcción";
+});
+Route::get('/reconfirmation', function() {
+    return "Reenviar correo de confirmación: En construcción";
+});

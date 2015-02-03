@@ -28,6 +28,7 @@
                             <li><a href="#">Ingresos</a></li>
                             <li><a href="#">Egresos</a></li>
                             <li><a href="/categories">Categorías</a></li>
+                            <li><a href="/logout" class="label label-warning">Cerrar sesión</a></li>
                         </ul>
                     </nav>
                 </div>
