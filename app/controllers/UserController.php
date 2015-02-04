@@ -47,11 +47,24 @@ class UserController extends \BaseController {
     }
 
     public function edit($id) {
-        //
+        return View::make('user.editprofile');
     }
 
     public function update($id) {
-        //
+        $data = Input::only('name', 'lastname', 'username', 'email', 'password');
+        $rules = array(
+            'name' => 'required',
+            'lastname' => 'required',
+            'username' => 'required|unique:users',
+            'email' => 'required|unique:users',
+            'password' => 'required',
+        );
+        $validator = Validator::make($data, $rules);
+        if(Auth::user()->email != $data['email']){
+            
+        }else{
+            
+        }
     }
 
     public function destroy($id) {
