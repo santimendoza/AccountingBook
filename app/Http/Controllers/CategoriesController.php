@@ -1,72 +1,59 @@
-<?php namespace App\Http\Controllers;
+<?php
+
+namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
+use Illuminate\Http\Request;
+use App\Models\Category;
 use Auth;
-use View;
 
 class CategoriesController extends Controller {
 
     public function index() {
         $categories = Category::where('user_id', '=', Auth::user()->id)->get();
         if (count($categories) < 1) {
-            return Redirect::to('newcategory')->withErrors('Parece que aún no tienes categorías. Crea una en el siguiente formulario.');
-        } else {
-            $superiorcategories = array();
-            $categoriessuperior = array();
-            $totalcategories = 0;
-            foreach ($categories as $category) {
-                if ($category->superior_cat == null) {
-                    $superiorcategories[$category->id] = array();
-                    array_push($categoriessuperior, $category);
-                    $totalcategories +=1;
-                }
-                if ($category->superior_cat != null) {
-                    array_push($superiorcategories[$category->superior_cat], $category);
-                }
-            }
-            $categoriesarray[0] = $categoriessuperior;
-            $categoriesarray[1] = $superiorcategories;
-            return View::make('categories.indexcategory')->with('categories', $categoriesarray);
+            return redirect('newcategory')->withErrors('Parece que aún no tienes categorías. Crea una en el siguiente formulario.');
         }
+        $superiorcategories = [];
+        $categoriessuperior = [];
+        $totalcategories = 0;
+        foreach ($categories as $category) {
+            if ($category->superior_cat == null) {
+                $superiorcategories[$category->id] = [];
+                array_push($categoriessuperior, $category);
+                $totalcategories +=1;
+            }
+            if ($category->superior_cat != null) {
+                array_push($superiorcategories[$category->superior_cat], $category);
+            }
+        }
+        $categoriesarray[0] = $categoriessuperior;
+        $categoriesarray[1] = $superiorcategories;
+        return view('categories.indexcategory')->with('categories', $categoriesarray);
     }
 
     public function create() {
         $categories = Category::whereRaw('user_id  = ?', array(Auth::user()->id))->whereNull('superior_cat')->get();
-        return View::make('categories.createcategory')->with('categories', $categories);
+        return view('categories.createcategory')->with('categories', $categories);
     }
 
-    public function store() {
-        $data = Input::all();
-        $data['user_id'] = Auth::user()->id;
-        if (isset($data['superior_cat'])) {
-            if ($data['superior_cat'] == -1) {
-                $data['superior_cat'] = null;
-            }
+    public function store(Request $request) {
+        $request['user_id'] = Auth::user()->id;
+        if (isset($request['superior_cat'])) {
+            if ($request['superior_cat'] == -1)
+                $request['superior_cat'] = null;
         }
-        $rules = array(
-            'slug' => 'required',
-            'type' => 'required|integer',
-            'user_id' => 'integer'
-        );
-
-        $validator = Validator::make($data, $rules);
-        if ($validator->fails()) {
-            $messages = $validator->messages();
-            return Redirect::to('newcategory')->withErrors($messages);
-        } else {
-            Category::create($data);
-            return Redirect::to('categories');
-        }
+        $rules = ['slug' => 'required', 'type' => 'required|integer', 'user_id' => 'integer'];
+        $this->validate($request, $rules);
+        Category::create($request->all());
+        return redirect('categories');
     }
 
     public function show($id) {
         $category = Category::find($id);
         $categories = Category::whereRaw('user_id  = ?', array(Auth::user()->id))->whereNull('superior_cat')->get();
-        $data = array(
-            'categories' => $categories,
-            'category' => $category,
-        );
-        return View::make('categories.editcategory')->with($data);
+        $data = ['categories' => $categories, 'category' => $category];
+        return view('categories.editcategory')->with($data);
     }
 
     public function edit($id) {

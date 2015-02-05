@@ -1,6 +1,8 @@
-<?php
+<?php namespace App\Models;
 
-class Category extends Eloquent {
+use Illuminate\Database\Eloquent\Model;
+
+class Category extends Model {
     protected $table = 'categories';
     protected $fillable = array('slug', 'superior_cat', 'type', 'user_id',);
     //protected $hidden = array('', '');

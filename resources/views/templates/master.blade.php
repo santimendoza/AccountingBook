@@ -3,8 +3,8 @@
         <meta charset="UTF-8">
         <title>Accounting Book</title>
         <meta name='viewport' content='width=device-width, initial-scale=1.0'>
-        {{ HTML::style('resources/bootstrap/css/bootstrap.min.css' , array('media'=>'screen')) }}
-        <link rel="stylesheet" href="/resources/css/style.css"/>
+        <link rel="stylesheet" href="/css/bootstrap.min.css"/>
+        <link rel="stylesheet" href="/css/style.css"/>
     </head>
     <body>
         <div id="container" class="container-fluid">
@@ -15,7 +15,7 @@
                     <div id="profileinfo" class="media">
                         <div class="media-left">
                             <a href="/user">
-                                <img class="media-object" src="/resources/imgs/defaultprofile.png" alt="..." width="30px" height="30px">
+                                <img class="media-object" src="/imgs/defaultprofile.png" alt="..." width="30px" height="30px">
                             </a>
                         </div>
                         <div class="media-body">
@@ -43,7 +43,7 @@
                 </div>
             </footer>
         </div>
-        {{ HTML::script('resources/js/jquery.min.js') }}
-        {{ HTML::script('resources/bootstrap/js/bootstrap.min.js') }}
+        <script src="/js/jquery.min.js"></script>
+        <script src="/js/bootstrap.min.js"></script>
     </body>
 </html>

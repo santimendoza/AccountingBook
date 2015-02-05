@@ -28,7 +28,8 @@ return [
 	|
 	*/
 
-	'host' => 'smtp.mailgun.org',
+	//'host' => 'smtp.mailgun.org',
+	'host' => 'mail.santiagomendoza.org',
 
 	/*
 	|--------------------------------------------------------------------------
@@ -41,7 +42,8 @@ return [
 	|
 	*/
 
-	'port' => 587,
+	//'port' => 587,
+	'port' => 26,
 
 	/*
 	|--------------------------------------------------------------------------
@@ -53,8 +55,8 @@ return [
 	| used globally for all e-mails that are sent by your application.
 	|
 	*/
-
-	'from' => ['address' => null, 'name' => null],
+        'from' => ['address' => 'accountingbook@santiagomendoza.org', 'name' => 'Santiago Mendoza'],
+	//'from' => ['address' => null, 'name' => null],
 
 	/*
 	|--------------------------------------------------------------------------
@@ -67,7 +69,8 @@ return [
 	|
 	*/
 
-	'encryption' => 'tls',
+	//'encryption' => 'tls',
+	'encryption' => '',
 
 	/*
 	|--------------------------------------------------------------------------
@@ -80,7 +83,8 @@ return [
 	|
 	*/
 
-	'username' => null,
+	//'username' => null,
+	'username' => "accountingbook@santiagomendoza.org",
 
 	/*
 	|--------------------------------------------------------------------------
@@ -93,7 +97,8 @@ return [
 	|
 	*/
 
-	'password' => null,
+	//'password' => null,
+	'password' => 'accountingbook',
 
 	/*
 	|--------------------------------------------------------------------------

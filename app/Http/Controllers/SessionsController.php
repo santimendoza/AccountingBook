@@ -10,7 +10,7 @@ class SessionsController extends Controller {
 
     public function create() {
         if (Auth::check()) {
-            return Redirect::to('user');
+            return redirect('user');
         } else {
             return View::make('login');
         }
@@ -29,14 +29,14 @@ class SessionsController extends Controller {
         if (Auth::attempt(array('username' => $username, 'password' => $password))) {
             return Redirect::intended('user');
         } else {
-            return Redirect::to('login')->withErrors('Login failed!', 'login');
+            return redirect('login')->withErrors('Login failed!', 'login');
         }
     }
 
     public function destroy() {
         if (Auth::check()) {
             Auth::logout();
-            return Redirect::to('login');
+            return redirect('login');
         }
     }
 

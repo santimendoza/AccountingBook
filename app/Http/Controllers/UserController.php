@@ -1,57 +1,54 @@
-<?php namespace App\Http\Controllers;
+<?php
+
+namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
+use Illuminate\Http\Request;
+use App\Models\User;
 use Auth;
-use View;
 
 class UserController extends Controller {
 
     public function index() {
-        return View::make('user.profile');
+        return view('user.profile');
     }
 
     public function create() {
-        return View::make('createuser');
+        return view('createuser');
     }
 
-    public function store() {
-        $data = Input::all();
-        $rules = array(
+    public function store(Request $request) {
+        $rules = [
             'name' => 'required',
             'lastname' => 'required',
             'username' => 'required|unique:users',
             'email' => 'required|unique:users',
             'password' => 'required',
             'currency' => 'required|min:1|max:3'
-        );
-        $validator = Validator::make($data, $rules);
-        $data['confirmation_code'] = str_random(32);
-        while (User::where('status', '=', 0)->whereRaw('confirmation_code = ?', array('confirmation_code', $data['confirmation_code']))->count() > 0) {
-            $data['confirmation_code'] = str_random(32);
+        ];
+        $this->validate($request, $rules);
+        $request['confirmation_code'] = str_random(32);
+        while (User::where('status', '=', 0)->whereRaw('confirmation_code = ?', array('confirmation_code', $request['confirmation_code']))->count() > 0) {
+            $request['confirmation_code'] = str_random(32);
         }
-        $data['password'] = Hash::make($data['password']);
-        if ($validator->fails()) {
-            return Redirect::to('signup')->withErrors($validator, 'signup');
-        } else {
-            Mail::send('mail.confirmemail', array('user' => $data), function($message) {
-                $data = Input::only('name', 'email');
-                $message->to($data['email'], $data['name'])->subject('Bienvenido!');
-            });
-            User::create($data);
-            $message = array(
-                'message' => 'Para iniciar sesión, ve a tu correo y confirma tu cuenta.',
-            );
-            return Redirect::to('login')->withErrors($message, 'registroexitoso');
-        }
+        $request['password'] = Hash::make($request['password']);
+        Mail::send('mail.confirmemail', array('user' => $request->all()), function($message) {
+            $request = new Request;
+            $request->input('name', 'email');
+            $message->to($request['email'], $request['name'])->subject('Bienvenido!');
+        });
+        User::create($request->all());
+        $message = ['message' => 'Para iniciar sesión, ve a tu correo y confirma tu cuenta.'];
+        return redirect('login')->withErrors($message, 'registroexitoso');
     }
 
     public function show($username) {
         $user = User::where('username', '=', $username)->first();
-        return View::make('user.userprofile')->with('user', $user);
+        return view('user.userprofile')->with('user', $user);
     }
 
     public function edit($id) {
-        return View::make('user.editprofile');
+        return view('user.editprofile');
     }
 
     public function update($id) {
@@ -64,9 +61,9 @@ class UserController extends Controller {
             'password' => 'required',
         );
         $validator = Validator::make($data, $rules);
-        if(Auth::user()->email != $data['email']){
+        if (Auth::user()->email != $data['email']) {
             
-        }else{
+        } else {
             
         }
     }
@@ -79,12 +76,12 @@ class UserController extends Controller {
         $user = User::whereConfirmationCode($confirmationcode)->first();
         //$user = User::where('confirmation_code', '=', $confirmationcode)->first();
         if (!$user) {
-            return Redirect::to('login')->withErrors('El codigo de confirmación no es valido.', 'confirmation');
+            return redirect('login')->withErrors('El codigo de confirmación no es valido.', 'confirmation');
         } else {
             $user->status = 1;
             $user->confirmation_code = NULL;
             $user->save();
-            return Redirect::to('login')->withErrors('Tu cuenta ha sido confirmada.', 'confirmation');
+            return redirect('login')->withErrors('Tu cuenta ha sido confirmada.', 'confirmation');
         }
     }
 

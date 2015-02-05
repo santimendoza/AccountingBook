@@ -13,34 +13,35 @@
         {{ $errors->first() }}
     </div>
     @endif
-    {{ Form::open(array('action' => 'CategoriesController@store', 'method' => 'post')) }}
-    <div class="form-group">
-        {{ Form::label('slug', 'Nombre:', array('class' => 'awesome')) }}
-        {{ Form::text('slug' , null, array('class' => 'form-control', 'required')) }}
-    </div>
-    <div class="form-group">
-        <label>Categoría superior (opcional)</label>
-        @if(count($categories) >= 1)
-        <select name="superior_cat" id="superior_cat" class="form-control">
-            <option value="-1">Ninguna</option>
-            @foreach($categories as $category)
-            <option value="{{$category->id}}">{{$category->slug}}</option>
-            @endforeach
-        </select>
-        @endif
-    </div>
-    <div class="form-group">
-        <label>Tipo de categoría:</label>
-        <select name="type" id="type" class="form-control">
-            <option value="0">Ingresos</option>
-            <option value="1">Egresos</option>
-        </select>
-    </div>
-    <div class="form-group">
-        {{ Form::submit('Crear', array('class' => 'btn btn-info')) }}
-        <a href="/categories" class="btn btn-danger">Regresar</a>
-    </div>
-    {{ Form::close() }} 
+    <form method="POST" action="http://localhost:8000/categories" accept-charset="UTF-8">
+        <input name="_token" type="hidden" value="{{ csrf_token() }}">
+        <div class="form-group">
+            <label for="slug" class="awesome">Nombre:</label>
+            <input class="form-control" required="required" value="{{old('slug')}}" name="slug" type="text" id="slug">
+        </div>
+        <div class="form-group">
+            @if(count($categories) >= 1)
+            <label>Categoría superior (opcional)</label>
+            <select name="superior_cat" id="superior_cat" value="{{old('superior_cat')}}" class="form-control">
+                <option value="-1">Ninguna</option>
+                @foreach($categories as $category)
+                <option value="{{$category->id}}">{{$category->slug}}</option>
+                @endforeach
+            </select>
+            @endif
+        </div>
+        <div class="form-group">
+            <label>Tipo de categoría:</label>
+            <select name="type" id="type" value="{{old('type')}}" class="form-control">
+                <option value="0">Ingresos</option>
+                <option value="1">Egresos</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <input class="btn btn-info" type="submit" value="Crear">
+            <a href="/categories" class="btn btn-danger">Regresar</a>
+        </div>
+    </form>
 </div>
 
 @stop

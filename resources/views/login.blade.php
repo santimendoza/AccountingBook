@@ -1,11 +1,10 @@
-<!DOCTYPE html>
 <html>
     <head>
         <meta charset="UTF-8">
         <title>Accounting Book</title>
         <meta name='viewport' content='width=device-width, initial-scale=1.0'>
-        <link type="stylesheet" href="resources/bootstrap/css/bootstrap.min.css"/>
-        <link type="stylesheet" href="resources/css/style.css"/>
+        <link type="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css"/>
+        <!--<link type="stylesheet" href="resources/css/style.css"/>-->
     </head>
     <body id="loginform">
         <nav class="navbar navbar-default">
@@ -46,24 +45,14 @@
                         {{$errors->confirmation->first()}}
                     </div>
                     @endif
-                    {{ Form::open(array('action' => 'SessionsController@store', 'method' => 'post')) }}
-                    <div class="form-group">
-                        {{ Form::label('username', 'Usuario:', array('class' => 'awesome')) }}
-                        {{ Form::text('username' , null, array('class' => 'form-control')) }}
-                    </div>
-                    <div class="form-group">
-                        {{ Form::label('password', 'Contraseña:', array('class' => 'awesome')) }}
-                        {{ Form::password('password', array('class' => 'form-control')) }}
-                    </div>
-                    @if($errors->login->first() != null)
-                    <div class="alert alert-danger" role="alert">
-                        {{ $errors->login->first() }}
-                    </div>
-                    @endif
-                    <div class="form-group">
-                        {{ Form::submit('Login', array('class' => 'form-control btn btn-success')) }}
-                    </div>
-                    {{ Form::close() }}
+                    <form method="POST" action="http://localhost:8000/sessions" accept-charset="UTF-8">
+                        <input name="_token" type="hidden" value="coErbE7Mqu40wSduTMYUg3Rr0pn5OjrgFqFTLxbC">
+                        <label for="username" class="awesome">Usuario:</label>
+                        <input class="form-control" name="username" type="text" id="username">
+                        <label for="password" class="awesome">Contraseña:</label>
+                        <input class="form-control" name="password" type="password" value="" id="password">
+                        <input class="form-control btn btn-success" type="submit" value="Login">
+                    </form>
                 </div>
             </div>
             <div class="row">
@@ -74,8 +63,8 @@
                 </div>
             </div>
         </div>
-        <script src="resources/js/jquery.min.js"></script>
-        <script src="resources/bootstrap/js/bootstrap.min.js"></script>
+        <script src="js/jquery.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
     </body>
 </html>
 </html>
