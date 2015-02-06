@@ -13,35 +13,6 @@ class UserController extends Controller {
         return view('user.profile');
     }
 
-    public function create() {
-        return view('createuser');
-    }
-
-    public function store(Request $request) {
-        $rules = [
-            'name' => 'required',
-            'lastname' => 'required',
-            'username' => 'required|unique:users',
-            'email' => 'required|unique:users',
-            'password' => 'required',
-            'currency' => 'required|min:1|max:3'
-        ];
-        $this->validate($request, $rules);
-        $request['confirmation_code'] = str_random(32);
-        while (User::where('status', '=', 0)->whereRaw('confirmation_code = ?', array('confirmation_code', $request['confirmation_code']))->count() > 0) {
-            $request['confirmation_code'] = str_random(32);
-        }
-        $request['password'] = Hash::make($request['password']);
-        Mail::send('mail.confirmemail', array('user' => $request->all()), function($message) {
-            $request = new Request;
-            $request->input('name', 'email');
-            $message->to($request['email'], $request['name'])->subject('Bienvenido!');
-        });
-        User::create($request->all());
-        $message = ['message' => 'Para iniciar sesión, ve a tu correo y confirma tu cuenta.'];
-        return redirect('login')->withErrors($message, 'registroexitoso');
-    }
-
     public function show($username) {
         $user = User::where('username', '=', $username)->first();
         return view('user.userprofile')->with('user', $user);

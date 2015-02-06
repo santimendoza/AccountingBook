@@ -53,6 +53,7 @@
                             <label class="col-md-4 control-label">Currency</label>
                             <div class="col-md-6">
                                 <select class="form-control" name="currency">
+                                    <option disabled selected>Currency</option>
                                     <option value="1">COP</option>
                                     <option value="2">USD</option>
                                     <option value="3">EUR</option>
