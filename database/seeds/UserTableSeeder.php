@@ -2,7 +2,7 @@
 
 use Illuminate\Database\Seeder;
 use Illuminate\Database\Eloquent\Model;
-use app\Models\User;
+use App\Models\User;
 
 class UserTableSeeder extends Seeder {
 
