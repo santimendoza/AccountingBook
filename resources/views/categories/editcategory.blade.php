@@ -12,7 +12,7 @@
         <input name="_token" type="hidden" value="{{ csrf_token() }}">
         <div class="form-group">
             <label for="slug" class="awesome">Nombre:</label>
-            <input class="form-control" required="required" name="slug" type="text" value="dfgdsf" id="slug">
+            <input class="form-control" required="required" name="slug" type="text" value="{{$category->slug}}" id="slug">
         </div>
         <div class="form-group">
             <label >Categoría superior (opcional)</label>
