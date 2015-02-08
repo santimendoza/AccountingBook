@@ -13,7 +13,7 @@
         {{ $errors->first() }}
     </div>
     @endif
-    <form method="POST" action="http://localhost:8000/categories" accept-charset="UTF-8">
+    <form method="POST" action="/categories" accept-charset="UTF-8">
         <input name="_token" type="hidden" value="{{ csrf_token() }}">
         <div class="form-group">
             <label for="slug" class="awesome">Nombre:</label>
