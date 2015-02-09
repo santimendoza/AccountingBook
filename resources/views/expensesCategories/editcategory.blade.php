@@ -8,15 +8,17 @@
     <div class="page-header">
         <h1>Editar categoría {{$category->slug}}</h1>
     </div>
-    <form method="POST" action="/categories" accept-charset="UTF-8">
+    <form method="POST" action="/categories/expenses/{{$category->id}}" accept-charset="UTF-8">
+        <input name="_method" type="hidden" value="PUT">
         <input name="_token" type="hidden" value="{{ csrf_token() }}">
         <div class="form-group">
             <label for="slug" class="awesome">Nombre:</label>
             <input class="form-control" required="required" name="slug" type="text" value="{{$category->slug}}" id="slug">
         </div>
         <div class="form-group">
-            <label >Categoría superior (opcional)</label>
             @if(count($categories) >= 1)
+            <label >Categoría superior (opcional)</label>
+
             <select name="superior_cat" id="superior_cat" class="form-control">
                 <option value="-1">Ninguna</option>
                 @foreach($categories as $categoria)
@@ -27,16 +29,16 @@
             </select>
             @endif
         </div>
-        <div class="form-group">
-            <label>Tipo de categoría:</label>
-            <select name="type" id="type" class="form-control">
-                <option value="0">Ingresos</option>
-                <option value="1">Egresos</option>
-            </select>
-        </div>
+        <!--        <div class="form-group">
+                    <label>Tipo de categoría:</label>
+                    <select name="type" id="type" class="form-control">
+                        <option value="0">Ingresos</option>
+                        <option value="1">Egresos</option>
+                    </select>
+                </div>-->
         <div class="form-group">
             <input class="btn btn-success" type="submit" value="Crear">
-            <a href="/categories" class="btn btn-danger">Regresar</a>
+            <a href="/categories/expenses" class="btn btn-danger">Regresar</a>
         </div>
     </form>
 </div>

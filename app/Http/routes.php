@@ -1,27 +1,34 @@
 <?php
 
 Route::group(['middleware' => 'auth'], function() {
+    //Categories routes
     Route::resource('/categories/earnings', 'EarningsCategoriesController');
+    Route::resource('/categories/expenses', 'ExpensesCategoriesController');
+
+    //User Routes
     Route::resource('/user', 'UserController');
     Route::get('/user/{{username}}', 'UserController@show');
 });
+
+//General Routes
+
 Route::get('/', function() {
     return redirect('/auth/login');
 });
 Route::get('home', 'HomeController@index');
-Route::get('/code/{confirmationcode}',
-    ['as' => 'confirmation_path',
-    'uses' => 'UserController@confirm']
-);
-Route::get('/reconfirmation', function() {
-    return "Reenviar correo de confirmación: En construcción";
-});
 
 
 /*
- * Authentication 
+ * Authentication and register
  */
 Route::controllers([
     'auth' => 'Auth\AuthController',
     'password' => 'Auth\PasswordController',
 ]);
+
+Route::get('/code/{confirmationcode}', ['as' => 'confirmation_path',
+    'uses' => 'UserController@confirm']
+);
+Route::get('/reconfirmation', function() {
+    return "Reenviar correo de confirmación: En construcción";
+});
