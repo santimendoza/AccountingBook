@@ -2,17 +2,18 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Models\Category;
+use App\Models\EarningsCategories\EarningsCategories;
 use Auth;
 
-class CategoriesController extends Controller {
+class EarningsCategoriesController extends Controller {
 
     public function index() {
-        $categories = Category::where('user_id', '=', Auth::user()->id)->get();
+        $categories = EarningsCategories::where('user_id', '=', Auth::user()->id)->get();
         if (count($categories) < 1) {
-            return redirect('newcategory')->withErrors('Parece que aún no tienes categorías. Crea una en el siguiente formulario.');
+            return redirect('/categories/earnings/create')->withErrors('Parece que aún no tienes categorías. Crea una en el siguiente formulario.');
         }
         $superiorcategories = [];
         $categoriessuperior = [];
@@ -33,8 +34,8 @@ class CategoriesController extends Controller {
     }
 
     public function create() {
-        $categories = Category::whereRaw('user_id  = ?', array(Auth::user()->id))->whereNull('superior_cat')->get();
-        return view('categories.createcategory')->with('categories', $categories);
+        $categories = EarningsCategories::whereRaw('user_id  = ?', array(Auth::user()->id))->whereNull('superior_cat')->get();
+        return view('earningsCategories.createcategory')->with('categories', $categories);
     }
 
     public function store(Request $request) {
@@ -43,17 +44,14 @@ class CategoriesController extends Controller {
             if ($request['superior_cat'] == -1)
                 $request['superior_cat'] = null;
         }
-        $rules = ['slug' => 'required', 'type' => 'required|integer', 'user_id' => 'integer'];
+        $rules = ['slug' => 'required', 'user_id' => 'integer', 'superior_cat'];
         $this->validate($request, $rules);
-        Category::create($request->all());
-        return redirect('categories');
+        EarningsCategories::create($request->all());
+        return redirect('categories/earnings');
     }
 
     public function show($id) {
-        $category = Category::find($id);
-        $categories = Category::whereRaw('user_id  = ?', array(Auth::user()->id))->whereNull('superior_cat')->get();
-        $data = ['categories' => $categories, 'category' => $category];
-        return view('categories.editcategory')->with($data);
+        //
     }
 
     public function edit($id) {
