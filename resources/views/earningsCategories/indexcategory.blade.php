@@ -9,7 +9,7 @@
         <div class="pull-right">
             <a href="/categories/earnings/create" class="btn btn-success">Crear categoria</a>
         </div>
-        <h1>Lista de categorías</h1>
+        <h1>Lista de categorías de Ingresos</h1>
     </div>
     <div class="col-sm-12">
         @foreach($categories[0] as $categorysup)

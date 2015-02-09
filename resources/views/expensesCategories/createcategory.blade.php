@@ -6,7 +6,7 @@
 
 <div id="content" class="col-xs-12 col-sm-6 col-sm-offset-3">
     <div class="page-header">
-        <h1>Crear categoria</h1>
+        <h1>Crear categoria de Gastos</h1>
     </div>
     @if($errors->first() != null)
     <div class="alert alert-info" role="alert">

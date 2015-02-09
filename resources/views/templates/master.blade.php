@@ -27,7 +27,8 @@
                             <li><a href="/user">Dashboard</a></li>
                             <li><a href="#">Ingresos</a></li>
                             <li><a href="#">Egresos</a></li>
-                            <li><a href="/categories">Categorías</a></li>
+                            <li><a href="/categories/earnings">Categorías de Ingresos</a></li>
+                            <li><a href="/categories/expenses">Categorías de Gastos</a></li>
                             <li><a href="/auth/logout" class="label label-warning">Cerrar sesión</a></li>
                         </ul>
                     </nav>
