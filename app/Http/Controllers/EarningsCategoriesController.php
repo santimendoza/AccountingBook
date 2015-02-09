@@ -60,12 +60,12 @@ class EarningsCategoriesController extends Controller {
         $category = EarningsCategories::find($id);
 
         if (EarningsCategories::whereRaw('superior_cat = ?', array($category->id))->count() < 1) {
-            $categories = EarningsCategories::whereRaw('user_id  = ?', array(Auth::user()->id))->whereNull('superior_cat')->get();
-            $data = ['categories' => $categories, 'category' => $category];
+            $hasSubcategories = false;
         } else {
-            $data = ['categories' => $categories = null, 'category' => $category];
+            $hasSubcategories = true;
         }
-
+        $categories = EarningsCategories::whereRaw('user_id  = ?', array(Auth::user()->id))->whereNull('superior_cat')->get();
+        $data = ['categories' => $categories, 'category' => $category, 'hasSubcategories' => $hasSubcategories];
         return view('earningsCategories.editcategory')->with($data);
     }
 
@@ -75,7 +75,7 @@ class EarningsCategoriesController extends Controller {
             if ($request['superior_cat'] == -1)
                 $request['superior_cat'] = null;
         }
-        $rules = ['slug' => 'required', 'user_id' => 'integer', 'superior_cat'];
+        $rules = ['slug' => 'required', 'user_id' => 'integer'];
         $this->validate($request, $rules);
         $category = EarningsCategories::find($id);
         $category->superior_cat = $request['superior_cat'];
@@ -85,7 +85,9 @@ class EarningsCategoriesController extends Controller {
     }
 
     public function destroy($id) {
-        //
+        $category = EarningsCategories::find($id);
+        $category->delete();
+        return redirect('categories/earnings');
     }
 
 }

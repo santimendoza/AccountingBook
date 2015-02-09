@@ -58,14 +58,14 @@ class ExpensesCategoriesController extends Controller {
 
     public function edit($id) {
         $category = ExpensesCategories::find($id);
-        
+
         if (ExpensesCategories::whereRaw('superior_cat = ?', array($category->id))->count() < 1) {
-            $categories = ExpensesCategories::whereRaw('user_id  = ?', array(Auth::user()->id))->whereNull('superior_cat')->get();
-            $data = ['categories' => $categories, 'category' => $category];
-        }else{
-            $data = ['categories' => $categories = null, 'category' => $category];
+            $hasSubcategories = false;
+        } else {
+            $hasSubcategories = true;
         }
-        
+        $categories = ExpensesCategories::whereRaw('user_id  = ?', array(Auth::user()->id))->whereNull('superior_cat')->get();
+        $data = ['categories' => $categories, 'category' => $category, 'hasSubcategories' => $hasSubcategories];
         return view('expensesCategories.editcategory')->with($data);
     }
 
@@ -75,7 +75,7 @@ class ExpensesCategoriesController extends Controller {
             if ($request['superior_cat'] == -1)
                 $request['superior_cat'] = null;
         }
-        $rules = ['slug' => 'required', 'user_id' => 'integer', 'superior_cat'];
+        $rules = ['slug' => 'required', 'user_id' => 'integer'];
         $this->validate($request, $rules);
         $category = ExpensesCategories::find($id);
         $category->superior_cat = $request['superior_cat'];
@@ -85,7 +85,9 @@ class ExpensesCategoriesController extends Controller {
     }
 
     public function destroy($id) {
-        //
+        $category = ExpensesCategories::find($id);
+        $category->delete();
+        return redirect('/categories/expenses');
     }
 
 }
