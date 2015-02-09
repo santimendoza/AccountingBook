@@ -10,7 +10,7 @@
         <nav class="navbar navbar-default">
             <div class="container-fluid">
                 <div class="navbar-header">
-                    <a class="navbar-brand" href="#">Accouting Book</a>
+                    <a class="navbar-brand" href="/">Accouting Book</a>
                 </div>
             </div>
         </nav>
