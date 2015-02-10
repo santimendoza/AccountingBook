@@ -11,6 +11,25 @@ body {
     padding:0;
 }
 
+@media screen and (max-width: 768px) {
+    #sidebar-container, #sidebar{
+        z-index: 2;
+        border-radius: 5px;
+    }
+
+    #sidebar-button{
+        z-index: 3;
+        margin: 0;
+        padding:0;
+    }
+    #site-tittle{
+        margin-top: 0;
+    }
+    #buttontoggle{
+        margin: 0;
+    }
+}
+
 #body-container, #sidebar-container{
     padding:0;
     height: 100%;
