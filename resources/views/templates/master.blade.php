@@ -31,7 +31,7 @@
                         <ul class="nav nav-pills nav-stacked">
                             <li><a href="/user">Dashboard</a></li>
                             <li><a href="/earnings">Ingresos</a></li>
-                            <li><a href="#">Egresos</a></li>
+                            <li><a href="/expenses">Egresos</a></li>
                             <li><a href="/categories/earnings">Categorías de Ingresos</a></li>
                             <li><a href="/categories/expenses">Categorías de Gastos</a></li>
                             <li><a href="/auth/logout" class="label label-warning">Cerrar sesión</a></li>
