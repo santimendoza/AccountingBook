@@ -15,4 +15,8 @@ class EarningsCategories extends Model {
     public function users() {
         return $this->belongsTo('User');
     }
+    
+    public function earnings(){
+        return $this->hasMany('App\Models\Earnings\Earnings');
+    }
 }

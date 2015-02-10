@@ -21,5 +21,9 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
     public function expensesCategories() {
         return $this->hasMany('ExpensesCategories');
     }
+    
+    public function earnings(){
+        return $this->hasMany('App\Models\Earnings\Earnings');
+    }
 
 }
