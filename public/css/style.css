@@ -13,7 +13,7 @@ body {
 
 @media screen and (max-width: 768px) {
     #sidebar-container{
-        z-index: 2;
+        z-index: 3;
         margin-top: 28px;
     }
     
@@ -22,7 +22,7 @@ body {
     }
 
     #sidebar-button{
-        z-index: 3;
+        z-index: 4;
         margin: 0;
         padding:0;
     }
