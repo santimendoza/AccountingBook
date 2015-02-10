@@ -11,7 +11,7 @@
         </div>
         <h1>Lista de ingresos</h1>
     </div>
-    <div class="col-sm-12">
+    <div id="table-container" class="col-sm-12">
         <table class="table table-bordered table-hover table-condensed table-responsive">
             <thead>
                 <tr>

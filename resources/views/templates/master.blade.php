@@ -14,7 +14,7 @@
                     <span class="glyphicon glyphicon-list" aria-hidden="true"></span>
                 </button>
             </div>
-            <div data-spy="affix" id="sidebar-container" class="col-sm-2 hidden-xs">
+            <div data-spy="affix" id="sidebar-container" class="col-sm-3 col-md-2 hidden-xs">
                 <div id="sidebar" class="col-sm-12">
                     <h2 id="site-tittle"><a href="/">Accounting Book</a></h2>
                     <div id="profileinfo" class="media">
@@ -40,7 +40,7 @@
                 </div>
             </div>
             @show
-            <div id="content-container" class="col-sm-10 col-sm-offset-2">
+            <div id="content-container" class="col-sm-9 col-sm-offset-3 col-md-offset-2 col-md-10 ">
                 @yield('content')
             </div>
             <footer>

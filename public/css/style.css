@@ -16,7 +16,7 @@ body {
         z-index: 3;
         margin-top: 28px;
     }
-    
+
     #sidebar{
         border-radius: 5px;
     }
@@ -46,6 +46,9 @@ body {
     padding-top: 0;
     padding-bottom: 0;
     background-color: #EEEEEE;
+    -webkit-box-shadow: 2px 3px 10px 0px rgba(0,0,0,1);
+    -moz-box-shadow: 2px 3px 10px 0px rgba(0,0,0,1);
+    box-shadow: 2px 3px 10px 0px rgba(0,0,0,1);
 }
 
 #content-container{
@@ -68,7 +71,6 @@ img{
 #profileinfo{
     border-bottom: #C3C3C3 ridge thin;
     border-top: #C3C3C3 ridge thin;
-    //box-shadow: 0px 1px 0px 10px #C3C3C3;
 }
 
 #register-button{
@@ -77,4 +79,8 @@ img{
 
 #delete-earning{
     margin: 0;
+}
+
+#table-container{
+    padding: 0;
 }
