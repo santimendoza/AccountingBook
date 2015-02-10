@@ -34,6 +34,15 @@
                     </nav>
                 </div>
             </div>
+            <nav class="navbar visible-xs-inline">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#sidebar-container">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a href="/" class="brand">AccountingBook</a>
+            </nav>
             @show
             <div id="content-container" class="col-sm-10 col-sm-offset-2">
                 @yield('content')

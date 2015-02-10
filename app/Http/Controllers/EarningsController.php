@@ -12,7 +12,7 @@ use Auth;
 class EarningsController extends Controller {
 
     public function index() {
-        $earnings = Earnings::whereRaw('user_id = ?', Auth::user()->id);
+        $earnings = Earnings::whereRaw('user_id = ?', [Auth::user()->id])->get();
         return view('earnings.index')->with('earnings', $earnings);
     }
 
