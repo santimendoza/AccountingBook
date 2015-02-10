@@ -9,6 +9,11 @@
         <h1>Agregar ingreso</h1>
     </div>
     <div class="col-sm-12">
+        @if($errors->earningsError->first() != null)
+        <div class="alert alert-info" role="alert">
+            {{ $errors->earningsError->first() }}
+        </div>
+        @endif
         <form action="/earnings" method="POST" class="form" accept-charset="UTF-8">
             <input name="_token" type="hidden" value="{{ csrf_token() }}">
             <div class="form-group">

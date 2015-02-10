@@ -13,11 +13,17 @@ class EarningsController extends Controller {
 
     public function index() {
         $earnings = Earnings::whereRaw('user_id = ?', [Auth::user()->id])->get();
+        if($earnings->count() <1){
+            return redirect('/earnings/create')->withErrors('Parace que aún no tienes ningún ingreso registrado. Agrega uno.', 'earningsError');
+        }
         return view('earnings.index')->with('earnings', $earnings);
     }
 
     public function create() {
-        $categories = EarningsCategories::all();
+        $categories = EarningsCategories::whereRaw('user_id = ?', [Auth::user()->id])->get();
+        if( $categories->count() < 1){
+            return redirect('/categories/earnings/create')->withErrors('Parece que aún no tienes categorías. Crea una en el siguiente formulario.');
+        }
         return view('earnings.create')->with('categories', $categories);
     }
 
