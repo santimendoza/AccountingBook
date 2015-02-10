@@ -13,7 +13,7 @@ class EarningsCategories extends Model {
      *  Relationships 
      */
     public function users() {
-        return $this->belongsTo('User');
+        return $this->belongsTo('User', 'user_id');
     }
     
     public function earnings(){

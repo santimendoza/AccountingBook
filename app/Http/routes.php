@@ -5,6 +5,7 @@ Route::group(['middleware' => 'auth'], function() {
     Route::resource('/categories/earnings', 'EarningsCategoriesController');
     Route::resource('/categories/expenses', 'ExpensesCategoriesController');
     Route::resource('/earnings', 'EarningsController');
+    Route::resource('/expenses', 'ExpensesController');
 
     //User Routes
     Route::resource('/user', 'UserController');

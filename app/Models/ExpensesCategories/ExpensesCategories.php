@@ -14,7 +14,10 @@ class ExpensesCategories extends Model {
      */
 
     public function users() {
-        return $this->belongsTo('User');
+        return $this->belongsTo('User', 'user_id');
     }
-
+    
+    public function expenses(){
+        return $this->hasMany('App\Models\Expenses\Expenses');
+    }
 }

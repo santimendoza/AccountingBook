@@ -10,7 +10,7 @@ class Earnings extends Model {
     protected $fillable = array('amount', 'description', 'date', 'user_id', 'earningsCategory_id');
 
     public function users() {
-        return $this->belongsTo('User');
+        return $this->belongsTo('User', 'user_id');
     }
 
     public function earningscategories() {
