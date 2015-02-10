@@ -12,8 +12,12 @@ body {
 }
 
 @media screen and (max-width: 768px) {
-    #sidebar-container, #sidebar{
+    #sidebar-container{
         z-index: 2;
+        margin-top: 28px;
+    }
+    
+    #sidebar{
         border-radius: 5px;
     }
 

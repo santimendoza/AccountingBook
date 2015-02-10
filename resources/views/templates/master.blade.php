@@ -9,9 +9,9 @@
     <body>
         <div id="container" class="container-fluid">
             @section('header')
-            <div id="sidebar-button" class="visible-xs-block">
+            <div data-spy="affix" id="sidebar-button" class="visible-xs-block">
                 <button id="buttontoggle" type="button" class="btn btn-primary" onclick="toggleSidebar()">
-                    <span class="glyphicon glyphicon-align-justify" aria-hidden="true"></span>
+                    <span class="glyphicon glyphicon-list" aria-hidden="true"></span>
                 </button>
             </div>
             <div data-spy="affix" id="sidebar-container" class="col-sm-2 hidden-xs">
