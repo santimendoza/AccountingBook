@@ -12,20 +12,24 @@
         <h1>Lista de ingresos</h1>
     </div>
     <div class="col-sm-12">
-        @foreach($earnings as $earning)
-        <table class="table table-bordered table-hover table-striped">
-            <tr>
-                <td>ID</td>
-                <td>Amount</td>
-                <td>Description</td>
-            </tr>
-            <tr>
-                <td>{{$earning->id}}</td>
-                <td>{{$earning->amount}}</td>
-                <td>{{$earning->description}}</td>
-            </tr>
+        <table class="table table-bordered table-hover table-condensed">
+            <thead>
+                <tr>
+                    <td>#</td>
+                    <td>Amount</td>
+                    <td>Description</td>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach($earnings as $earning)
+                <tr>
+                    <td>{{$earning->id}}</td>
+                    <td>{{$earning->amount}}</td>
+                    <td>{{$earning->description}}</td>
+                </tr>
+                @endforeach
+            </tbody>
         </table> 
-        @endforeach
     </div>
 </div>
 
