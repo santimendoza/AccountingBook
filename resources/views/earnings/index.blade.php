@@ -12,6 +12,7 @@
         <h1>Lista de ingresos</h1>
     </div>
     <div id="table-container" class="col-sm-12">
+        <h3>Desde {{$date1}} hasta {{$date2}}</h3>
         <table class="table table-bordered table-hover table-condensed table-responsive">
             <thead>
                 <tr>

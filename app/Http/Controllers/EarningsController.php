@@ -12,11 +12,20 @@ use Auth;
 class EarningsController extends Controller {
 
     public function index() {
-        $earnings = Earnings::whereRaw('user_id = ?', [Auth::user()->id])->get();
+        $m = date('n');
+        $monthstartday = date('Y-m-d', mktime(1, 1, 1, $m, 1, date('Y')));
+        $monthendday = date('Y-m-d', mktime(1, 1, 1, $m + 1, 0, date('Y')));
+        $monthstartdaystring = str_replace('-', '', $monthstartday);
+        $monthenddaystring = str_replace('-', '', $monthendday);
+
+        $earnings = Earnings::whereRaw('user_id = ? and date <= ? and date >= ?', [
+                    Auth::user()->id, $monthenddaystring, $monthstartdaystring
+                ])->get();
         if ($earnings->count() < 1) {
-            return redirect('/earnings/create')->withErrors('Parace que aún no tienes ningún ingreso registrado. Agrega uno.', 'earningsError');
+            return redirect('/earnings/create')->withErrors('Parace que aún no tienes ningún ingreso registrado este mes. Agrega uno.', 'earningsError');
         }
-        return view('earnings.index')->with('earnings', $earnings);
+        $data = ['earnings' => $earnings, 'date1' => $monthstartday, 'date2' => $monthendday];
+        return view('earnings.index')->with($data);
     }
 
     public function create() {

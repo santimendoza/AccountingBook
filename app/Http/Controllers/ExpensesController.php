@@ -12,11 +12,20 @@ use Auth;
 class ExpensesController extends Controller {
 
     public function index() {
-        $expenses = Expenses::whereRaw('user_id = ?', [Auth::user()->id])->get();
+        $m = date('n');
+        $monthstartday = date('Y-m-d', mktime(1, 1, 1, $m, 1, date('Y')));
+        $monthendday = date('Y-m-d', mktime(1, 1, 1, $m + 1, 0, date('Y')));
+        $monthstartdaystring = str_replace('-', '', $monthstartday);
+        $monthenddaystring = str_replace('-', '', $monthendday);
+
+        $expenses = Expenses::whereRaw('user_id = ? and date <= ? and date >= ?', [
+                    Auth::user()->id, $monthenddaystring, $monthstartdaystring
+                ])->get();
         if ($expenses->count() < 1) {
-            return redirect('/expenses/create')->withErrors('Parece que no tienes ningún gasto registrado. Agrega uno.', 'expensesError');
+            return redirect('/expenses/create')->withErrors('Parece que no tienes ningún gasto registrado este mes. Agrega uno.', 'expensesError');
         }
-        return view('expenses.index')->with('expenses', $expenses);
+        $data = ['expenses' => $expenses, 'date1' => $monthstartday, 'date2' => $monthendday];
+        return view('expenses.index')->with($data);
     }
 
     public function create() {
