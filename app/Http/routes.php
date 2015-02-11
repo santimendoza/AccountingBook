@@ -5,10 +5,14 @@ Route::group(['middleware' => 'auth'], function() {
     Route::resource('/categories/earnings', 'EarningsCategoriesController');
     Route::resource('/categories/expenses', 'ExpensesCategoriesController');
     
-    //Earnings and Expenses
+    //Earnings
     Route::resource('/earnings', 'EarningsController');
+    Route::post('/earnings/reports', 'ReportsController@earningsreport');
+    
+    //Expenses
     Route::resource('/expenses', 'ExpensesController');
-
+    Route::post('/expenses/reports', 'ReportsController@expensesreport');
+    
     //User Routes
     Route::resource('/user', 'UserController');
     Route::get('/user/{{username}}', 'UserController@show');
