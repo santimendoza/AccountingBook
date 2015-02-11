@@ -43,11 +43,10 @@ class ExpensesController extends Controller {
             'date' => 'required|date',
             'expensesCategory_id' => 'required'
         ];
+        $this->validate($request, $rules);
         $request['date'] = str_replace('-', '', $request['date']);
         $request['user_id'] = Auth::user()->id;
-        $this->validate($request, $rules);
         Expenses::create($request->all());
-
         return redirect('/expenses');
     }
 
@@ -65,6 +64,13 @@ class ExpensesController extends Controller {
     }
 
     public function update(Request $request, $id) {
+        $rules = [
+            'amount' => 'required',
+            'description' => 'required',
+            'date' => 'required|date',
+            'expensesCategory_id' => 'required'
+        ];
+        $this->validate($request, $rules);
         $expense = Expenses::find($id);
         $expense->amount = $request['amount'];
         $expense->description = $request['description'];
@@ -74,9 +80,12 @@ class ExpensesController extends Controller {
         return redirect('expenses');
     }
 
-    public function destroy(Request $request, $id) {
+    public function destroy($id) {
         $expense = Expenses::find($id);
-        $expense->delete();
+        dd($expense->count());
+        if ($expense->count() >= 1) {
+            $expense->delete();
+        }
         return redirect('expenses');
     }
 

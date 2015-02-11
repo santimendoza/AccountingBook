@@ -12,7 +12,6 @@
         <h1>Lista de gastos <small>Desde {{$date1}} hasta {{$date2}}</small></h1>
     </div>
     <div id="table-container" class="col-sm-12">
-        
         <div class="col-xs-12 col-sm-10 col-sm-offset-2">
             <form action="/expenses/reports" method="POST" class="form-inline">
                 <input name="_token" type="hidden" value="{{ csrf_token() }}">

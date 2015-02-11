@@ -43,9 +43,9 @@ class EarningsController extends Controller {
             'date' => 'required|date',
             'earningsCategory_id' => 'required'
         ];
+        $this->validate($request, $rules);
         $request['date'] = str_replace('-', '', $request['date']);
         $request['user_id'] = Auth::user()->id;
-        $this->validate($request, $rules);
         Earnings::create($request->all());
         return redirect('earnings');
     }
@@ -64,6 +64,13 @@ class EarningsController extends Controller {
     }
 
     public function update(Request $request, $id) {
+        $rules = [
+            'amount' => 'required',
+            'description' => 'required',
+            'date' => 'required|date',
+            'earningsCategory_id' => 'required'
+        ];
+        $this->validate($request, $rules);
         $earning = Earnings::find($id);
         $earning->amount = $request['amount'];
         $earning->description = $request['description'];
@@ -73,9 +80,11 @@ class EarningsController extends Controller {
         return redirect('earnings');
     }
 
-    public function destroy(Request $request, $id) {
+    public function destroy($id) {
         $earning = Earnings::find($id);
-        $earning->delete();
+        if ($earning->count() >= 1) {
+            $earning->delete();
+        }
         return redirect('earnings');
     }
 
