@@ -10,12 +10,7 @@
     <body>
         <div id="container" class="container-fluid">
             @section('header')
-            <div data-spy="affix" id="sidebar-button" class="visible-xs-block">
-                <button id="buttontoggle" type="button" class="btn btn-primary" onclick="toggleSidebar()">
-                    <span class="glyphicon glyphicon-list" aria-hidden="true"></span>
-                </button>
-            </div>
-            <div data-spy="affix" id="sidebar-container" class="col-sm-3 col-md-2 hidden-xs">
+            <div data-spy="affix" id="sidebar-container" class="col-xs-8 col-sm-3 col-md-2 hidden-xs">
                 <div id="sidebar" class="col-sm-12">
                     <h2 id="site-tittle"><a href="/">Accounting Book</a></h2>
                     <nav>
@@ -29,6 +24,11 @@
                         </ul>
                     </nav>
                 </div>
+            </div>
+            <div data-spy="affix" id="sidebar-button" class="visible-xs-block">
+                <button id="buttontoggle" type="button" class="btn btn-primary" onclick="toggleSidebar()">
+                    <span class="glyphicon glyphicon-list" aria-hidden="true"></span>
+                </button>
             </div>
             @show
             <div id="content-container" class="col-sm-9 col-sm-offset-3 col-md-offset-2 col-md-10 ">
@@ -47,8 +47,10 @@
                     function toggleSidebar() {
                         if ($('#sidebar-container').hasClass('hidden-xs')) {
                             $('#sidebar-container').removeClass('hidden-xs');
+                            $('#sidebar-button').addClass('col-xs-offset-8');
                         } else {
                             $('#sidebar-container').addClass('hidden-xs');
+                            $('#sidebar-button').removeClass('col-xs-offset-8');
                         }
                     }
         </script>

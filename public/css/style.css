@@ -28,32 +28,6 @@ body {
     margin-bottom: 0px;
 }
 
-@media screen and (max-width: 768px) {
-    #sidebar-container{
-        z-index: 3;
-        margin-top: 28px;
-    }
-
-    #sidebar{
-        border-radius: 5px 5px 5px 5px;
-        -moz-border-radius: 5px 5px 5px 5px;
-        -webkit-border-radius: 5px 5px 5px 5px;
-        border: 1px solid #d1cfd1;
-    }
-
-    #sidebar-button{
-        z-index: 4;
-        margin: 0;
-        padding:0;
-    }
-    #site-tittle{
-        margin-top: 0;
-    }
-    #buttontoggle{
-        margin: 0;
-    }
-}
-
 #body-container, #sidebar-container{
     padding:0;
     height: 100%;
@@ -85,6 +59,40 @@ body {
     padding: 0; 
     width: 100%;
 }
+
+@media screen and (max-width: 768px) {
+    #sidebar-container{
+        z-index: 3;
+        margin-top: 28px;
+    }
+
+    #sidebar{
+        border-radius: 5px 5px 5px 5px;
+        -moz-border-radius: 5px 5px 5px 5px;
+        -webkit-border-radius: 5px 5px 5px 5px;
+        border: 1px solid #d1cfd1;
+    }
+
+    #sidebar, #content{
+        margin-top: -30px;
+    }
+
+    #sidebar-button{
+        z-index: 4;
+    }
+    #content-container{
+        margin-top: 28px;
+        margin-bottom: 0;
+        padding: 0;
+    }
+    #site-tittle{
+        margin-top: 0;
+    }
+    #buttontoggle{
+        margin: 0;
+    }
+}
+
 img{
     vertical-align: middle;
 }
