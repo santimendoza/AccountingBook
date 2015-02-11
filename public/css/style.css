@@ -11,6 +11,23 @@ body {
     padding:0;
 }
 
+#menu-nav li a{
+    color: black;
+}
+
+#menu-nav li{
+    border-color: #C3C3C3;
+    border-bottom: 1px;
+    border-bottom-style: solid;
+}
+
+#site-tittle{
+    border-color: #C3C3C3;
+    border-bottom: 1px;
+    border-bottom-style: solid;
+    margin-bottom: 0px;
+}
+
 @media screen and (max-width: 768px) {
     #sidebar-container{
         z-index: 3;
@@ -49,6 +66,7 @@ body {
     padding-top: 0;
     padding-bottom: 0;
     background-color: #EEEEEE;
+    //background-color: #CCCCCC;
     -webkit-box-shadow: 2px 3px 10px 0px rgba(0,0,0,1);
     -moz-box-shadow: 2px 3px 10px 0px rgba(0,0,0,1);
     box-shadow: 2px 3px 10px 0px rgba(0,0,0,1);

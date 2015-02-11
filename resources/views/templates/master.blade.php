@@ -3,7 +3,8 @@
         <meta charset="UTF-8">
         <title>Accounting Book</title>
         <meta name='viewport' content='width=device-width, initial-scale=1.0'>
-        <link rel="stylesheet" href="/css/bootstrap.min.css"/>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
+        <!--<link rel="stylesheet" href="/css/bootstrap.min.css"/>-->
         <link rel="stylesheet" href="/css/style.css"/>
     </head>
     <body>
@@ -17,24 +18,14 @@
             <div data-spy="affix" id="sidebar-container" class="col-sm-3 col-md-2 hidden-xs">
                 <div id="sidebar" class="col-sm-12">
                     <h2 id="site-tittle"><a href="/">Accounting Book</a></h2>
-                    <div id="profileinfo" class="media">
-                        <div class="media-left">
-                            <a href="/user">
-                                <img class="media-object" src="/imgs/defaultprofile.png" alt="..." width="30px" height="30px">
-                            </a>
-                        </div>
-                        <div class="media-body">
-                            <h4 class="media-heading"><a href="/user">{{Auth::user()->name}} {{Auth::user()->lastname}}</a></h4>
-                        </div>
-                    </div>
                     <nav>
-                        <ul class="nav nav-pills nav-stacked">
-                            <li><a href="/user">Dashboard</a></li>
-                            <li><a href="/earnings">Ingresos</a></li>
-                            <li><a href="/expenses">Egresos</a></li>
-                            <li><a href="/categories/earnings">Categorías de Ingresos</a></li>
-                            <li><a href="/categories/expenses">Categorías de Gastos</a></li>
-                            <li><a href="/auth/logout" class="label label-warning">Cerrar sesión</a></li>
+                        <ul id="menu-nav" class="nav nav-pills nav-stacked">
+                            <li role="presentation"><a href="/user"><span class="glyphicon glyphicon-piggy-bank" aria-hidden="true"></span> Dashboard</a></li>
+                            <li role="presentation"><a href="/earnings"><span class="glyphicon glyphicon-plus-sign"></span> Ingresos</a></li>
+                            <li role="presentation"><a href="/expenses"><span class="glyphicon glyphicon-minus-sign"></span> Egresos</a></li>
+                            <li role="presentation"><a href="/categories/earnings"><span class="glyphicon glyphicon-tasks"></span> Categorías de Ingresos</a></li>
+                            <li role="presentation"><a href="/categories/expenses"><span class="glyphicon glyphicon-tasks"></span> Categorías de Gastos</a></li>
+                            <li role="presentation"><a href="/auth/logout"><span class="glyphicon glyphicon-log-out"></span> Cerrar sesión</a></li>
                         </ul>
                     </nav>
                 </div>
@@ -50,7 +41,8 @@
             </footer>
         </div>
         <script src="/js/jquery.min.js"></script>
-        <script src="/js/bootstrap.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
+        <!--<script src="/js/bootstrap.min.js"></script>-->
         <script>
                     function toggleSidebar() {
                         if ($('#sidebar-container').hasClass('hidden-xs')) {
