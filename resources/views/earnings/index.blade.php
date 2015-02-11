@@ -9,7 +9,7 @@
         <div class="pull-right">
             <a href="/earnings/create" class="btn btn-success">Agregar ingreso</a>
         </div>
-        <h1>Lista de ingresos <small>Desde {{$date1}} hasta {{$date2}}</small></h1>
+        <h1>Ingresos <small>Desde {{$date1}} hasta {{$date2}}</small></h1>
     </div>
     <div id="table-container" class="col-sm-12">
         <table class="table table-bordered table-hover table-condensed table-responsive">
