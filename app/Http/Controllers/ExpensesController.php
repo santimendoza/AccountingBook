@@ -82,7 +82,6 @@ class ExpensesController extends Controller {
 
     public function destroy($id) {
         $expense = Expenses::find($id);
-        dd($expense->count());
         if ($expense->count() >= 1) {
             $expense->delete();
         }

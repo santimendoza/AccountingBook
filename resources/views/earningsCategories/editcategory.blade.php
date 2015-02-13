@@ -36,15 +36,8 @@
             </select>
             @endif
         </div>
-        <!--        <div class="form-group">
-                    <label>Tipo de categoría:</label>
-                    <select name="type" id="type" class="form-control">
-                        <option value="0">Ingresos</option>
-                        <option value="1">Egresos</option>
-                    </select>
-                </div>-->
         <div class="form-group">
-            <input class="btn btn-success" type="submit" value="Crear">
+            <input class="btn btn-success" type="submit" value="Actualizar">
             <a href="/categories/earnings" class="btn btn-warning">Regresar</a>
         </div>
     </form>

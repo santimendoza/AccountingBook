@@ -44,7 +44,7 @@
                 @endif
             </div>
             <div class="form-group">
-                <input class="btn btn-success" type="submit" value="Agregar"/>
+                <input class="btn btn-success" type="submit" value="Actualizar"/>
                 <a href="/expenses" class="btn btn-warning">Regresar</a>
             </div>
         </form>
