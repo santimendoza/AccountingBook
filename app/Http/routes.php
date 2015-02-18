@@ -13,6 +13,9 @@ Route::group(['middleware' => 'auth'], function() {
     Route::resource('/expenses', 'ExpensesController');
     Route::post('/expenses/reports', 'ReportsController@expensesreport');
     
+    //Savings
+    Route::resource('/savings', 'SavingsController');
+    
     //User Routes
     Route::resource('/user', 'UserController');
     Route::get('/user/{{username}}', 'UserController@show');

@@ -11,6 +11,9 @@
                 Estadísticas del mes
             </small>
         </h1>
+        <p class="label label-primary">{{Auth::user()->balance}}</p>
+        <span class="label label-success">+ {{$earnings['gastostotales']}}</span>
+        <span class="label label-danger">- {{$expenses['gastostotales']}}</span>
     </div>
     <div class="col-xs-12 col-sm-12">
         <h3>Saldo: {{Auth::user()->balance}}</h3>
