@@ -12,6 +12,9 @@
             </small>
         </h1>
     </div>
+    <div class="col-xs-12 col-sm-12">
+        <h3>Balance: {{Auth::user()->balance}}</h3>
+    </div>
 </div>
 
 

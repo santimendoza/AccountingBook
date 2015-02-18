@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use App\Models\Expenses\Expenses;
+use App\Models\User;
 use App\Models\ExpensesCategories\ExpensesCategories;
 use Illuminate\Http\Request;
 use Auth;
@@ -47,6 +48,9 @@ class ExpensesController extends Controller {
         $request['date'] = str_replace('-', '', $request['date']);
         $request['user_id'] = Auth::user()->id;
         Expenses::create($request->all());
+        $user = User::find(Auth::user()->id);
+        $user->balance = $user->balance - $request['amount'];
+        $user->save();
         return redirect('/expenses');
     }
 
