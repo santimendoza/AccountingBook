@@ -87,7 +87,10 @@ class EarningsController extends Controller {
     public function destroy($id) {
         $earning = Earnings::find($id);
         if ($earning->count() >= 1) {
+            $user = User::find(Auth::user()->id);
+            $user->balance = $user->balance - $earning->amount;
             $earning->delete();
+            $user->save();
         }
         return redirect('earnings');
     }
