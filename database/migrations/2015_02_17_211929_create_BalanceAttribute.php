@@ -22,7 +22,9 @@ class CreateBalanceAttribute extends Migration {
      * @return void
      */
     public function down() {
-        //
+        Schema::table('users', function($table) {
+            $table->dropColumn('balance');
+        });
     }
 
 }
