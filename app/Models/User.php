@@ -12,7 +12,7 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
         CanResetPassword;
 
     protected $table = 'users';
-    protected $fillable = array('name', 'username', 'lastname', 'email', 'password', 'confirmation_code', 'status', 'premium');
+    protected $fillable = array('name', 'username', 'lastname', 'email', 'password', 'confirmation_code', 'status', 'premium', 'balance');
     protected $hidden = array('password', 'remember_token');
 
     public function earningsCategories() {

@@ -22,35 +22,35 @@
                         <input type="hidden" name="_token" value="{{ csrf_token() }}">
 
                         <div class="form-group">
-                            <label class="col-md-4 control-label">Name</label>
+                            <label class="col-md-4 control-label">Nombre(s)</label>
                             <div class="col-md-6">
                                 <input type="text" class="form-control" name="name" value="{{ old('name') }}">
                             </div>
                         </div>
 
                         <div class="form-group">
-                            <label class="col-md-4 control-label">Lastname</label>
+                            <label class="col-md-4 control-label">Apellido(s)</label>
                             <div class="col-md-6">
                                 <input type="text" class="form-control" name="lastname" value="{{ old('lastname') }}">
                             </div>
                         </div>
 
                         <div class="form-group">
-                            <label class="col-md-4 control-label">E-Mail Address</label>
+                            <label class="col-md-4 control-label">E-Mail</label>
                             <div class="col-md-6">
                                 <input type="email" class="form-control" name="email" value="{{ old('email') }}">
                             </div>
                         </div>
 
                         <div class="form-group">
-                            <label class="col-md-4 control-label">Username</label>
+                            <label class="col-md-4 control-label">Usuario</label>
                             <div class="col-md-6">
                                 <input type="text" class="form-control" name="username" value="{{ old('username') }}">
                             </div>
                         </div>
 
                         <div class="form-group">
-                            <label class="col-md-4 control-label">Currency</label>
+                            <label class="col-md-4 control-label">Moneda</label>
                             <div class="col-md-6">
                                 <select class="form-control" name="currency">
                                     <option disabled selected>Currency</option>
@@ -58,6 +58,13 @@
                                     <option value="2">USD</option>
                                     <option value="3">EUR</option>
                                 </select>
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label class="col-md-4 control-label">Saldo</label>
+                            <div class="col-md-6">
+                                <input type="text" name="balance" id="balance" pattern="[0-9]+(.[0-9]+|)" value="{{ old('balance')}}" class="form-control"/>
                             </div>
                         </div>
 
