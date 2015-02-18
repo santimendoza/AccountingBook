@@ -16,6 +16,9 @@ Route::group(['middleware' => 'auth'], function() {
     //User Routes
     Route::resource('/user', 'UserController');
     Route::get('/user/{{username}}', 'UserController@show');
+    
+    //Dashboard
+    Route::get('/dashboard', 'DashboardController@expensesCategoriesPercent');
 });
 
 //General Routes

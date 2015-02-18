@@ -30,7 +30,7 @@ class HomeController extends Controller {
 	 */
 	public function index()
 	{
-		return redirect('user');
+		return redirect('dashboard');
 	}
 
 }

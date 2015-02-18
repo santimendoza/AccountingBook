@@ -13,7 +13,9 @@
         </h1>
     </div>
     <div class="col-xs-12 col-sm-12">
-        <h3>Balance: {{Auth::user()->balance}}</h3>
+        <h3>Saldo: {{Auth::user()->balance}}</h3>
+        <h3>Gastos en el mes: {{$expenses['gastostotales']}}</h3>
+        <h3>Ingresos en el mes: {{$earnings['gastostotales']}}</h3>
     </div>
 </div>
 

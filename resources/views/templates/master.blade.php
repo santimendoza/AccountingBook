@@ -15,7 +15,7 @@
                     <h2 id="site-tittle"><a href="/">Accounting Book</a></h2>
                     <nav>
                         <ul id="menu-nav" class="nav nav-pills nav-stacked">
-                            <li role="presentation"><a href="/user"><span class="glyphicon glyphicon-piggy-bank" aria-hidden="true"></span> Dashboard</a></li>
+                            <li role="presentation"><a href="/dashboard"><span class="glyphicon glyphicon-piggy-bank" aria-hidden="true"></span> Dashboard</a></li>
                             <li role="presentation"><a href="/earnings"><span class="glyphicon glyphicon-plus-sign"></span> Ingresos</a></li>
                             <li role="presentation"><a href="/expenses"><span class="glyphicon glyphicon-minus-sign"></span> Egresos</a></li>
                             <li role="presentation"><a href="/categories/earnings"><span class="glyphicon glyphicon-tasks"></span> Categorías de Ingresos</a></li>
