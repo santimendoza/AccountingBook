@@ -5,11 +5,14 @@ namespace App\Http\Controllers;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Models\Savings\Savings;
+use Auth;
 
 class SavingsController extends Controller {
 
     public function index() {
-        //
+        $savings = Savings::all();
+        return view('savings.index')->with('savings', $savings);
     }
 
     public function create() {
@@ -17,7 +20,15 @@ class SavingsController extends Controller {
     }
 
     public function store(Request $request) {
-        dd($request);
+        $rules = [
+            'amount' => 'required|numeric',
+            'description' => 'required',
+            'title' => 'required',
+        ];
+        $this->validate($request, $rules);
+        $request['user_id'] = Auth::user()->id;
+        Savings::create($request->all());
+        return redirect('savings');
     }
 
     public function show($id) {
