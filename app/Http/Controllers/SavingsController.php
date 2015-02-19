@@ -32,7 +32,7 @@ class SavingsController extends Controller {
     }
 
     public function show($id) {
-        //
+        return redirect('/savings/'.$id.'/edit');
     }
 
     public function edit($id) {

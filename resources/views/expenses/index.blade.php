@@ -45,8 +45,15 @@
                         <form id="delete-earning" action="/expenses/{{$expense->id}}" method="POST" accept-charset="UTF-8">
                             <input name="_method" type="hidden" value="DELETE">
                             <input name="_token" type="hidden" value="{{ csrf_token() }}">
-                            <input type="submit" class="btn btn-danger" value="Eliminar">
-                            <a href="/expenses/{{$expense->id}}/edit" class="btn btn-info">Editar</a>
+                            <input type="submit" class="btn btn-danger" value="Eliminar"
+                                   data-container="body"
+                                   data-toggle="popover"
+                                   data-placement="left"
+                                   data-content="Popover"
+                                   data-trigger="hover">
+                            <a href="/expenses/{{$expense->id}}/edit" class="btn btn-info">
+                                Editar
+                            </a>
                         </form>
                     </td>
                 </tr>

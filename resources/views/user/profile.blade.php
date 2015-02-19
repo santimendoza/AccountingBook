@@ -19,6 +19,11 @@
         <h3>Saldo: {{Auth::user()->balance}}</h3>
         <h3>Gastos en el mes: {{$expenses['gastostotales']}}</h3>
         <h3>Ingresos en el mes: {{$earnings['gastostotales']}}</h3>
+        <h3>Ahorros:</h3>
+        @foreach(Auth::user()->savings->all() as $savingsofuser)
+        <h4> {{ $savingsofuser->title }}: {{$savingsofuser->amount}}</h4>
+        @endforeach
+        
     </div>
 </div>
 

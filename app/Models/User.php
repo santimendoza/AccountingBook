@@ -1,4 +1,6 @@
-<?php namespace App\Models;
+<?php
+
+namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Auth\Authenticatable;
@@ -18,12 +20,21 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
     public function earningsCategories() {
         return $this->hasMany('EarningsCategories');
     }
+
     public function expensesCategories() {
         return $this->hasMany('ExpensesCategories');
     }
-    
-    public function earnings(){
+
+    public function earnings() {
         return $this->hasMany('App\Models\Earnings\Earnings');
+    }
+
+    public function expenses() {
+        return $this->hasMany('App\Models\Expenses\Expenses');
+    }
+
+    public function savings() {
+        return $this->hasMany('App\Models\Savings\Savings');
     }
 
 }
