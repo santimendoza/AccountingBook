@@ -42,11 +42,24 @@ class SavingsController extends Controller {
     }
 
     public function edit($id) {
-        //
+        $saving = Savings::find($id);
+        return view('savings.edit')->with('saving', $saving);
     }
 
-    public function update($id) {
-        //
+    public function update($id, Request $request) {
+        $rules = [
+            'amount' => 'required|numeric',
+            'description' => 'required',
+            'title' => 'required',
+        ];
+        $this->validate($request, $rules);
+        $request['user_id'] = Auth::user()->id;
+        $saving = Savings::find($id);
+        $saving['amount'] = $request['amount'];
+        $saving['title'] = $request['title'];
+        $saving['description'] = $request['description'];
+        $saving->save();
+        return redirect('savings');
     }
 
     public function destroy($id) {
