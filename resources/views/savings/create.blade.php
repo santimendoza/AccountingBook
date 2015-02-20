@@ -18,7 +18,7 @@
             <input name="_token" type="hidden" value="{{ csrf_token() }}">
             <div class="form-group">
                 <label for="amount">Monto inicial:</label>
-                <input class="form-control" type="text" pattern="[0-9]*.[0-9]+" id="amount" name="amount" placeholder="Monto"/>
+                <input class="form-control" type="text" pattern="[0-9]*(.[0-9]+|)" id="amount" name="amount" placeholder="Monto"/>
             </div>
             <div class="form-group">
                 <label for="description">Título:</label>
