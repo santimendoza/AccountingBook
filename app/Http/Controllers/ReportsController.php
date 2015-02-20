@@ -12,7 +12,14 @@ use Auth;
 class ReportsController extends Controller {
 
     public function earningsreport(Request $request) {
-        dd($request);
+        $date1 = str_replace('-', '', $request['date1']);
+        $date2 = str_replace('-', '', $request['date2']);
+        
+        $earnings = Earnings::whereRaw('user_id = ? and date <= ? and date >= ?', [
+            Auth::user()->id, $date2, $date1
+        ])->get();
+        $data = ['earnings' => $earnings,'date1' => $request['date1'] , 'date2' => $request['date2']];
+        return view('earnings.index')->with($data);
     }
 
     public function expensesreport(Request $request) {

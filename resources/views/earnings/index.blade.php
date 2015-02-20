@@ -12,6 +12,18 @@
         <h1>Ingresos <small>Desde {{$date1}} hasta {{$date2}}</small></h1>
     </div>
     <div id="table-container" class="col-sm-12">
+        <div class="col-xs-12 col-sm-10 col-sm-offset-2">
+            <form action="/earnings/reports" method="POST" class="form-inline">
+                <input name="_token" type="hidden" value="{{ csrf_token() }}">
+                <div class="form-group">
+                    Ingresos Desde <input type="date" value="{{$date1}}" placeholder="Fecha" name="date1" id="date1" class="form-control">
+                    hasta <input type="date" value="{{$date2}}" placeholder="Fecha" name="date2" id="date2" class="form-control">
+                </div>
+                <div class="form-group">
+                    <input type="submit" class="btn btn-primary" value="Cambiar">
+                </div>
+            </form>
+        </div>
         <table class="table table-bordered table-hover table-condensed table-responsive">
             <thead>
                 <tr>
