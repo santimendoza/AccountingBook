@@ -18,13 +18,12 @@
                     </div>
                     @endif
 
-                    <form class="form-horizontal" role="form" method="POST" action="/auth/register">
+                    <form class="form-horizontal" role="form" method="POST" action="/auth/register" validate="validate">
                         <input type="hidden" name="_token" value="{{ csrf_token() }}">
-
                         <div class="form-group">
                             <label class="col-md-4 control-label">Nombre(s)</label>
                             <div class="col-md-6">
-                                <input type="text" class="form-control" name="name" value="{{ old('name') }}">
+                                <input type="text" class="form-control" name="name" value="{{ old('name') }}" required>
                             </div>
                         </div>
 
@@ -45,7 +44,7 @@
                         <div class="form-group">
                             <label class="col-md-4 control-label">Usuario</label>
                             <div class="col-md-6">
-                                <input type="text" class="form-control" name="username" value="{{ old('username') }}">
+                                <input type="text" class="form-control" name="username" required pattern="([A-Za-z]*([0-9]*|[A-Za-z]*)*|[0-9]*([0-9]*|[A-Za-z]*)*)" value="{{ old('username') }}">
                             </div>
                         </div>
 
