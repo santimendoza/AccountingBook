@@ -12,6 +12,14 @@
             </small>
         </h1>
     </div>
+    <div class="col-xs-12 col-sm-12">
+        <h3>Saldo: {{$user->balance}}</h3>
+        <h3>Ahorros:</h3>
+        @foreach($user->savings->all() as $savingsofuser)
+        <h4> {{ $savingsofuser->title }}: {{$savingsofuser->amount}}</h4>
+        @endforeach
+
+    </div>
 </div>
 
 @stop

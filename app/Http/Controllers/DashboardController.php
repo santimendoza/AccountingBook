@@ -20,7 +20,7 @@ class DashboardController extends Controller {
         return view('user.profile')->with($data);
     }
 
-    function expenses() {
+    public function expenses() {
         $monthstartday = date('Y-m-d', mktime(1, 1, 1, date('n'), 1, date('Y')));
         $gastostotales = 0;
         $gastoscategoria = [];
@@ -40,7 +40,7 @@ class DashboardController extends Controller {
         return $data;
     }
 
-    function earnings() {
+    public function earnings() {
         $monthstartday = date('Y-m-d', mktime(1, 1, 1, date('n'), 1, date('Y')));
         $gastostotales = 0;
         $gastoscategoria = [];

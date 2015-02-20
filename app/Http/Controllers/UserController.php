@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Http\Controllers\DashboardController;
 use App\Models\User;
 use Auth;
 
@@ -15,7 +16,8 @@ class UserController extends Controller {
 
     public function show($username) {
         $user = User::where('username', '=', $username)->first();
-        return view('user.userprofile')->with('user', $user);
+        $data = ['user' => $user];
+        return view('user.userprofile')->with($data);
     }
 
     public function edit($id) {
