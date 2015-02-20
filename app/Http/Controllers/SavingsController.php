@@ -91,6 +91,7 @@ class SavingsController extends Controller {
         $saving = Savings::find($id);
         AddToSavings::create($request->all());
         $saving->amount = $saving->amount + $request['amount'];
+        $saving->addedfounds = true;
         $user = User::find(Auth::user()->id);
         $user->balance = $user->balance - $request['amount'];
         $user->save();
