@@ -30,8 +30,8 @@
                 <input class="form-control" type="text" value="{{$saving->description}}" id="description" name="description" placeholder="Descripción"/>
             </div>
             <div class="form-group">
-                <input class="btn btn-success" type="submit" value="Agregar"/>
-                <a href="/expenses" class="btn btn-warning">Regresar</a>
+                <input class="btn btn-success" type="submit" value="Actualizar"/>
+                <a href="/savings" class="btn btn-warning">Regresar</a>
             </div>
         </form>
     </div>
