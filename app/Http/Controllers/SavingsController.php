@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use App\Models\ExpensesCategories\ExpensesCategories;
 use App\Models\Expenses\Expenses;
 use App\Models\Savings\Savings;
+use App\Models\AddToSavings\AddToSavings;
 use App\Models\User;
 use Auth;
 
@@ -43,7 +44,8 @@ class SavingsController extends Controller {
 
     public function edit($id) {
         $saving = Savings::find($id);
-        return view('savings.edit')->with('saving', $saving);
+        $data = ['saving' => $saving];
+        return view('savings.edit')->with($data);
     }
 
     public function update($id, Request $request) {
@@ -73,12 +75,27 @@ class SavingsController extends Controller {
         return redirect('savings');
     }
 
-    public function addFounds() {
-        
+    public function addFounds($id) {
+        $saving = Savings::find($id);
+        return view('savings.addfounds')->with('saving', $saving);
     }
 
-    public function updateAmount(Request $request) {
-        
+    public function updateAmount($id, Request $request) {
+        $rules = [
+            'amount' => 'required'
+        ];
+        $this->validate($request, $rules);
+        $request['date'] = date('Ymd');
+        $request['user_id'] = Auth::user()->id;
+        $request['savings_id'] = $id;
+        $saving = Savings::find($id);
+        AddToSavings::create($request->all());
+        $saving->amount = $saving->amount + $request['amount'];
+        $user = User::find(Auth::user()->id);
+        $user->balance = $user->balance - $request['amount'];
+        $user->save();
+        $saving->save();
+        return redirect('/savings');
     }
 
     public function useFounds($id) {

@@ -33,8 +33,9 @@
                         <form id="delete-savings" action="/savings/{{$saving->id}}" method="POST" accept-charset="UTF-8">
                             <input name="_method" type="hidden" value="DELETE">
                             <input name="_token" type="hidden" value="{{ csrf_token() }}">
-                            <a href="/savings/{{$saving->id}}/use" class="btn btn-success">Utilizar</a>
+                            <a href="/savings/{{$saving->id}}/add" class="btn btn-success">Agregar saldo</a>
                             <a href="/savings/{{$saving->id}}/edit" class="btn btn-info">Editar</a>
+                            <a href="/savings/{{$saving->id}}/use" class="btn btn-primary">Utilizar</a>
                             <input type="submit" class="btn btn-danger" value="Eliminar">
                         </form>
                     </td>

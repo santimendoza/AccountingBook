@@ -6,8 +6,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class AddToSavings extends Model {
 
-    protected $table = 'earnings';
-    protected $fillable = array('amount', 'amount', 'date', 'user_id', 'savings_id');
+    protected $table = 'addtosavings';
+    protected $fillable = array('amount', 'date', 'user_id', 'savings_id');
 
     public function users() {
         return $this->belongsTo('User', 'user_id');

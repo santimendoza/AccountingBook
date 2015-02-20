@@ -17,10 +17,12 @@
         <form action="/savings/{{$saving->id}}" method="POST" class="form" accept-charset="UTF-8">
             <input name="_method" type="hidden" value="PUT">
             <input name="_token" type="hidden" value="{{ csrf_token() }}">
+            @if(!$saving->addedfounds)
             <div class="form-group">
                 <label for="amount">Monto inicial:</label>
                 <input class="form-control" type="text" value="{{$saving->amount}}" pattern="[0-9]*.[0-9]+" id="amount" name="amount" placeholder="Monto"/>
             </div>
+            @endif
             <div class="form-group">
                 <label for="description">Título:</label>
                 <input class="form-control" type="text" value="{{$saving->title}}" id="title" name="title" placeholder="Título"/>

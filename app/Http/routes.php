@@ -15,7 +15,8 @@ Route::group(['middleware' => 'auth'], function() {
 
     //Savings
     Route::resource('/savings', 'SavingsController');
-    Route::resource('/savings/add', 'AddToSavingsController');
+    Route::get('/savings/{id}/add', 'SavingsController@addFounds');
+    Route::post('/savings/{id}/updateAmount', 'SavingsController@updateAmount');
     Route::get('/savings/{id}/use', 'SavingsController@useFounds');
     Route::post('/savings/{id}/usedFounds', 'SavingsController@usedFounds');
 
