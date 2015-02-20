@@ -11,7 +11,7 @@
     <div class="col-sm-12">
         @if($errors->savingsError->first() != null)
         <div class="alert alert-info" role="alert">
-            {{ $errors->expensesError->first() }}
+            {{ $errors->savingsError->first() }}
         </div>
         @endif
         <form action="/savings" method="POST" class="form" accept-charset="UTF-8">

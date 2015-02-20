@@ -88,7 +88,7 @@ class ExpensesController extends Controller {
         $expense = Expenses::find($id);
         if ($expense->count() >= 1) {
             $user = User::find(Auth::user()->id);
-            $user->balance = $user->balance + $earning->amount;
+            $user->balance = $user->balance + $expense->amount;
             $expense->delete();
             $user->save();
         }

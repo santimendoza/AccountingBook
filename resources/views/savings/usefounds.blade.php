@@ -19,7 +19,7 @@
             {{ $errors->expensesError->first() }}
         </div>
         @endif
-        <form action="/expenses" method="POST" class="form" accept-charset="UTF-8">
+        <form action="/savings/{{$savings_id}}/usedFounds" method="POST" class="form" accept-charset="UTF-8">
             <input name="_token" type="hidden" value="{{ csrf_token() }}">
             <div class="form-group">
                 <label for="amount">Monto:</label>
@@ -45,7 +45,7 @@
             </div>
             <div class="form-group">
                 <input class="btn btn-success" type="submit" value="Agregar"/>
-                <a href="/expenses" class="btn btn-warning">Regresar</a>
+                <a href="/savings" class="btn btn-warning">Regresar</a>
             </div>
         </form>
     </div>

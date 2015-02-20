@@ -16,6 +16,8 @@ Route::group(['middleware' => 'auth'], function() {
     //Savings
     Route::resource('/savings', 'SavingsController');
     Route::resource('/savings/add', 'AddToSavingsController');
+    Route::get('/savings/{id}/use', 'SavingsController@useFounds');
+    Route::post('/savings/{id}/usedFounds', 'SavingsController@usedFounds');
 
     //User Routes
     Route::resource('/user', 'UserController');
@@ -29,7 +31,9 @@ Route::group(['middleware' => 'auth'], function() {
 Route::get('/', function() {
     return redirect('/auth/login');
 });
-Route::get('home', 'HomeController@index');
+Route::get('home', function() {
+    return redirect('/dashboard');
+});
 
 // Authentication and register
 Route::controllers([

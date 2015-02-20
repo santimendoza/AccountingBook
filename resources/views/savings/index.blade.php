@@ -28,12 +28,21 @@
                     <td>{{$saving->title}}</td>
                     <td>{{$saving->description}}</td>
                     <td>
-                        <form id="delete-earning" action="/savings/{{$saving->id}}" method="POST" accept-charset="UTF-8">
-                            <input name="_method" type="hidden" value="DELETE">
-                            <input name="_token" type="hidden" value="{{ csrf_token() }}">
-                            <input type="submit" class="btn btn-danger" value="Eliminar">
-                            <a href="/savings/{{$saving->id}}/edit" class="btn btn-info">Editar</a>
-                        </form>
+                        <div class="col-sm-6">
+                            <div class="col-sm-4 col-md-3">
+                                <a href="/savings/{{$saving->id}}/use">Utilizar</a>
+                            </div>
+                            <div class="col-sm-4 col-md-3">
+                                <a href="/savings/{{$saving->id}}/edit" class="btn btn-info">Editar</a>
+                            </div>
+                            <div class="col-sm-4 col-md-3">
+                                <form id="delete-savings" action="/savings/{{$saving->id}}" method="POST" accept-charset="UTF-8">
+                                    <input name="_method" type="hidden" value="DELETE">
+                                    <input name="_token" type="hidden" value="{{ csrf_token() }}">
+                                    <input type="submit" class="btn btn-danger" value="Eliminar">
+                                </form>
+                            </div>
+                        </div>
                     </td>
                 </tr>
                 @endforeach
