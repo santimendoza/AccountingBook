@@ -9,11 +9,6 @@
         <h1>Agregar gasto</h1>
     </div>
     <div class="col-sm-12">
-        @if($savingsError != null)
-        <div class="alert alert-info" role="alert">
-            {{ $savingsError }}
-        </div>
-        @endif
         @if($errors->expensesError->first() != null)
         <div class="alert alert-info" role="alert">
             {{ $errors->expensesError->first() }}
