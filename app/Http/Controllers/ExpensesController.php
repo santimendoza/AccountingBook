@@ -21,7 +21,7 @@ class ExpensesController extends Controller {
 
         $expenses = Expenses::whereRaw('user_id = ? and date <= ? and date >= ?', [
                     Auth::user()->id, $monthenddaystring, $monthstartdaystring
-                ])->get();
+                ])->orderBy('date')->get();
         if ($expenses->count() < 1) {
             return redirect('/expenses/create')->withErrors('Parece que no tienes ningún gasto registrado este mes. Agrega uno.', 'expensesError');
         }

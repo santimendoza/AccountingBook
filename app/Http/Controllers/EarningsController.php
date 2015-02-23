@@ -21,7 +21,7 @@ class EarningsController extends Controller {
 
         $earnings = Earnings::whereRaw('user_id = ? and date <= ? and date >= ?', [
                     Auth::user()->id, $monthenddaystring, $monthstartdaystring
-                ])->get();
+                ])->orderBy('date')->get();
         if ($earnings->count() < 1) {
             return redirect('/earnings/create')->withErrors('Parace que aún no tienes ningún ingreso registrado este mes. Agrega uno.', 'earningsError');
         }

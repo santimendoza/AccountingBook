@@ -17,7 +17,7 @@ class ReportsController extends Controller {
         
         $earnings = Earnings::whereRaw('user_id = ? and date <= ? and date >= ?', [
             Auth::user()->id, $date2, $date1
-        ])->get();
+        ])->orderBy('date')->get();
         $data = ['earnings' => $earnings,'date1' => $request['date1'] , 'date2' => $request['date2']];
         return view('earnings.index')->with($data);
     }
@@ -28,7 +28,7 @@ class ReportsController extends Controller {
         
         $expenses = Expenses::whereRaw('user_id = ? and date <= ? and date >= ?', [
             Auth::user()->id, $date2, $date1
-        ])->get();  
+        ])->orderBy('date')->get();  
         $data = ['expenses' => $expenses,'date1' => $request['date1'] , 'date2' => $request['date2']];
         return view('expenses.index')->with($data);
     }
