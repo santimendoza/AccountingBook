@@ -15,7 +15,7 @@ use Auth;
 class SavingsController extends Controller {
 
     public function index() {
-        $savings = Savings::whereRaw('user_id = ?', [Auth::user()->id]);
+        $savings = Savings::whereRaw('user_id = ?', [Auth::user()->id])->get();
         if ($savings->count() < 1) {
             return redirect('/savings/create')->withErrors('Parece que no tienes ningún ahorro, crea uno.', 'savingsError');
         }
