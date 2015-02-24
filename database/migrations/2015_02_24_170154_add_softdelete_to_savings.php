@@ -6,11 +6,11 @@ use Illuminate\Database\Migrations\Migration;
 class AddSoftdeleteToSavings extends Migration {
 
     public function up() {
-        //
+        
     }
 
     public function down() {
-        //
+        
     }
 
 }

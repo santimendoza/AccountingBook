@@ -10,6 +10,7 @@ use App\Models\EarningsCategories\EarningsCategories;
 use App\Models\ExpensesCategories\ExpensesCategories;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Auth;
 
 class DashboardController extends Controller {
 
@@ -24,7 +25,7 @@ class DashboardController extends Controller {
         $monthstartday = date('Y-m-d', mktime(1, 1, 1, date('n'), 1, date('Y')));
         $gastostotales = 0;
         $gastoscategoria = [];
-        $expensescategories = ExpensesCategories::all();
+        $expensescategories = ExpensesCategories::where('user_id', '=', Auth::user()->id)->get();
         foreach ($expensescategories as $categories) {
             $gastos = 0;
             $expenses = Expenses::where('expensesCategory_id', '=', $categories->id)
@@ -44,17 +45,17 @@ class DashboardController extends Controller {
         $monthstartday = date('Y-m-d', mktime(1, 1, 1, date('n'), 1, date('Y')));
         $gastostotales = 0;
         $gastoscategoria = [];
-        $earningscategories = EarningsCategories::all();
+        $earningscategories = EarningsCategories::where('user_id', '=', Auth::user()->id)->get();
         foreach ($earningscategories as $categories) {
-            $gastos = 0;
+            $ingresos = 0;
             $earnings = Earnings::where('earningsCategory_id', '=', $categories->id)
                     ->where('date', '>=', $monthstartday)
                     ->get();
             foreach ($earnings as $earning) {
-                $gastos += $earning->amount;
+                $ingresos += $earning->amount;
             }
-            $gastostotales += $gastos;
-            $gastoscategoria[$categories->id] = $gastos;
+            $gastostotales += $ingresos;
+            $gastoscategoria[$categories->id] = $ingresos;
         }
         $data = ['gastoscategoria' => $gastoscategoria, 'gastostotales' => $gastostotales];
         return $data;
