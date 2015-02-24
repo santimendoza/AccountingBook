@@ -49,7 +49,7 @@
                                    data-container="body"
                                    data-toggle="popover"
                                    data-placement="left"
-                                   data-content="Popover"
+                                   data-content="Si eliminas este gasto, desaparecerá para siempre."
                                    data-trigger="hover">
                             <a href="/expenses/{{$expense->id}}/edit" class="btn btn-info">
                                 Editar

@@ -33,10 +33,26 @@
                         <form id="delete-savings" action="/savings/{{$saving->id}}" method="POST" accept-charset="UTF-8">
                             <input name="_method" type="hidden" value="DELETE">
                             <input name="_token" type="hidden" value="{{ csrf_token() }}">
-                            <a href="/savings/{{$saving->id}}/add" class="btn btn-success">Agregar saldo</a>
-                            <a href="/savings/{{$saving->id}}/edit" class="btn btn-info">Editar</a>
-                            <a href="/savings/{{$saving->id}}/use" class="btn btn-primary">Utilizar</a>
-                            <input type="submit" class="btn btn-danger" value="Eliminar">
+                            <a href="/savings/{{$saving->id}}/add" class="btn btn-success">
+                                Agregar saldo
+                            </a>
+                            <a href="/savings/{{$saving->id}}/edit" class="btn btn-info">
+                                Editar
+                            </a>
+                            <a href="/savings/{{$saving->id}}/use" class="btn btn-primary"
+                               data-container="body"
+                               data-toggle="popover"
+                               data-placement="left"
+                               data-content="Para usar los fondos de ahorros, debes agregar un gasto, para que sepas en que los usaste."
+                               data-trigger="hover">
+                                Utilizar
+                            </a>
+                            <input type="submit" class="btn btn-danger" value="Eliminar"
+                                   data-container="body"
+                                   data-toggle="popover"
+                                   data-placement="left"
+                                   data-content="Al eliminar el ahorro, desaparecerá para siempre de tu cuenta. ¿Estás seguro?"
+                                   data-trigger="hover">
                         </form>
                     </td>
                 </tr>
