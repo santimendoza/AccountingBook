@@ -6,6 +6,7 @@ use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Expenses\Expenses;
+use App\Models\Expenses\ExpensesFunctions;
 use App\Models\Earnings\Earnings;
 use Auth;
 
@@ -29,7 +30,9 @@ class ReportsController extends Controller {
         $expenses = Expenses::whereRaw('user_id = ? and date <= ? and date >= ?', [
                     Auth::user()->id, $date2, $date1
                 ])->orderBy('date')->get();
-        $data = ['expenses' => $expenses, 'date1' => $request['date1'], 'date2' => $request['date2']];
+        $totalexpenses = ExpensesFunctions::calculateTotalExpenses($expenses);
+        $data = ['expenses' => $expenses, 'date1' => $request['date1'],
+            'date2' => $request['date2'], 'totalexpenses' => $totalexpenses];
         return view('expenses.index')->with($data);
     }
 
@@ -40,8 +43,9 @@ class ReportsController extends Controller {
         $expenses = Expenses::whereRaw('user_id = ? and date <= ? and date >= ? and expensesCategory_id = ?', [
                     Auth::user()->id, $date2, $date1, $id
                 ])->orderBy('date')->get();
+        $totalexpenses = ExpensesFunctions::calculateTotalExpenses($expenses);
         $data = ['expenses' => $expenses, 'date1' => $request['date1'],
-            'date2' => $request['date2'], 'id' => $id];
+            'date2' => $request['date2'], 'id' => $id, 'totalexpenses' => $totalexpenses];
         return view('expenses.index')->with($data);
     }
 
