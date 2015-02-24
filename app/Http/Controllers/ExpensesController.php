@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use App\Models\Expenses\Expenses;
+use App\Models\Expenses\ExpensesFunctions;
 use App\Models\User;
 use App\Models\ExpensesCategories\ExpensesCategories;
 use Illuminate\Http\Request;
@@ -25,7 +26,9 @@ class ExpensesController extends Controller {
         if ($expenses->count() < 1) {
             return redirect('/expenses/create')->withErrors('Parece que no tienes ningún gasto registrado este mes. Agrega uno.', 'expensesError');
         }
-        $data = ['expenses' => $expenses, 'date1' => $monthstartday, 'date2' => $monthendday];
+        $totalexpenses = ExpensesFunctions::calculateTotalExpenses($expenses);
+        $data = ['expenses' => $expenses, 'date1' => $monthstartday,
+            'date2' => $monthendday, 'totalexpenses' => $totalexpenses];
         return view('expenses.index')->with($data);
     }
 

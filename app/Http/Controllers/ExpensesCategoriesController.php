@@ -6,6 +6,8 @@ use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\ExpensesCategories\ExpensesCategories;
+use App\Models\Expenses\Expenses;
+use App\Models\Expenses\ExpensesFunctions;
 use Auth;
 
 class ExpensesCategoriesController extends Controller {
@@ -53,12 +55,23 @@ class ExpensesCategoriesController extends Controller {
     }
 
     public function show($id) {
-        return redirect('/categories/expenses/' . $id . '/edit');
+        $m = date('n');
+        $monthstartday = date('Y-m-d', mktime(1, 1, 1, $m, 1, date('Y'))); //Primer día del mes.
+        $monthendday = date('Y-m-d', mktime(1, 1, 1, $m + 1, 0, date('Y'))); //Último día del mes.
+        $monthstartdaystring = str_replace('-', '', $monthstartday);
+        $monthenddaystring = str_replace('-', '', $monthendday);
+        $expenses = Expenses::whereRaw('user_id = ? and date <= ? and date >= ? and expensesCategory_id = ?', [
+                    Auth::user()->id, $monthenddaystring, $monthstartdaystring, $id
+                ])->orderBy('date')->get();
+        $expensesCategory = ExpensesCategories::find($id);
+        $totalexpenses = ExpensesFunctions::calculateTotalExpenses($expenses);
+        $data = ['expenses' => $expenses, 'date1' => $monthstartday, 'date2' => $monthendday,
+            'expensesCategory' => $expensesCategory, 'totalexpenses' => $totalexpenses];
+        return view('expensesCategories.show')->with($data);
     }
 
     public function edit($id) {
         $category = ExpensesCategories::find($id);
-
         if (ExpensesCategories::whereRaw('superior_cat = ?', array($category->id))->count() < 1) {
             $hasSubcategories = false;
         } else {
@@ -72,8 +85,9 @@ class ExpensesCategoriesController extends Controller {
     public function update(Request $request, $id) {
         $request['user_id'] = Auth::user()->id;
         if (isset($request['superior_cat'])) {
-            if ($request['superior_cat'] == -1)
+            if ($request['superior_cat'] == -1) {
                 $request['superior_cat'] = null;
+            }
         }
         $rules = ['slug' => 'required', 'user_id' => 'integer'];
         $this->validate($request, $rules);
@@ -89,5 +103,4 @@ class ExpensesCategoriesController extends Controller {
         $category->delete();
         return redirect('/categories/expenses');
     }
-
 }
