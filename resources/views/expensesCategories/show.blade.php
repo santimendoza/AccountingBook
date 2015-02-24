@@ -6,10 +6,13 @@
 
 <div id="content" class="col-xs-12 col-sm-6 col-sm-offset-3">
     <div class="page-header">
+        <div class="pull-left">
+            <a href="/categories/expenses" class="btn btn-warning">Regresar</a>
+        </div>
         <div class="pull-right">
             <a href="/categories/expenses/{{$expensesCategory->id}}/edit" class="btn btn-info">Editar categoría</a>
         </div>
-        <h1>Gastos de {{$expensesCategory->slug}} <small>Desde {{$date1}} hasta {{$date2}}</small></h1>
+        <h1 class="">Gastos de {{$expensesCategory->slug}} <small>Desde {{$date1}} hasta {{$date2}}</small></h1>
     </div>
     <div id="table-container" class="col-sm-12">
         <div class="col-xs-12 col-sm-10 col-sm-offset-2">
@@ -56,7 +59,6 @@
                             </a>
                         </form>
                     </td>
-
                 </tr>
                 @endforeach
                 <tr>

@@ -38,15 +38,13 @@
         </div>
         <div class="form-group">
             <input class="btn btn-success" type="submit" value="Actualizar">
-            <a href="/categories/expenses" class="btn btn-warning">Regresar</a>
+            <a href="/categories/expenses/{{$category->id}}" class="btn btn-warning">Regresar</a>
         </div>
     </form>
 </div>
 <script>
-//    $(document).ready(function() {
     $(function () {
         $('[data-toggle="tooltip"]').tooltip();
     });
-    //});
 </script>
 @stop
