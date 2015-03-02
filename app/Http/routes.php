@@ -20,6 +20,9 @@ Route::group(['middleware' => 'auth'], function() {
     Route::get('/savings/{id}/use', 'SavingsController@useFounds');
     Route::post('/savings/{id}/usedFounds', 'SavingsController@usedFounds');
 
+    //Budget
+    Route::resource('/budget', 'BudgetController');    
+    
     //User Routes
     Route::resource('/user', 'UserController');
     Route::get('/user/{{username}}', 'UserController@show');

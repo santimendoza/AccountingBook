@@ -19,6 +19,7 @@
                             <li role="presentation"><a href="/earnings"><span class="glyphicon glyphicon-plus-sign"></span> Ingresos</a></li>
                             <li role="presentation"><a href="/expenses"><span class="glyphicon glyphicon-minus-sign"></span> Egresos</a></li>
                             <li role="presentation"><a href="/savings"><span class="glyphicon glyphicon-piggy-bank"></span> Ahorros</a></li>
+                            <li role="presentation"><a href="/budget"><span class="glyphicon glyphicon-blackboard"></span> Presupuesto</a></li>
                             <li role="presentation"><a href="/categories/earnings"><span class="glyphicon glyphicon-tasks"></span> Categorías de Ingresos</a></li>
                             <li role="presentation"><a href="/categories/expenses"><span class="glyphicon glyphicon-tasks"></span> Categorías de Gastos</a></li>
                             <li role="presentation"><a href="/auth/logout"><span class="glyphicon glyphicon-log-out"></span> Cerrar sesión</a></li>
