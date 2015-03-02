@@ -11,14 +11,14 @@ class CreateBudgetTable extends Migration {
             $table->double('amount');
             $table->integer('user_id')->unsigned();
             $table->foreign('user_id')->references('id')->on('users');
-            $table->integer('expensesCategory_id')->unsigned();
+            $table->integer('expensesCategory_id')->unsigned()->unique();
             $table->foreign('expensesCategory_id')->references('id')->on('expensesCategories');
             $table->timestamps();
         });
     }
 
     public function down() {
-        Schema::drop('savings');
+        Schema::drop('budget');
     }
 
 }
