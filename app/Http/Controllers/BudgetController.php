@@ -5,13 +5,14 @@ namespace App\Http\Controllers;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use App\Models\ExpensesCategories\ExpensesCategories;
+use App\Models\ExpensesCategories\ExpensesCategoriesFunctions;
 use Illuminate\Http\Request;
 use Auth;
 
 class BudgetController extends Controller {
 
     public function index() {
-        $categories = ExpensesCategories::where('user_id', '=', Auth::user()->id)->get();
+        $categories = ExpensesCategoriesFunctions::getCategoriesAndSubcategories();
         $data = ['categories' => $categories];
         return view('budget.create')->with($data);
     }

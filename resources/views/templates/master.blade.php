@@ -1,7 +1,7 @@
 <html>
     <head>
         <meta charset="UTF-8">
-        <title>Accounting Book</title>
+        <title>BudgetApp</title>
         <meta name='viewport' content='width=device-width, initial-scale=1.0'>
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
         <!--<link rel="stylesheet" href="/css/bootstrap.min.css"/>-->
@@ -12,7 +12,7 @@
             @section('header')
             <div data-spy="affix" id="sidebar-container" class="col-xs-8 col-sm-3 col-md-2 hidden-xs">
                 <div id="sidebar" class="col-sm-12">
-                    <h2 id="site-tittle"><a href="/">Accounting Book</a></h2>
+                    <h2 id="site-tittle"><a href="/">BudgetApp</a></h2>
                     <nav>
                         <ul id="menu-nav" class="nav nav-pills nav-stacked">
                             <li role="presentation"><a href="/dashboard"><span class="glyphicon glyphicon-stats" aria-hidden="true"></span> Dashboard</a></li>
