@@ -33,4 +33,18 @@ class ExpensesCategoriesFunctions {
         return $categoriesarray;
     }
 
+    public static function getTotalBudget() {
+        $categories = ExpensesCategories::where('user_id', '=', Auth::user()->id)
+                ->whereNull('superior_cat')
+                ->get();
+        $totalBudget = 0;
+        if (count($categories) > 1) {
+            foreach ($categories as $category) {
+                $totalBudget += $category->budget;
+            }
+        }
+
+        return $totalBudget;
+    }
+
 }

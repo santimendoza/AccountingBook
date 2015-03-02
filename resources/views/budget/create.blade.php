@@ -6,7 +6,7 @@
 
 <div id="content" class="col-xs-12 col-sm-6 col-sm-offset-3">
     <div class="page-header">
-        <h1>Presupuesto</h1>
+        <h1>Presupuesto <small>Total: {{$totalBudget}}</small></h1>
     </div>
     <div class="col-sm-12">
         @if($errors->budgetError->first() != null)
@@ -14,9 +14,6 @@
             {{ $errors->budgetError->first() }}
         </div>
         @endif
-
-
-
         @foreach($categories[0] as $categorysup)
         <div class="col-xs-12 col-sm-6">
             <div class="list-group">

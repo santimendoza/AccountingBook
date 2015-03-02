@@ -13,7 +13,8 @@ class BudgetController extends Controller {
 
     public function index() {
         $categories = ExpensesCategoriesFunctions::getCategoriesAndSubcategories();
-        $data = ['categories' => $categories];
+        $totalBudget = ExpensesCategoriesFunctions::getTotalBudget();
+        $data = ['categories' => $categories, 'totalBudget' => $totalBudget];
         return view('budget.create')->with($data);
     }
 
