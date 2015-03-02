@@ -23,13 +23,14 @@ class DashboardController extends Controller {
 
     public function expenses() {
         $monthstartday = date('Y-m-d', mktime(1, 1, 1, date('n'), 1, date('Y')));
+        $monthstartdaystring = str_replace('-', '', $monthstartday);
         $gastostotales = 0;
         $gastoscategoria = [];
         $expensescategories = ExpensesCategories::where('user_id', '=', Auth::user()->id)->get();
         foreach ($expensescategories as $categories) {
             $gastos = 0;
-            $expenses = Expenses::where('expensesCategory_id', '=', $categories->id)
-                    ->where('date', '>=', $monthstartday)
+            $expenses = Expenses::where('date', '>=', $monthstartdaystring)
+                    ->where('expensesCategory_id', '=', $categories->id)
                     ->get();
             foreach ($expenses as $expense) {
                 $gastos += $expense->amount;
@@ -43,13 +44,14 @@ class DashboardController extends Controller {
 
     public function earnings() {
         $monthstartday = date('Y-m-d', mktime(1, 1, 1, date('n'), 1, date('Y')));
+        $monthstartdaystring = str_replace('-', '', $monthstartday);
         $gastostotales = 0;
         $gastoscategoria = [];
         $earningscategories = EarningsCategories::where('user_id', '=', Auth::user()->id)->get();
         foreach ($earningscategories as $categories) {
             $ingresos = 0;
             $earnings = Earnings::where('earningsCategory_id', '=', $categories->id)
-                    ->where('date', '>=', $monthstartday)
+                    ->where('date', '>=', $monthstartdaystring)
                     ->get();
             foreach ($earnings as $earning) {
                 $ingresos += $earning->amount;
