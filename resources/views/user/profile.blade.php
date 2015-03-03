@@ -49,7 +49,9 @@
     // Load the Visualization API and the piechart package.
     google.load('visualization', '1.0', {'packages': ['corechart']});
             // Set a callback to run when the Google Visualization API is loaded.
+            @if ($categoriessexpenses != null)
             google.setOnLoadCallback(drawChart);
+            @endif
             // Callback that creates and populates a data table,
                     // instantiates the pie chart, passes in the data and
                             // draws it.
@@ -60,9 +62,11 @@
                                             data.addColumn('string', 'Category');
                                             data.addColumn('number', 'Amount');
                                             var rows = new Array();
+                                            @if ($categoriessexpenses != null)
                                             @foreach($categoriessexpenses as $categoryexpense)
                                             rows.push(["{{$categoryexpense['slug']}}", {{$categoryexpense['amount']}}]);
                                             @endforeach
+                                            @endif
                                             data.addRows(rows);
                                             // Set chart options
                                             var options = {'title': 'Gastos',
