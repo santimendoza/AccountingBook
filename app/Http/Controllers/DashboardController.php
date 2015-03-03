@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 //use App\Http\Requests;
 use App\Models\Earnings\Earnings;
 use App\Models\Expenses\Expenses;
+use App\Models\Expenses\ExpensesFunctions;
 //use App\Models\User;
 use App\Models\EarningsCategories\EarningsCategories;
 use App\Models\ExpensesCategories\ExpensesCategories;
@@ -17,7 +18,8 @@ class DashboardController extends Controller {
     public function expensesCategoriesPercent() {
         $expenses = DashboardController::expenses();
         $earnings = DashboardController::earnings();
-        $data = ['expenses' => $expenses, 'earnings' => $earnings];
+        $categoriessexpenses = DashboardController::categoriesWithExpenses();
+        $data = ['expenses' => $expenses, 'earnings' => $earnings, 'categoriessexpenses' => $categoriessexpenses];
         return view('user.profile')->with($data);
     }
 
@@ -61,6 +63,33 @@ class DashboardController extends Controller {
         }
         $data = ['gastoscategoria' => $gastoscategoria, 'gastostotales' => $gastostotales];
         return $data;
+    }
+
+    public function categoriesWithExpenses() {
+        $categories = ExpensesCategories::where('user_id', '=', Auth::user()->id)->get();
+        if (count($categories) < 1) {
+            return 0;
+        }
+        $superiorcategories = [];
+        $categoriessuperior = [];
+        $expensescategories = [];
+        $totalcategories = 0;
+        foreach ($categories as $category) {
+            if ($category->superior_cat == null) {
+                $superiorcategories[$category->id] = [];
+                $expensecategory['amount'] = ExpensesFunctions::calculateExpensesCategory($category);
+                $expensecategory['slug'] = $category->slug;
+                $expensescategories[$category->id] = $expensecategory;
+                array_push($categoriessuperior, $category);
+                $totalcategories +=1;
+            }
+        }
+        foreach ($categories as $category) {
+            if ($category->superior_cat != null) {
+                 $expensescategories[$category->superior_cat]['amount'] += ExpensesFunctions::calculateExpensesCategory($category);
+            }
+        }
+        return $expensescategories;
     }
 
 }
