@@ -10,7 +10,7 @@
     </div>
     <div class="col-sm-12">
         @if($errors->expensesError->first() != null)
-        <div class="alert alert-info" role="alert">
+        <div class="alert alert-warning" role="alert">
             {{ $errors->expensesError->first() }}
         </div>
         @endif

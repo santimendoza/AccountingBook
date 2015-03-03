@@ -13,15 +13,19 @@ use Auth;
 class BudgetController extends Controller {
 
     public function index() {
+        return redirect('/budget/create');
+    }
+
+    public function create() {
         $categories = ExpensesCategoriesFunctions::getCategoriesAndSubcategories();
+        if(count($categories) <= 1){
+            return redirect('/categories/expenses')->withErrors('Parace que aún no tienes categorías de gasto. Crea una a continuación', 'expensesCategoriesError');
+        }
         $totalBudget = ExpensesCategoriesFunctions::getTotalBudget();
         $savings = Savings::where('user_id', '=', Auth::user()->id)->get();
         $data = ['categories' => $categories, 'totalBudget' => $totalBudget, 'savings' => $savings];
         return view('budget.create')->with($data);
-    }
-
-    public function create() {
-        return redirect('/budget');
+        
     }
 
     public function store(Request $request) {
@@ -42,17 +46,17 @@ class BudgetController extends Controller {
             }
             $totalcategory += $request['budget'];
             if ($totalcategory > $superior_cat->budget) {
-                return redirect('/budget')
+                return redirect('/budget/create')
                                 ->withErrors('El presupuesto asignado a esta categoría hace que se supere el presupuesto de su categoría superior', 'budgetError');
             } else {
                 $expensesCategory->budget = $request['budget'];
                 $expensesCategory->save();
-                return redirect('/budget');
+                return redirect('/budget/create');
             }
         } else {
             $expensesCategory->budget = $request['budget'];
             $expensesCategory->save();
-            return redirect('/budget');
+            return redirect('/budget/create');
         }
     }
 
@@ -82,9 +86,9 @@ class BudgetController extends Controller {
         if ($saving != null) {
             $saving->budget = $request['budget'];
             $saving->save();
-            return redirect('/budget');
+            return redirect('/budget/create');
         } else {
-            return redirect('/budget')->withErrors('El ahorro que ha intentado presupuestar no existe.', 'budgetError');
+            return redirect('/budget/create')->withErrors('El ahorro que ha intentado presupuestar no existe.', 'budgetError');
         }
     }
 

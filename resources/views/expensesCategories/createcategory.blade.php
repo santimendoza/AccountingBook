@@ -8,9 +8,9 @@
     <div class="page-header">
         <h1>Crear categoria de Gastos</h1>
     </div>
-    @if($errors->first() != null)
-    <div class="alert alert-info" role="alert">
-        {{ $errors->first() }}
+    @if($errors->expensesCategoriesError->first() != null)
+    <div class="alert alert-warning" role="alert">
+        {{ $errors->expensesCategoriesError->first() }}
     </div>
     @endif
     <form method="POST" action="/categories/expenses" accept-charset="UTF-8">

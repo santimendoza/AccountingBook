@@ -10,7 +10,7 @@
     </div>
     <div class="col-sm-12">
         @if($errors->savingsError->first() != null)
-        <div class="alert alert-info" role="alert">
+        <div class="alert alert-warning" role="alert">
             {{ $errors->savingsError->first() }}
         </div>
         @endif

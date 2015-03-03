@@ -15,7 +15,11 @@ class ExpensesCategoriesController extends Controller {
 
     public function index() {
         $categoriesarray = ExpensesCategoriesFunctions::getCategoriesAndSubcategories();
-        return view('expensesCategories.indexcategory')->with('categories', $categoriesarray);
+        if (count($categoriesarray) > 1) {
+            return view('expensesCategories.indexcategory')->with('categories', $categoriesarray);
+        }else{
+            return redirect('/categories/expenses/create')->withErrors('No tienes ninguna categoría creada. Crea una a continuación', 'expensesCategoriesError');
+        }
     }
 
     public function create() {

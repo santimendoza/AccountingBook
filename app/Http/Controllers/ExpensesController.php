@@ -35,7 +35,7 @@ class ExpensesController extends Controller {
     public function create() {
         $categories = ExpensesCategories::whereRaw('user_id = ?', [Auth::user()->id])->get();
         if ($categories->count() < 1) {
-            return redirect('/categories/expenses/create')->withErrors('Parece que aún no tienes categorías. Crea una en el siguiente formulario.');
+            return redirect('/categories/expenses/create')->withErrors('Parece que aún no tienes categorías. Crea una en el siguiente formulario.', 'expensesCategoriesError');
         }
         return view('expenses.create')->with('categories', $categories);
     }

@@ -9,7 +9,7 @@
         <h1>Crear categoria de Ingresos</h1>
     </div>
     @if($errors->first() != null)
-    <div class="alert alert-info" role="alert">
+    <div class="alert alert-warning" role="alert">
         {{ $errors->first() }}
     </div>
     @endif
