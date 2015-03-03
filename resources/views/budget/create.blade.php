@@ -14,6 +14,7 @@
             {{ $errors->budgetError->first() }}
         </div>
         @endif
+        <h2>Gastos</h2>
         @foreach($categories[0] as $categorysup)
         <div class="col-xs-12 col-sm-6">
             <div class="list-group">
@@ -58,7 +59,29 @@
             </div>
         </div>
         @endforeach
-
+        <h2>Ahorros</h2>
+        @foreach($savings as $saving)
+        <div class="col-xs-12 col-sm-6">
+            <div class="list-group">
+                <div class="list-group-item active">
+                    <h4 class="list-group-item-heading">{{$saving->title}}</h4>
+                    <form action="/budget/savings-budget" class="form" method="POST" class="form" accept-charset="UTF-8">
+                        <input name="_token" type="hidden" value="{{ csrf_token() }}">
+                        <div class="form-group">
+                            <input class="form-control" type="hidden" id="id" name="id" value="{{$saving->id}}" hidden/>
+                        </div>
+                        <div class="form-group">
+                            <label for="budget">Presupuesto para {{$saving->title}}:</label>
+                            <input class="form-control" type="text" pattern="[0-9]*(|.[0-9]+)" id="budget" value="{{$saving->budget}}" name="budget" placeholder="Presupuesto"/>
+                        </div>
+                        <div class="form-group">
+                            <input class="btn btn-success" type="submit" value="Guardar"/>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        @endforeach
     </div>
 </div>
 

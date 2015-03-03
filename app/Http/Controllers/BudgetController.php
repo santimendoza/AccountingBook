@@ -6,6 +6,7 @@ use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use App\Models\ExpensesCategories\ExpensesCategories;
 use App\Models\ExpensesCategories\ExpensesCategoriesFunctions;
+use App\Models\Savings\Savings;
 use Illuminate\Http\Request;
 use Auth;
 
@@ -14,7 +15,8 @@ class BudgetController extends Controller {
     public function index() {
         $categories = ExpensesCategoriesFunctions::getCategoriesAndSubcategories();
         $totalBudget = ExpensesCategoriesFunctions::getTotalBudget();
-        $data = ['categories' => $categories, 'totalBudget' => $totalBudget];
+        $savings = Savings::where('user_id', '=', Auth::user()->id)->get();
+        $data = ['categories' => $categories, 'totalBudget' => $totalBudget, 'savings' => $savings];
         return view('budget.create')->with($data);
     }
 
@@ -63,11 +65,27 @@ class BudgetController extends Controller {
     }
 
     public function update($id) {
-        //
+//
     }
 
     public function destroy($id) {
         return redirect('/budget/create');
+    }
+
+    public function storeSavingsBudget(Request $request) {
+        $rules = [
+            'id' => 'required|numeric',
+            'budget' => 'required|numeric'
+        ];
+        $this->validate($request, $rules);
+        $saving = Savings::find($request['id']);
+        if ($saving != null) {
+            $saving->budget = $request['budget'];
+            $saving->save();
+            return redirect('/budget');
+        } else {
+            return redirect('/budget')->withErrors('El ahorro que ha intentado presupuestar no existe.', 'budgetError');
+        }
     }
 
 }

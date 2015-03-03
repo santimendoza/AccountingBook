@@ -2,14 +2,14 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests;
+//use App\Http\Requests;
 use App\Models\Earnings\Earnings;
 use App\Models\Expenses\Expenses;
-use App\Models\User;
+//use App\Models\User;
 use App\Models\EarningsCategories\EarningsCategories;
 use App\Models\ExpensesCategories\ExpensesCategories;
 use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
+//use Illuminate\Http\Request;
 use Auth;
 
 class DashboardController extends Controller {

@@ -21,7 +21,8 @@ Route::group(['middleware' => 'auth'], function() {
     Route::post('/savings/{id}/usedFounds', 'SavingsController@usedFounds');
 
     //Budget
-    Route::resource('/budget', 'BudgetController');    
+    Route::resource('/budget', 'BudgetController');
+    Route::post('/budget/savings-budget', 'BudgetController@storeSavingsBudget');
     
     //User Routes
     Route::resource('/user', 'UserController');
