@@ -19,7 +19,7 @@ class DashboardController extends Controller {
         $expenses = DashboardController::expenses();
         $earnings = DashboardController::earnings();
         $categoriessexpenses = DashboardController::categoriesWithExpenses();
-        $differencePercentMonths = ExpensesFunctions::calculatePorcentsBetweenDates(date('n'), date('Y'), date('n') - 1, date('Y'));
+        $differencePercentMonths = ExpensesFunctions::calculateDifferenceBetweenDates(date('n'), date('Y'), date('n') - 1, date('Y'));
         $data = [
             'expenses' => $expenses,
             'earnings' => $earnings,

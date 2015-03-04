@@ -28,7 +28,7 @@ class ExpensesFunctions {
         return $totalexpenses;
     }
 
-    public static function calculatePorcentsBetweenDates($month1, $year1, $month2, $year2) {
+    public static function calculateDifferenceBetweenDates($month1, $year1, $month2, $year2) {
         $firstdatestring1 = DateFunctions::firstDayOfMonth($month1, $year1);
         $lastdatestring1 = DateFunctions::lastDayOfMonth($month1, $year1);
         $firstdatestring2 = DateFunctions::firstDayOfMonth($month2, $year2);
@@ -41,7 +41,7 @@ class ExpensesFunctions {
                         ->where('date', '<=', $lastdatestring2)->get();
         $expensesamount1 = ExpensesFunctions::calculateTotalExpenses($expensesmonth1);
         $expensesamount2 = ExpensesFunctions::calculateTotalExpenses($expensesmonth2);
-        if (count($expensesamount1) <= 1 || count($expensesamount2) <= 1) {
+        if (count($expensesamount2) <= 1) {
             $resultpercents = 0;
             $resultdifference = 0;
             return [round($resultpercents, 2), $resultdifference];
