@@ -26,6 +26,9 @@
                 </div>
                 <div class="col-xs-6 col-sm-3">
                     <h3>Gastos en el mes: {{$expenses['gastostotales']}}</h3>
+                    <p {{ $differenceMonths > 0 ? 'class=text-color-red' : 'class=text-color-green'}}>
+                        {{$differenceMonths}} $ {{$differencePercentMonths}} %
+                    </p>
                 </div>
                 <div class="col-xs-6 col-sm-3">
                     <h3>Ingresos en el mes: {{$earnings['gastostotales']}}</h3>
@@ -45,37 +48,34 @@
 </div>
 
 <script type="text/javascript">
-
-    // Load the Visualization API and the piechart package.
     google.load('visualization', '1.0', {'packages': ['corechart']});
-            // Set a callback to run when the Google Visualization API is loaded.
             @if ($categoriessexpenses != null)
             google.setOnLoadCallback(drawChart);
             @endif
-            // Callback that creates and populates a data table,
-                    // instantiates the pie chart, passes in the data and
-                            // draws it.
-                                    function drawChart() {
 
-                                    // Create the data table.
-                                    var data = new google.visualization.DataTable();
-                                            data.addColumn('string', 'Category');
-                                            data.addColumn('number', 'Amount');
-                                            var rows = new Array();
-                                            @if ($categoriessexpenses != null)
-                                            @foreach($categoriessexpenses as $categoryexpense)
-                                            rows.push(["{{$categoryexpense['slug']}}", {{$categoryexpense['amount']}}]);
-                                            @endforeach
-                                            @endif
-                                            data.addRows(rows);
-                                            // Set chart options
-                                            var options = {'title': 'Gastos',
-                                                    'width': 400,
-                                                    'height': 300};
-                                            // Instantiate and draw our chart, passing in some options.
-                                            var chart = new google.visualization.PieChart(document.getElementById('charts'));
-                                            chart.draw(data, options);
-                                    }
+            function drawChart() {
+
+            var data = new google.visualization.DataTable();
+                    data.addColumn('string', 'Category');
+                    data.addColumn('number', 'Amount');
+                    var rows = new Array();
+                    @if ($categoriessexpenses != null)
+                    @foreach($categoriessexpenses as $categoryexpense)
+                    rows.push(["{{$categoryexpense['slug']}}", {{$categoryexpense['amount']}}]);
+                    @endforeach
+                    @endif
+                    data.addRows(rows);
+                    // Set chart options
+                    var options = {
+                    title: 'Gastos',
+                            width: 400,
+                            height: 300,
+                            pieHole: 0.4,
+                    };
+                    // Instantiate and draw our chart, passing in some options.
+                    var chart = new google.visualization.PieChart(document.getElementById('charts'));
+                    chart.draw(data, options);
+            }
 </script>
 
 

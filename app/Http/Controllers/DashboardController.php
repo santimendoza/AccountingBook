@@ -3,14 +3,14 @@
 namespace App\Http\Controllers;
 
 //use App\Http\Requests;
+//use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 use App\Models\Earnings\Earnings;
 use App\Models\Expenses\Expenses;
 use App\Models\Expenses\ExpensesFunctions;
-//use App\Models\User;
+use App\Models\DateFunctions;
 use App\Models\EarningsCategories\EarningsCategories;
 use App\Models\ExpensesCategories\ExpensesCategories;
-use App\Http\Controllers\Controller;
-//use Illuminate\Http\Request;
 use Auth;
 
 class DashboardController extends Controller {
@@ -19,7 +19,14 @@ class DashboardController extends Controller {
         $expenses = DashboardController::expenses();
         $earnings = DashboardController::earnings();
         $categoriessexpenses = DashboardController::categoriesWithExpenses();
-        $data = ['expenses' => $expenses, 'earnings' => $earnings, 'categoriessexpenses' => $categoriessexpenses];
+        $differencePercentMonths = ExpensesFunctions::calculatePorcentsBetweenDates(date('n'), date('Y'), date('n') - 1, date('Y'));
+        $data = [
+            'expenses' => $expenses,
+            'earnings' => $earnings,
+            'categoriessexpenses' => $categoriessexpenses,
+            'differencePercentMonths' => $differencePercentMonths[0],
+            'differenceMonths' => $differencePercentMonths[1]
+        ];
         return view('user.profile')->with($data);
     }
 
@@ -86,7 +93,7 @@ class DashboardController extends Controller {
         }
         foreach ($categories as $category) {
             if ($category->superior_cat != null) {
-                 $expensescategories[$category->superior_cat]['amount'] += ExpensesFunctions::calculateExpensesCategory($category);
+                $expensescategories[$category->superior_cat]['amount'] += ExpensesFunctions::calculateExpensesCategory($category);
             }
         }
         return $expensescategories;
