@@ -29,16 +29,16 @@ class ExpensesFunctions {
     }
 
     public static function calculateDifferenceBetweenDates($actmonth, $actyear, $prevmonth, $prevyear) {
-        $firstdatestring1 = DateFunctions::firstDayOfMonth($actmonth, $actyear);
-        $lastdatestring1 = DateFunctions::lastDayOfMonth($actmonth, $actyear);
-        $firstdatestring2 = DateFunctions::firstDayOfMonth($prevmonth, $prevyear);
-        $lastdatestring2 = DateFunctions::lastDayOfMonth($prevmonth, $prevyear);
-        $expensesmonth1 = Expenses::where('user_id', '=', Auth::user()->id)
-                        ->where('date', '>=', $firstdatestring1)->where('date', '<=', $lastdatestring1)->get();
-        $expensesmonth2 = Expenses::where('user_id', '=', Auth::user()->id)
-                        ->where('date', '>=', $firstdatestring2)->where('date', '<=', $lastdatestring2)->get();
-        $expensesamount1 = ExpensesFunctions::calculateTotalExpenses($expensesmonth1);
-        $expensesamount2 = ExpensesFunctions::calculateTotalExpenses($expensesmonth2);
+        $actualFirstDateString = DateFunctions::firstDayOfMonth($actmonth, $actyear);
+        $actualLastDateString = DateFunctions::lastDayOfMonth($actmonth, $actyear);
+        $prevFirstDateString = DateFunctions::firstDayOfMonth($prevmonth, $prevyear);
+        $prevLastDateString = DateFunctions::lastDayOfMonth($prevmonth, $prevyear);
+        $expensesActualMonth = Expenses::where('user_id', '=', Auth::user()->id)
+                        ->where('date', '>=', $actualFirstDateString)->where('date', '<=', $actualLastDateString)->get();
+        $expensesPrevMonth = Expenses::where('user_id', '=', Auth::user()->id)
+                        ->where('date', '>=', $prevFirstDateString)->where('date', '<=', $prevLastDateString)->get();
+        $expensesamount1 = ExpensesFunctions::calculateTotalExpenses($expensesActualMonth);
+        $expensesamount2 = ExpensesFunctions::calculateTotalExpenses($expensesPrevMonth);
         if (count($expensesamount2) <= 1) {
             return [0, 0]; //Si en el mes pasado no tuvo gastos, devolver 0 en diferencia.
         } else {
