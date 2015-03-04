@@ -28,23 +28,19 @@ class ExpensesFunctions {
         return $totalexpenses;
     }
 
-    public static function calculateDifferenceBetweenDates($month1, $year1, $month2, $year2) {
-        $firstdatestring1 = DateFunctions::firstDayOfMonth($month1, $year1);
-        $lastdatestring1 = DateFunctions::lastDayOfMonth($month1, $year1);
-        $firstdatestring2 = DateFunctions::firstDayOfMonth($month2, $year2);
-        $lastdatestring2 = DateFunctions::lastDayOfMonth($month2, $year2);
+    public static function calculateDifferenceBetweenDates($actmonth, $actyear, $prevmonth, $prevyear) {
+        $firstdatestring1 = DateFunctions::firstDayOfMonth($actmonth, $actyear);
+        $lastdatestring1 = DateFunctions::lastDayOfMonth($actmonth, $actyear);
+        $firstdatestring2 = DateFunctions::firstDayOfMonth($prevmonth, $prevyear);
+        $lastdatestring2 = DateFunctions::lastDayOfMonth($prevmonth, $prevyear);
         $expensesmonth1 = Expenses::where('user_id', '=', Auth::user()->id)
-                        ->where('date', '>=', $firstdatestring1)
-                        ->where('date', '<=', $lastdatestring1)->get();
+                        ->where('date', '>=', $firstdatestring1)->where('date', '<=', $lastdatestring1)->get();
         $expensesmonth2 = Expenses::where('user_id', '=', Auth::user()->id)
-                        ->where('date', '>=', $firstdatestring2)
-                        ->where('date', '<=', $lastdatestring2)->get();
+                        ->where('date', '>=', $firstdatestring2)->where('date', '<=', $lastdatestring2)->get();
         $expensesamount1 = ExpensesFunctions::calculateTotalExpenses($expensesmonth1);
         $expensesamount2 = ExpensesFunctions::calculateTotalExpenses($expensesmonth2);
         if (count($expensesamount2) <= 1) {
-            $resultpercents = 0;
-            $resultdifference = 0;
-            return [round($resultpercents, 2), $resultdifference];
+            return [0, 0]; //Si en el mes pasado no tuvo gastos, devolver 0 en diferencia.
         } else {
             $resultpercents = (($expensesamount1 / $expensesamount2) * 100) - 100;
             $resultdifference = $expensesamount1 - $expensesamount2;
