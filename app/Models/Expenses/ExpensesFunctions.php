@@ -41,9 +41,15 @@ class ExpensesFunctions {
                         ->where('date', '<=', $lastdatestring2)->get();
         $expensesamount1 = ExpensesFunctions::calculateTotalExpenses($expensesmonth1);
         $expensesamount2 = ExpensesFunctions::calculateTotalExpenses($expensesmonth2);
-        $resultpercents = (($expensesamount1 / $expensesamount2) * 100) - 100;
-        $resultdifference = $expensesamount1 - $expensesamount2;
-        return [round($resultpercents, 2),$resultdifference];
+        if (count($expensesamount1) <= 1 || count($expensesamount2) <= 1) {
+            $resultpercents = 0;
+            $resultdifference = 0;
+            return [round($resultpercents, 2), $resultdifference];
+        } else {
+            $resultpercents = (($expensesamount1 / $expensesamount2) * 100) - 100;
+            $resultdifference = $expensesamount1 - $expensesamount2;
+            return [round($resultpercents, 2), $resultdifference];
+        }
     }
 
 }
