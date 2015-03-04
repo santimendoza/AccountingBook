@@ -39,7 +39,7 @@ class ExpensesFunctions {
                         ->where('date', '>=', $prevFirstDateString)->where('date', '<=', $prevLastDateString)->get();
         $expensesamount1 = ExpensesFunctions::calculateTotalExpenses($expensesActualMonth);
         $expensesamount2 = ExpensesFunctions::calculateTotalExpenses($expensesPrevMonth);
-        if (count($expensesamount2) <= 1) {
+        if ($expensesamount2 == 0) {
             return [0, 0]; //Si en el mes pasado no tuvo gastos, devolver 0 en diferencia.
         } else {
             $resultpercents = (($expensesamount1 / $expensesamount2) * 100) - 100;
