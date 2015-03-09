@@ -20,12 +20,6 @@ class ExpensesFunctions {
         $monthstartday = $dates[0];
         $monthendday = $dates[1];
         $monthstartdaystring = DateFunctions::dateToString($dates[0]);
-        $monthenddaystring = DateFunctions::dateToString($dates[1]);
-        while (date('n', strtotime($monthstartday)) == date('n', strtotime($monthendday))) {
-            $monthstartday = date('Y-m-d', strtotime('-1 day', strtotime($monthstartday)));
-        }
-        $monthstartdaystring = DateFunctions::dateToString($monthstartday);
-        $monthenddaystring = DateFunctions::dateToString($monthendday);
         $expenses = Expenses::where('expensesCategory_id', '=', $category->id)->where('date', '>=', $monthstartday)->get();
         $totalexpenses = 0;
         foreach ($expenses as $expense) {
