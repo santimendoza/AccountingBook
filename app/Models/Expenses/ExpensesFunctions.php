@@ -16,10 +16,17 @@ class ExpensesFunctions {
     }
 
     public static function calculateExpensesCategory($category) {
-        $month = date('n');
-        $year = date('Y');
-        $firstdatestring = DateFunctions::firstDayOfMonthString($month, $year);
-        $expenses = Expenses::where('expensesCategory_id', '=', $category->id)->where('date', '>=', $firstdatestring)->get();
+        $dates = DateFunctions::firstAndLastDayOfActualMonth();
+        $monthstartday = $dates[0];
+        $monthendday = $dates[1];
+        $monthstartdaystring = DateFunctions::dateToString($dates[0]);
+        $monthenddaystring = DateFunctions::dateToString($dates[1]);
+        while (date('n', strtotime($monthstartday)) == date('n', strtotime($monthendday))) {
+            $monthstartday = date('Y-m-d', strtotime('-1 day', strtotime($monthstartday)));
+        }
+        $monthstartdaystring = DateFunctions::dateToString($monthstartday);
+        $monthenddaystring = DateFunctions::dateToString($monthendday);
+        $expenses = Expenses::where('expensesCategory_id', '=', $category->id)->where('date', '>=', $monthstartday)->get();
         $totalexpenses = 0;
         foreach ($expenses as $expense) {
             $totalexpenses += $expense->amount;
@@ -28,10 +35,18 @@ class ExpensesFunctions {
     }
 
     public static function calculateDifferenceBetweenDates($actmonth, $actyear, $prevmonth, $prevyear) {
-        $actualFirstDateString = DateFunctions::firstDayOfMonthString($actmonth, $actyear);
+        $actualFirstDateString = DateFunctions::firstDayOfMonthString($actmonth - 1, $actyear);
         $actualLastDateString = DateFunctions::lastDayOfMonthString($actmonth, $actyear);
-        $prevFirstDateString = DateFunctions::firstDayOfMonthString($prevmonth, $prevyear);
+        while (date('n', strtotime($actualFirstDateString)) == date('n', strtotime($actualLastDateString))) {
+            $actualFirstDateString = date('Y-m-d', strtotime('-1 day', strtotime($actualFirstDateString)));
+        }
+        $actualFirstDateString = DateFunctions::dateToString($actualFirstDateString);
+        $prevFirstDateString = DateFunctions::firstDayOfMonthString($prevmonth-1, $prevyear);
         $prevLastDateString = DateFunctions::lastDayOfMonthString($prevmonth, $prevyear);
+        while (date('n', strtotime($prevFirstDateString)) == date('n', strtotime($prevLastDateString))) {
+            $prevFirstDateString = date('Y-m-d', strtotime('-1 day', strtotime($prevFirstDateString)));
+        }
+        $prevFirstDateString = DateFunctions::dateToString($prevFirstDateString);
         $expensesActualMonth = Expenses::where('user_id', '=', Auth::user()->id)
                         ->where('date', '>=', $actualFirstDateString)->where('date', '<=', $actualLastDateString)->get();
         $expensesPrevMonth = Expenses::where('user_id', '=', Auth::user()->id)

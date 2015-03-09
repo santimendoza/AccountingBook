@@ -14,16 +14,11 @@ use Auth;
 class EarningsController extends Controller {
 
     public function index() {
-        $month = date('n');
-        $year = date('Y');
-        $monthstartday = date('Y-m-d', mktime(1, 1, 1, $month - 1, Auth::user()->courtdate, $year));
-        $monthendday = date('Y-m-d', mktime(1, 1, 1, $month, Auth::user()->courtdate, $year));
-        while (date('n', strtotime($monthstartday)) == date('n', strtotime($monthendday))) {
-            $monthstartday = date('Y-m-d', strtotime('-1 day', strtotime($monthstartday)));
-        }
-        $monthstartdaystring = DateFunctions::dateToString($monthstartday);
-        $monthenddaystring = DateFunctions::dateToString($monthendday);
-
+        $dates = DateFunctions::firstAndLastDayOfActualMonth();
+        $monthstartday = $dates[0];
+        $monthendday = $dates[1];
+        $monthstartdaystring = DateFunctions::dateToString($dates[0]);
+        $monthenddaystring = DateFunctions::dateToString($dates[1]);
         $earnings = Earnings::whereRaw('user_id = ? and date <= ? and date >= ?', [
                     Auth::user()->id, $monthenddaystring, $monthstartdaystring
                 ])->orderBy('date')->get();

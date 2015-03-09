@@ -31,8 +31,8 @@ class DashboardController extends Controller {
     }
 
     public function expenses() {
-        $monthstartday = date('Y-m-d', mktime(1, 1, 1, date('n'), 1, date('Y')));
-        $monthstartdaystring = str_replace('-', '', $monthstartday);
+        $dates = DateFunctions::firstAndLastDayOfActualMonth();
+        $monthstartdaystring = DateFunctions::dateToString($dates[0]);
         $gastostotales = 0;
         $gastoscategoria = [];
         $expensescategories = ExpensesCategories::where('user_id', '=', Auth::user()->id)->get();
@@ -52,8 +52,8 @@ class DashboardController extends Controller {
     }
 
     public function earnings() {
-        $monthstartday = date('Y-m-d', mktime(1, 1, 1, date('n'), 1, date('Y')));
-        $monthstartdaystring = str_replace('-', '', $monthstartday);
+        $dates = DateFunctions::firstAndLastDayOfActualMonth();
+        $monthstartdaystring = DateFunctions::dateToString($dates[0]);
         $gastostotales = 0;
         $gastoscategoria = [];
         $earningscategories = EarningsCategories::where('user_id', '=', Auth::user()->id)->get();
