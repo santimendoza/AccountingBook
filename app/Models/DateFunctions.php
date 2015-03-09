@@ -19,7 +19,6 @@ class DateFunctions {
     }
 
     public static function firstDayOfMonth($month, $year) {
-        dd(date('t', $month));
         $date = date('Y-m-d', mktime(1, 1, 1, date($month), Auth::user()->courtdate, date($year)));
         return $date;
     }
