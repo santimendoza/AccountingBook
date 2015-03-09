@@ -70,7 +70,7 @@
                         <div class="form-group">
                             <label class="col-md-4 control-label">Día de corte (dd)</label>
                             <div class="col-md-6">
-                                <input type="text" name="courtdate" required id="courtdate" pattern="([0-2][0-9]|[3][0-1])" value="{{ old('courtdate')}}" placeholder="01" class="form-control"/>
+                                <input type="text" name="courtdate" required id="courtdate" pattern="([0-2][0-9]|[3][0-1])" value="{{ old('courtdate')}}" placeholder="01 a 31" class="form-control"/>
                             </div>
                         </div>
 
