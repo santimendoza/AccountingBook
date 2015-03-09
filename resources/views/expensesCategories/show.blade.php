@@ -16,7 +16,7 @@
     </div>
     <div id="table-container" class="col-sm-12">
         <div class="col-xs-12 col-sm-10 col-sm-offset-2">
-            <form action="/expenses/reports" method="POST" class="form-inline">
+            <form action="/categories/expenses/{{$expensesCategory->id}}/reports" method="POST" class="form-inline">
                 <input name="_token" type="hidden" value="{{ csrf_token() }}">
                 <div class="form-group">
                     Gastos Desde <input type="date" value="{{$date1}}" placeholder="Fecha" name="date1" id="date1" class="form-control">

@@ -3,7 +3,6 @@
 namespace App\Models\Expenses;
 
 use App\Models\DateFunctions;
-use App\Models\User;
 use Auth;
 
 class ExpensesFunctions {

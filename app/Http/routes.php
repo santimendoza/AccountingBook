@@ -4,6 +4,7 @@ Route::group(['middleware' => 'auth'], function() {
     //Categories routes
     Route::resource('/categories/earnings', 'EarningsCategoriesController');
     Route::resource('/categories/expenses', 'ExpensesCategoriesController');
+    Route::post('/categories/expenses/{id}/reports', 'ReportsController@expensesCategoryReport');
 
     //Earnings
     Route::resource('/earnings', 'EarningsController');
@@ -23,7 +24,7 @@ Route::group(['middleware' => 'auth'], function() {
     //Budget
     Route::resource('/budget', 'BudgetController');
     Route::post('/budget/savings-budget', 'BudgetController@storeSavingsBudget');
-    
+
     //User Routes
     Route::resource('/user', 'UserController');
     Route::get('/user/{{username}}', 'UserController@show');
