@@ -18,7 +18,7 @@ class ExpensesFunctions {
     public static function calculateExpensesCategory($category) {
         $month = date('n');
         $year = date('Y');
-        $firstdatestring = DateFunctions::firstDayOfMonth($month, $year);
+        $firstdatestring = DateFunctions::firstDayOfMonthString($month, $year);
         $expenses = Expenses::where('expensesCategory_id', '=', $category->id)->where('date', '>=', $firstdatestring)->get();
         $totalexpenses = 0;
         foreach ($expenses as $expense) {
@@ -28,10 +28,10 @@ class ExpensesFunctions {
     }
 
     public static function calculateDifferenceBetweenDates($actmonth, $actyear, $prevmonth, $prevyear) {
-        $actualFirstDateString = DateFunctions::firstDayOfMonth($actmonth, $actyear);
-        $actualLastDateString = DateFunctions::lastDayOfMonth($actmonth, $actyear);
-        $prevFirstDateString = DateFunctions::firstDayOfMonth($prevmonth, $prevyear);
-        $prevLastDateString = DateFunctions::lastDayOfMonth($prevmonth, $prevyear);
+        $actualFirstDateString = DateFunctions::firstDayOfMonthString($actmonth, $actyear);
+        $actualLastDateString = DateFunctions::lastDayOfMonthString($actmonth, $actyear);
+        $prevFirstDateString = DateFunctions::firstDayOfMonthString($prevmonth, $prevyear);
+        $prevLastDateString = DateFunctions::lastDayOfMonthString($prevmonth, $prevyear);
         $expensesActualMonth = Expenses::where('user_id', '=', Auth::user()->id)
                         ->where('date', '>=', $actualFirstDateString)->where('date', '<=', $actualLastDateString)->get();
         $expensesPrevMonth = Expenses::where('user_id', '=', Auth::user()->id)
