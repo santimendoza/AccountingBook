@@ -3,17 +3,17 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateBalanceAttribute extends Migration {
+class AddCourtDateToUsersTable extends Migration {
 
     public function up() {
         Schema::table('users', function($table) {
-            $table->double('balance')->nullable()->default(0);
+            $table->string('courtdate')->nullable()->default("01");
         });
     }
 
     public function down() {
         Schema::table('users', function($table) {
-            $table->dropColumn('balance');
+            $table->dropColumn('courtdate');
         });
     }
 

@@ -23,6 +23,7 @@ class Registrar implements RegistrarContract {
                     'username' => 'required|unique:users|max:255',
                     'lastname' => 'required|max:255',
                     'balance' => 'required|numeric',
+                    'courtdate'=> 'required|min:2|max:2'
         ]);
     }
 
@@ -40,7 +41,8 @@ class Registrar implements RegistrarContract {
                     'email' => $data['email'],
                     'currency' => $data['currency'],
                     'password' => bcrypt($data['password']),
-                    'balance' => $data['balance']
+                    'balance' => $data['balance'],
+                    'courtdate'=> $data['courtdate']
         ]);
     }
 
