@@ -20,7 +20,7 @@ class ExpensesFunctions {
         $monthstartday = $dates[0];
         $monthendday = $dates[1];
         $monthstartdaystring = DateFunctions::dateToString($dates[0]);
-        $expenses = Expenses::where('expensesCategory_id', '=', $category->id)->where('date', '>=', $monthstartday)->get();
+        $expenses = Expenses::where('expensesCategory_id', '=', $category->id)->where('date', '>=', $monthstartdaystring)->get();
         $totalexpenses = 0;
         foreach ($expenses as $expense) {
             $totalexpenses += $expense->amount;
