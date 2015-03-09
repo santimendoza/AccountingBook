@@ -9,6 +9,7 @@ use App\Models\ExpensesCategories\ExpensesCategories;
 use App\Models\Expenses\Expenses;
 use App\Models\Expenses\ExpensesFunctions;
 use App\Models\ExpensesCategories\ExpensesCategoriesFunctions;
+use App\Models\DateFunctions;
 use Auth;
 
 class ExpensesCategoriesController extends Controller {
@@ -17,7 +18,7 @@ class ExpensesCategoriesController extends Controller {
         $categoriesarray = ExpensesCategoriesFunctions::getCategoriesAndSubcategories();
         if (count($categoriesarray) > 1) {
             return view('expensesCategories.indexcategory')->with('categories', $categoriesarray);
-        }else{
+        } else {
             return redirect('/categories/expenses/create')->withErrors('No tienes ninguna categoría creada. Crea una a continuación', 'expensesCategoriesError');
         }
     }
@@ -41,11 +42,15 @@ class ExpensesCategoriesController extends Controller {
     }
 
     public function show($id) {
-        $m = date('n');
-        $monthstartday = date('Y-m-d', mktime(1, 1, 1, $m, 1, date('Y'))); //Primer día del mes.
-        $monthendday = date('Y-m-d', mktime(1, 1, 1, $m + 1, 0, date('Y'))); //Último día del mes.
-        $monthstartdaystring = str_replace('-', '', $monthstartday);
-        $monthenddaystring = str_replace('-', '', $monthendday);
+        $month = date('n');
+        $year = date('Y');
+        $monthstartday = date('Y-m-d', mktime(1, 1, 1, $month - 1, Auth::user()->courtdate, $year));
+        $monthendday = date('Y-m-d', mktime(1, 1, 1, $month, Auth::user()->courtdate, $year));
+        while (date('n', strtotime($monthstartday)) == date('n', strtotime($monthendday))) {
+            $monthstartday = date('Y-m-d', strtotime('-1 day', strtotime($monthstartday)));
+        }
+        $monthstartdaystring = DateFunctions::dateToString($monthstartday);
+        $monthenddaystring = DateFunctions::dateToString($monthendday);
         $expenses = Expenses::whereRaw('user_id = ? and date <= ? and date >= ? and expensesCategory_id = ?', [
                     Auth::user()->id, $monthenddaystring, $monthstartdaystring, $id
                 ])->orderBy('date')->get();

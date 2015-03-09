@@ -8,16 +8,21 @@ use App\Models\Earnings\Earnings;
 use App\Models\User;
 use Illuminate\Http\Request;
 use App\Models\EarningsCategories\EarningsCategories;
+use App\Models\DateFunctions;
 use Auth;
 
 class EarningsController extends Controller {
 
     public function index() {
-        $m = date('n');
-        $monthstartday = date('Y-m-d', mktime(1, 1, 1, $m, 1, date('Y')));
-        $monthendday = date('Y-m-d', mktime(1, 1, 1, $m + 1, 0, date('Y')));
-        $monthstartdaystring = str_replace('-', '', $monthstartday);
-        $monthenddaystring = str_replace('-', '', $monthendday);
+        $month = date('n');
+        $year = date('Y');
+        $monthstartday = date('Y-m-d', mktime(1, 1, 1, $month - 1, Auth::user()->courtdate, $year));
+        $monthendday = date('Y-m-d', mktime(1, 1, 1, $month, Auth::user()->courtdate, $year));
+        while (date('n', strtotime($monthstartday)) == date('n', strtotime($monthendday))) {
+            $monthstartday = date('Y-m-d', strtotime('-1 day', strtotime($monthstartday)));
+        }
+        $monthstartdaystring = DateFunctions::dateToString($monthstartday);
+        $monthenddaystring = DateFunctions::dateToString($monthendday);
 
         $earnings = Earnings::whereRaw('user_id = ? and date <= ? and date >= ?', [
                     Auth::user()->id, $monthenddaystring, $monthstartdaystring
