@@ -6,6 +6,7 @@ use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Expenses\Expenses;
+use App\Models\ExpensesCategories\ExpensesCategories;
 use App\Models\Expenses\ExpensesFunctions;
 use App\Models\Earnings\Earnings;
 use Auth;
@@ -44,9 +45,10 @@ class ReportsController extends Controller {
                     Auth::user()->id, $date2, $date1, $id
                 ])->orderBy('date')->get();
         $totalexpenses = ExpensesFunctions::calculateTotalExpenses($expenses);
+        $expensesCategory = ExpensesCategories::find($id);
         $data = ['expenses' => $expenses, 'date1' => $request['date1'],
-            'date2' => $request['date2'], 'id' => $id, 'totalexpenses' => $totalexpenses];
-        return view('expenses.index')->with($data);
+            'date2' => $request['date2'], 'id' => $id, 'totalexpenses' => $totalexpenses, 'expensesCategory' => $expensesCategory];
+        return view('expensesCategories.show')->with($data);
     }
 
     public function earningsCategoryReport(Request $request) {
