@@ -17,8 +17,8 @@ class ExpensesFunctions {
 
     public static function calculateExpensesCategory($category) {
         $dates = DateFunctions::firstAndLastDayOfActualMonth();
-        $monthstartday = $dates[0];
-        $monthendday = $dates[1];
+//        $monthstartday = $dates[0];
+//        $monthendday = $dates[1];
         $monthstartdaystring = DateFunctions::dateToString($dates[0]);
         $expenses = Expenses::where('expensesCategory_id', '=', $category->id)->where('date', '>=', $monthstartdaystring)->get();
         $totalexpenses = 0;

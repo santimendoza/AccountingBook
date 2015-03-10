@@ -15,9 +15,9 @@ use Auth;
 
 class DashboardController extends Controller {
 
-    public function expensesCategoriesPercent() {
-        $expenses = DashboardController::expenses();
-        $earnings = DashboardController::earnings();
+    public function dashboard() {
+        $expenses = DashboardController::expensesDashboard();
+        $earnings = DashboardController::earningsDashboard();
         $categoriessexpenses = DashboardController::categoriesWithExpenses();
         $differencePercentMonths = ExpensesFunctions::calculateDifferenceBetweenDates(date('n'), date('Y'), date('n') - 1, date('Y'));
         $data = [
@@ -30,7 +30,7 @@ class DashboardController extends Controller {
         return view('user.profile')->with($data);
     }
 
-    public function expenses() {
+    public function expensesDashboard() {
         $dates = DateFunctions::firstAndLastDayOfActualMonth();
         $monthstartdaystring = DateFunctions::dateToString($dates[0]);
         $gastostotales = 0;
@@ -51,7 +51,7 @@ class DashboardController extends Controller {
         return $data;
     }
 
-    public function earnings() {
+    public function earningsDashboard() {
         $dates = DateFunctions::firstAndLastDayOfActualMonth();
         $monthstartdaystring = DateFunctions::dateToString($dates[0]);
         $gastostotales = 0;

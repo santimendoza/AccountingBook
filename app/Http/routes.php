@@ -30,7 +30,7 @@ Route::group(['middleware' => 'auth'], function() {
     Route::get('/user/{{username}}', 'UserController@show');
 
     //Dashboard
-    Route::get('/dashboard', 'DashboardController@expensesCategoriesPercent');
+    Route::get('/dashboard', 'DashboardController@dashboard');
 });
 
 //General Routes
