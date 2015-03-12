@@ -79,11 +79,15 @@ class ExpensesController extends Controller {
         ];
         $this->validate($request, $rules);
         $expense = Expenses::find($id);
+        $difference = $expense->amount - $request['amount'];
         $expense->amount = $request['amount'];
         $expense->description = $request['description'];
         $expense->expensesCategory_id = $request['expensesCategory_id'];
         $expense->date = str_replace('-', '', $request['date']);
         $expense->save();
+        $user = User::find(Auth::user()->id);
+        $user->balance += $difference;
+        $user->save();
         return redirect('expenses');
     }
 

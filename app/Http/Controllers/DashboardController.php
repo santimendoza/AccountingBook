@@ -11,6 +11,7 @@ use App\Models\Expenses\ExpensesFunctions;
 use App\Models\DateFunctions;
 use App\Models\EarningsCategories\EarningsCategories;
 use App\Models\ExpensesCategories\ExpensesCategories;
+use App\Models\ExpensesCategories\ExpensesCategoriesFunctions;
 use Auth;
 
 class DashboardController extends Controller {
@@ -84,7 +85,7 @@ class DashboardController extends Controller {
         foreach ($categories as $category) {
             if ($category->superior_cat == null) {
                 $superiorcategories[$category->id] = [];
-                $expensecategory['amount'] = ExpensesCategoriesController::calculateExpensesCategory($category);
+                $expensecategory['amount'] = ExpensesCategoriesFunctions::calculateExpensesCategoryValue($category);
                 $expensecategory['slug'] = $category->slug;
                 $expensescategories[$category->id] = $expensecategory;
                 array_push($categoriessuperior, $category);
@@ -93,7 +94,7 @@ class DashboardController extends Controller {
         }
         foreach ($categories as $category) {
             if ($category->superior_cat != null) {
-                $expensescategories[$category->superior_cat]['amount'] += ExpensesCategoriesController::calculateExpensesCategory($category);
+                $expensescategories[$category->superior_cat]['amount'] += ExpensesCategoriesFunctions::calculateExpensesCategoryValue($category);
             }
         }
         return $expensescategories;
