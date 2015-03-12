@@ -23,7 +23,7 @@ class ExpensesCategoriesFunctions {
                 $query->orWhere('expensesCategory_id', '=', $subcategory->id);
             }
         });
-        return ExpensesFunctions::calculateTotalExpenses($expenses->get());
+        return ExpensesFunctions::calculateTotalExpenses($expenses->orderBy('date')->get());
     }
 
     public static function calculateExpensesCategory($category) {
@@ -38,7 +38,7 @@ class ExpensesCategoriesFunctions {
                 $query->orWhere('expensesCategory_id', '=', $subcategory->id);
             }
         });
-        return $expenses->get();
+        return $expenses->orderBy('date')->get();
     }
 
     public static function getCategoriesAndSubcategories() {
