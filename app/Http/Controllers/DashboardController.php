@@ -92,11 +92,6 @@ class DashboardController extends Controller {
                 $totalcategories +=1;
             }
         }
-        foreach ($categories as $category) {
-            if ($category->superior_cat != null) {
-                $expensescategories[$category->superior_cat]['amount'] += ExpensesCategoriesFunctions::calculateExpensesCategoryValue($category);
-            }
-        }
         return $expensescategories;
     }
 
