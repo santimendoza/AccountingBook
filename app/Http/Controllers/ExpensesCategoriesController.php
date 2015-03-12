@@ -45,12 +45,8 @@ class ExpensesCategoriesController extends Controller {
         $dates = DateFunctions::firstAndLastDayOfActualMonth();
         $monthstartday = $dates[0];
         $monthendday = $dates[1];
-        $monthstartdaystring = DateFunctions::dateToString($dates[0]);
-        $monthenddaystring = DateFunctions::dateToString($dates[1]);
-        $expenses = Expenses::whereRaw('user_id = ? and date <= ? and date >= ? and expensesCategory_id = ?', [
-                    Auth::user()->id, $monthenddaystring, $monthstartdaystring, $id
-                ])->orderBy('date')->get();
         $expensesCategory = ExpensesCategories::find($id);
+        $expenses = ExpensesCategoriesFunctions::calculateExpensesCategory($expensesCategory);
         $totalexpenses = ExpensesFunctions::calculateTotalExpenses($expenses);
         $data = ['expenses' => $expenses, 'date1' => $monthstartday, 'date2' => $monthendday,
             'expensesCategory' => $expensesCategory, 'totalexpenses' => $totalexpenses];

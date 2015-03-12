@@ -84,7 +84,7 @@ class DashboardController extends Controller {
         foreach ($categories as $category) {
             if ($category->superior_cat == null) {
                 $superiorcategories[$category->id] = [];
-                $expensecategory['amount'] = ExpensesFunctions::calculateExpensesCategory($category);
+                $expensecategory['amount'] = ExpensesCategoriesController::calculateExpensesCategory($category);
                 $expensecategory['slug'] = $category->slug;
                 $expensescategories[$category->id] = $expensecategory;
                 array_push($categoriessuperior, $category);
@@ -93,7 +93,7 @@ class DashboardController extends Controller {
         }
         foreach ($categories as $category) {
             if ($category->superior_cat != null) {
-                $expensescategories[$category->superior_cat]['amount'] += ExpensesFunctions::calculateExpensesCategory($category);
+                $expensescategories[$category->superior_cat]['amount'] += ExpensesCategoriesController::calculateExpensesCategory($category);
             }
         }
         return $expensescategories;

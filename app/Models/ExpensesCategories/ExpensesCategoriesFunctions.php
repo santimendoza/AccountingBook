@@ -5,14 +5,38 @@ namespace App\Models\ExpensesCategories;
 use Auth;
 use App\Models\ExpensesCategories\ExpensesCategories;
 use App\Models\Expenses\ExpensesFunctions;
+use App\Models\DateFunctions;
+use App\Models\Expenses\Expenses;
 use App\Models\Savings\Savings;
 
 class ExpensesCategoriesFunctions {
 
+    public static function calculateExpensesCategoryValue($category) {
+        $dates = DateFunctions::firstAndLastDayOfActualMonth();
+        $monthstartdaystring = DateFunctions::dateToString($dates[0]);
+        $expenses = Expenses::where('expensesCategory_id', '=', $category->id)->where('date', '>=', $monthstartdaystring)->get();
+        $totalexpenses = 0;
+        foreach ($expenses as $expense) {
+            $totalexpenses += $expense->amount;
+        }
+        return $totalexpenses;
+    }
+
+    public static function calculateExpensesCategory($category) {
+        $dates = DateFunctions::firstAndLastDayOfActualMonth();
+        $monthstartdaystring = DateFunctions::dateToString($dates[0]);
+        $subcategories = ExpensesCategories::where('superior_cat', '=', $category->id)->get();
+        $expenses = Expenses::where('date', '>=', $monthstartdaystring)->where('expensesCategory_id', '=', $category->id);
+        foreach ($subcategories as $subcategory) {
+            $expenses = $expenses->orWhere('expensesCategory_id', '=', $subcategory->id);
+        }
+        return $expenses->get();
+    }
+
     public static function getCategoriesAndSubcategories() {
         $categories = ExpensesCategories::where('user_id', '=', Auth::user()->id)->get();
         if (count($categories) < 1) {
-            return 0;
+            return [];
         }
         $superiorcategories = [];
         $categoriessuperior = [];
@@ -20,20 +44,18 @@ class ExpensesCategoriesFunctions {
         foreach ($categories as $category) {
             if ($category->superior_cat == null) {
                 $superiorcategories[$category->id] = [];
-                $category->amount = ExpensesFunctions::calculateExpensesCategory($category);
+                $category->amount = ExpensesCategoriesFunctions::calculateExpensesCategoryValue($category);
                 array_push($categoriessuperior, $category);
                 $totalcategories +=1;
             }
         }
         foreach ($categories as $category) {
             if ($category->superior_cat != null) {
-                $category->amount = ExpensesFunctions::calculateExpensesCategory($category);
+                $category->amount = ExpensesCategoriesFunctions::calculateExpensesCategoryValue($category);
                 array_push($superiorcategories[$category->superior_cat], $category);
             }
         }
-        $categoriesarray[0] = $categoriessuperior;
-        $categoriesarray[1] = $superiorcategories;
-
+        $categoriesarray = [$categoriessuperior, $superiorcategories];
         return $categoriesarray;
     }
 
@@ -48,7 +70,7 @@ class ExpensesCategoriesFunctions {
                 $totalBudget += $category->budget;
             }
         }
-        if(count($savings) >= 1){
+        if (count($savings) >= 1) {
             foreach ($savings as $saving) {
                 $totalBudget += $saving->budget;
             }

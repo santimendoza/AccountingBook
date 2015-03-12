@@ -15,19 +15,6 @@ class ExpensesFunctions {
         return $totalexpenses;
     }
 
-    public static function calculateExpensesCategory($category) {
-        $dates = DateFunctions::firstAndLastDayOfActualMonth();
-//        $monthstartday = $dates[0];
-//        $monthendday = $dates[1];
-        $monthstartdaystring = DateFunctions::dateToString($dates[0]);
-        $expenses = Expenses::where('expensesCategory_id', '=', $category->id)->where('date', '>=', $monthstartdaystring)->get();
-        $totalexpenses = 0;
-        foreach ($expenses as $expense) {
-            $totalexpenses += $expense->amount;
-        }
-        return $totalexpenses;
-    }
-
     public static function calculateDifferenceBetweenDates($actmonth, $actyear, $prevmonth, $prevyear) {
         $actualFirstDateString = DateFunctions::firstDayOfMonthString($actmonth - 1, $actyear);
         $actualLastDateString = DateFunctions::lastDayOfMonthString($actmonth, $actyear);
