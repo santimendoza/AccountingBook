@@ -9,18 +9,26 @@
         <div class="pull-right">
             <a href="/budget/create" class="btn btn-success">Modificar presupuestos</a>
         </div>
-        <h1>Categorías de Gastos</h1>
+        <h1>Presupuesto</h1>
     </div>
     <div class="col-sm-12">
         @foreach($categories[0] as $categorysup)
         <div class="col-sm-3">
-
-            <div id="piechart{{$categorysup->id}}" style="width: 300px; height: 400px;"></div>
-
+            <div id="piechart{{$categorysup->id}}" style="width: 300px; height: 400px;">
+                <h1>{{$categorysup->slug}}</h1>
+                <p>Presupuestado: {{$categorysup->budget}}</p>
+                <p class="text-color-red">Gastado: {{$categorysup->amount}}</p>
+                <p class="text-color-green">Restante: {{$categorysup->budget - $categorysup->amount }}</p>
+            </div>
             @foreach($categories[1] as $categoryinf)
             @foreach($categoryinf as $category)
             @if($categorysup->superior_cat == $categorysup->id)
-            <div id="piechart{{$categoryinf->id}}" style="width: 300px; height: 400px;"></div>
+            <div id="piechart{{$categoryinf->id}}" style="width: 300px; height: 400px;">
+                <h1>{{$categoryinf->slug}}</h1>
+                <p>Presupuestado: {{$categoryinf->budget}}</p>
+                <p class="text-color-red">Gastado: {{$categoryinf->amount}}</p>
+                <p class="text-color-green">Restante: {{$categoryinf->budget - $categoryinf->amount }}</p>
+            </div>
             @endif
             @endforeach
             @endforeach
@@ -29,30 +37,6 @@
         @endforeach
     </div>
 </div>
-<script type="text/javascript">
-    google.load("visualization", "1", {packages: ["corechart"]});
-            @if ($categories != null)
-            google.setOnLoadCallback(drawChart);
-            @endif
-            
-            function drawChart() {
-            @foreach($categories[0] as $categorysup)
-                    var data = google.visualization.arrayToDataTable([
-                            ['Categoria', 'Monto'],
-                            @if ( ($categorysup->budget - $categorysup->amount) < 0)
-                            ['Presupuesto restante', 0],
-                            @else
-                            ['Presupuesto restante', {{ $categorysup->budget - $categorysup->amount }}],
-                            @endif
-                            ['Gastado', {{$categorysup->amount}}],
-                    ]);
-                    var options = {
-                    title: '{{$categorysup->slug}}'
-                    };
-                    var chart = new google.visualization.PieChart(document.getElementById('piechart{{$categorysup->id}}'));
-                    chart.draw(data, options);
-                    @endforeach
-            }
-</script>
+
 @stop
 
