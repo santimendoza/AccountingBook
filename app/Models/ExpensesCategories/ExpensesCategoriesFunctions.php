@@ -8,12 +8,14 @@ use App\Models\Expenses\ExpensesFunctions;
 use App\Models\DateFunctions;
 use App\Models\Expenses\Expenses;
 use App\Models\Savings\Savings;
+use DB;
 
 class ExpensesCategoriesFunctions {
 
     public static function calculateExpensesCategoryValue($category) {
         $dates = DateFunctions::firstAndLastDayOfActualMonth();
         $monthstartdaystring = DateFunctions::dateToString($dates[0]);
+
         $expenses = Expenses::where('date', '>=', $monthstartdaystring)
                 ->where('expensesCategory_id', '=', $category->id);
         if ($category->superior_cat == null) {
@@ -26,13 +28,17 @@ class ExpensesCategoriesFunctions {
     }
 
     public static function calculateExpensesCategory($category) {
+        DB::enableQueryLog();
         $dates = DateFunctions::firstAndLastDayOfActualMonth();
         $monthstartdaystring = DateFunctions::dateToString($dates[0]);
         $subcategories = ExpensesCategories::where('superior_cat', '=', $category->id)->get();
-        $expenses = Expenses::where('date', '>=', $monthstartdaystring)->where('expensesCategory_id', '=', $category->id);
-        foreach ($subcategories as $subcategory) {
-            $expenses = $expenses->orWhere('expensesCategory_id', '=', $subcategory->id);
-        }
+        $expenses = Expenses::where('date', '>=', $monthstartdaystring)
+                ->where(function($query) use ($subcategories, $category) {
+            $query->orWhere('expensesCategory_id', '=', $category->id);
+            foreach ($subcategories as $subcategory) {
+                $query->orWhere('expensesCategory_id', '=', $subcategory->id);
+            }
+        });
         return $expenses->get();
     }
 
