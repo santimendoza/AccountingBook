@@ -7,7 +7,7 @@
 <div id="content" class="col-xs-12 col-sm-6 col-sm-offset-3">
     <div class="page-header">
         <div class="pull-right">
-            <a href="/categories/expenses/create" class="btn btn-success">Crear categoria</a>
+            <a href="/budget/create" class="btn btn-success">Modificar presupuestos</a>
         </div>
         <h1>Categorías de Gastos</h1>
     </div>
