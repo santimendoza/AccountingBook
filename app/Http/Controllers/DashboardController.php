@@ -74,25 +74,15 @@ class DashboardController extends Controller {
     }
 
     public function categoriesWithExpenses() {
-        $categories = ExpensesCategories::where('user_id', '=', Auth::user()->id)->get();
+        $categories = ExpensesCategories::where('user_id', '=', Auth::user()->id)
+                        ->whereNull('superior_cat')->get();
         if (count($categories) < 1) {
             return 0;
         }
-        $superiorcategories = [];
-        $categoriessuperior = [];
-        $expensescategories = [];
-        $totalcategories = 0;
         foreach ($categories as $category) {
-            if ($category->superior_cat == null) {
-                $superiorcategories[$category->id] = [];
-                $expensecategory['amount'] = ExpensesCategoriesFunctions::calculateExpensesCategoryValue($category);
-                $expensecategory['slug'] = $category->slug;
-                $expensescategories[$category->id] = $expensecategory;
-                array_push($categoriessuperior, $category);
-                $totalcategories +=1;
-            }
+            $category->amount = ExpensesCategoriesFunctions::calculateExpensesCategoryValue($category);
         }
-        return $expensescategories;
+        return $categories;
     }
 
 }

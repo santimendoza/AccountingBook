@@ -61,7 +61,7 @@
                     var rows = new Array();
                     @if ($categoriessexpenses != null)
                     @foreach($categoriessexpenses as $categoryexpense)
-                    rows.push(["{{$categoryexpense['slug']}}", {{$categoryexpense['amount']}}]);
+                    rows.push(["{{$categoryexpense->slug}}", {{$categoryexpense->amount}}]);
                     @endforeach
                     @endif
                     data.addRows(rows);
