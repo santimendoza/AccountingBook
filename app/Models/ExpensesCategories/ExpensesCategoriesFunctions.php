@@ -4,6 +4,7 @@ namespace App\Models\ExpensesCategories;
 
 use Auth;
 use App\Models\ExpensesCategories\ExpensesCategories;
+use App\Models\Expenses\ExpensesFunctions;
 use App\Models\Savings\Savings;
 
 class ExpensesCategoriesFunctions {
@@ -19,12 +20,14 @@ class ExpensesCategoriesFunctions {
         foreach ($categories as $category) {
             if ($category->superior_cat == null) {
                 $superiorcategories[$category->id] = [];
+                $category->amount = ExpensesFunctions::calculateExpensesCategory($category);
                 array_push($categoriessuperior, $category);
                 $totalcategories +=1;
             }
         }
         foreach ($categories as $category) {
             if ($category->superior_cat != null) {
+                $category->amount = ExpensesFunctions::calculateExpensesCategory($category);
                 array_push($superiorcategories[$category->superior_cat], $category);
             }
         }

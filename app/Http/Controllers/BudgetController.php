@@ -13,19 +13,23 @@ use Auth;
 class BudgetController extends Controller {
 
     public function index() {
-        return redirect('/budget/create');
+        $categoriesarray = ExpensesCategoriesFunctions::getCategoriesAndSubcategories();
+        if (count($categoriesarray) > 1) {
+            return view('budget.index')->with('categories', $categoriesarray);
+        } else {
+            return redirect('/categories/expenses/create')->withErrors('No tienes ninguna categoría creada. Crea una a continuación', 'expensesCategoriesError');
+        }
     }
 
     public function create() {
         $categories = ExpensesCategoriesFunctions::getCategoriesAndSubcategories();
-        if(count($categories) <= 1){
+        if (count($categories) <= 1) {
             return redirect('/categories/expenses')->withErrors('Parace que aún no tienes categorías de gasto. Crea una a continuación', 'expensesCategoriesError');
         }
         $totalBudget = ExpensesCategoriesFunctions::getTotalBudget();
         $savings = Savings::where('user_id', '=', Auth::user()->id)->get();
         $data = ['categories' => $categories, 'totalBudget' => $totalBudget, 'savings' => $savings];
         return view('budget.create')->with($data);
-        
     }
 
     public function store(Request $request) {

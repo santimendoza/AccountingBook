@@ -14,21 +14,45 @@
     <div class="col-sm-12">
         @foreach($categories[0] as $categorysup)
         <div class="col-sm-3">
-            <div class="list-group">
-                <a href="/categories/expenses/{{$categorysup->id}}" class="list-group-item active">
-                    {{$categorysup->slug}}<span class="badge">{{count($categories[1][$categorysup->id])}}</span>
-                </a>
-                @foreach($categories[1] as $categoryinf)
-                @foreach($categoryinf as $category)
-                @if($category->superior_cat == $categorysup->id)
-                <a href="/categories/expenses/{{$category->id}}" class="list-group-item">{{$category->slug}}</a>
-                @endif
-                @endforeach
-                @endforeach
-            </div>
+
+            <div id="piechart{{$categorysup->id}}" style="width: 300px; height: 400px;"></div>
+
+            @foreach($categories[1] as $categoryinf)
+            @foreach($categoryinf as $category)
+            @if($categorysup->superior_cat == $categorysup->id)
+            <div id="piechart{{$categoryinf->id}}" style="width: 300px; height: 400px;"></div>
+            @endif
+            @endforeach
+            @endforeach
+
         </div>
         @endforeach
     </div>
 </div>
-
+<script type="text/javascript">
+    google.load("visualization", "1", {packages: ["corechart"]});
+            @if ($categories != null)
+            google.setOnLoadCallback(drawChart);
+            @endif
+            
+            function drawChart() {
+            @foreach($categories[0] as $categorysup)
+                    var data = google.visualization.arrayToDataTable([
+                            ['Categoria', 'Monto'],
+                            @if ( ($categorysup->budget - $categorysup->amount) < 0)
+                            ['Presupuesto restante', 0],
+                            @else
+                            ['Presupuesto restante', {{ $categorysup->budget - $categorysup->amount }}],
+                            @endif
+                            ['Gastado', {{$categorysup->amount}}],
+                    ]);
+                    var options = {
+                    title: '{{$categorysup->slug}}'
+                    };
+                    var chart = new google.visualization.PieChart(document.getElementById('piechart{{$categorysup->id}}'));
+                    chart.draw(data, options);
+                    @endforeach
+            }
+</script>
 @stop
+
