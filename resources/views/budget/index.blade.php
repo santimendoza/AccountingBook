@@ -14,7 +14,7 @@
     <div class="col-sm-12">
         @foreach($categories[0] as $categorysup)
         <div class="col-sm-3">
-            <div id="piechart{{$categorysup->id}}" style="width: 300px; height: 400px;">
+            <div id="piechart{{$categorysup->id}}">
                 <h1>{{$categorysup->slug}}</h1>
                 <p>Presupuestado: {{$categorysup->budget}}</p>
                 <p class="text-color-red">Gastado: {{$categorysup->amount}}</p>
@@ -23,7 +23,7 @@
             @foreach($categories[1] as $categoryinf)
             @foreach($categoryinf as $category)
             @if($categorysup->superior_cat == $categorysup->id)
-            <div id="piechart{{$categoryinf->id}}" style="width: 300px; height: 400px;">
+            <div id="piechart{{$categoryinf->id}}">
                 <h1>{{$categoryinf->slug}}</h1>
                 <p>Presupuestado: {{$categoryinf->budget}}</p>
                 <p class="text-color-red">Gastado: {{$categoryinf->amount}}</p>
