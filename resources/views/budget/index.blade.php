@@ -14,11 +14,19 @@
     <div class="col-sm-12">
         @foreach($categories[0] as $categorysup)
         <div class="col-sm-3">
-            <div id="piechart{{$categorysup->id}}">
-                <h1>{{$categorysup->slug}}</h1>
-                <p>Presupuestado: {{$categorysup->budget}}</p>
-                <p class="text-color-red">Gastado: {{$categorysup->amount}}</p>
-                <p class="text-color-green">Restante: {{$categorysup->budget - $categorysup->amount }}</p>
+            <div class="panel panel-primary">
+                <div class="panel-heading">
+                    <h3 class="panel-title">{{$categorysup->slug}}</h3>
+                </div>
+                <div class="panel-body">
+                    <p><b>Presupuestado</b>: {{$categorysup->budget}}</p>
+                <p>
+                    <b>Gastado</b>: <span class="@if($categorysup->amount > $categorysup->budget)text-color-red @endif">{{$categorysup->amount}}</span>
+                </p>
+                <p>
+                    <b>Restante</b>: <span class="@if($categorysup->amount > $categorysup->budget)text-color-red @else text-color-green @endif">{{$categorysup->budget - $categorysup->amount }}</span>
+                </p>
+                </div>
             </div>
             @foreach($categories[1] as $categoryinf)
             @foreach($categoryinf as $category)
@@ -26,7 +34,7 @@
             <div id="piechart{{$categoryinf->id}}">
                 <h1>{{$categoryinf->slug}}</h1>
                 <p>Presupuestado: {{$categoryinf->budget}}</p>
-                <p class="text-color-red">Gastado: {{$categoryinf->amount}}</p>
+                <p>Gastado: <span class="text-color-red">{{$categoryinf->amount}}</span></p>
                 <p class="text-color-green">Restante: {{$categoryinf->budget - $categoryinf->amount }}</p>
             </div>
             @endif
