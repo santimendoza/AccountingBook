@@ -14,12 +14,15 @@ class ExpensesCategoriesFunctions {
     public static function calculateExpensesCategoryValue($category) {
         $dates = DateFunctions::firstAndLastDayOfActualMonth();
         $monthstartdaystring = DateFunctions::dateToString($dates[0]);
-        $expenses = Expenses::where('expensesCategory_id', '=', $category->id)->where('date', '>=', $monthstartdaystring)->get();
-        $totalexpenses = 0;
-        foreach ($expenses as $expense) {
-            $totalexpenses += $expense->amount;
+        $expenses = Expenses::where('date', '>=', $monthstartdaystring)
+                ->where('expensesCategory_id', '=', $category->id);
+        if ($category->superior_cat == null) {
+            $subcategories = ExpensesCategories::where('superior_cat', '=', $category->id)->get();
+            foreach ($subcategories as $subcategory) {
+                $expenses = $expenses->orWhere('expensesCategory_id', '=', $subcategory->id);
+            }
         }
-        return $totalexpenses;
+        return ExpensesFunctions::calculateTotalExpenses($expenses->get());
     }
 
     public static function calculateExpensesCategory($category) {
