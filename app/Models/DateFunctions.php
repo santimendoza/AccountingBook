@@ -7,12 +7,10 @@ use Auth;
 class DateFunctions {
 
     public static function firstAndLastDayOfActualMonth() {
+        $actualmonth = date('m');
         if (date('d') > Auth::user()->courtdate) {
             $actualmonth = date('m') + 1;
-        } else {
-            $actualmonth = date('m');
         }
-
         $previousmonth = $actualmonth - 1;
         if (Auth::user()->courtdate > 28) {
             if (Auth::user()->courtdate > date('t', strtotime(date('Y-' . $previousmonth . '-d')))) {
@@ -20,9 +18,7 @@ class DateFunctions {
             } else {
                 $firstDayOfMonth = date('Y-m-d', strtotime(date('Y-' . $previousmonth . '-' . Auth::user()->courtdate)));
             }
-
             $day = date('d', strtotime($firstDayOfMonth));
-
             if ($day > date('d', strtotime(date('Y-m-t')))) {
                 $lastDayOfMonth = date('Y-m-t', strtotime(date('Y-' . $actualmonth . '-t')));
             } else {
