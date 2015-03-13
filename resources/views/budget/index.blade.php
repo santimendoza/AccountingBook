@@ -9,13 +9,13 @@
         <div class="pull-right">
             <a href="/budget/create" class="btn btn-success">Modificar presupuestos</a>
         </div>
-        <h1>Presupuesto</h1>
+        <h1>Presupuesto Mensual</h1>
     </div>
     <div class="row">
         <div class="col-sm-12">
             <h2>Gastos</h2>
             @foreach($categories[0] as $categorysup)
-            <div class="col-sm-3">
+            <div class="col-xs-12 col-sm-6 col-md-3">
                 <div class="panel panel-primary">
                     <div class="panel-heading">
                         <h3 class="panel-title">{{$categorysup->slug}}</h3>
@@ -38,7 +38,7 @@
         <div class="col-sm-12">
             <h2>Ahorros</h2>
             @foreach($savings as $saving)
-            <div class="col-sm-3">
+            <div class="col-xs-12 col-sm-6 col-md-3">
                 <div class="panel panel-primary">
                     <div class="panel-heading">
                         <h3 class="panel-title">{{$saving->title}}</h3>
