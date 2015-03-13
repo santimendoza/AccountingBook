@@ -7,15 +7,22 @@ use App\Http\Controllers\Controller;
 use App\Models\ExpensesCategories\ExpensesCategories;
 use App\Models\ExpensesCategories\ExpensesCategoriesFunctions;
 use App\Models\Savings\Savings;
+use App\Models\AddToSavings\AddToSavingsFunctions;
 use Illuminate\Http\Request;
 use Auth;
 
 class BudgetController extends Controller {
 
     public function index() {
-        $categoriesarray = ExpensesCategoriesFunctions::getCategoriesAndSubcategories();
-        if (count($categoriesarray) > 1) {
-            return view('budget.index')->with('categories', $categoriesarray);
+        $categories = ExpensesCategoriesFunctions::getCategoriesAndSubcategories();
+        $savings = Savings::where('user_id', '=', Auth::user()->id)->get();
+        foreach ($savings as $saving) {
+            $savingExpenses = AddToSavingsFunctions::getAddedSavings($saving->id);
+            $saving->expenses = AddToSavingsFunctions::calculateAddedSavingsValue($savingExpenses);
+        }
+        $data = ['categories' => $categories, 'savings' => $savings];
+        if (count($categories) > 1) {
+            return view('budget.index')->with($data);
         } else {
             return redirect('/categories/expenses/create')->withErrors('No tienes ninguna categoría creada. Crea una a continuación', 'expensesCategoriesError');
         }
