@@ -46,7 +46,7 @@ class ExpensesCategoriesController extends Controller {
         $monthstartday = $dates[0];
         $monthendday = $dates[1];
         $expensesCategory = ExpensesCategories::find($id);
-        $expenses = ExpensesCategoriesFunctions::calculateExpensesCategory($expensesCategory);
+        $expenses = ExpensesCategoriesFunctions::getExpensesCategories($expensesCategory);
         $totalexpenses = ExpensesFunctions::calculateTotalExpenses($expenses);
         $data = ['expenses' => $expenses, 'date1' => $monthstartday, 'date2' => $monthendday,
             'expensesCategory' => $expensesCategory, 'totalexpenses' => $totalexpenses];

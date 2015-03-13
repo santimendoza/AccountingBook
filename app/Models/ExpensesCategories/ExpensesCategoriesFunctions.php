@@ -26,12 +26,24 @@ class ExpensesCategoriesFunctions {
         return ExpensesFunctions::calculateTotalExpenses($expenses->orderBy('date')->get());
     }
 
-    public static function calculateExpensesCategory($category) {
-        DB::enableQueryLog();
+    public static function getExpensesCategories($category) {
         $dates = DateFunctions::firstAndLastDayOfActualMonth();
         $monthstartdaystring = DateFunctions::dateToString($dates[0]);
         $subcategories = ExpensesCategories::where('superior_cat', '=', $category->id)->get();
         $expenses = Expenses::where('date', '>=', $monthstartdaystring)
+                ->where(function($query) use ($subcategories, $category) {
+            $query->orWhere('expensesCategory_id', '=', $category->id);
+            foreach ($subcategories as $subcategory) {
+                $query->orWhere('expensesCategory_id', '=', $subcategory->id);
+            }
+        });
+        return $expenses->orderBy('date')->get();
+    }
+
+    public static function getExpensesCategoriesFromDates($category, $date1, $date2) {
+        $subcategories = ExpensesCategories::where('superior_cat', '=', $category->id)->get();
+        $expenses = Expenses::where('date', '>=', $date1)
+                ->where('date', '<=', $date2)
                 ->where(function($query) use ($subcategories, $category) {
             $query->orWhere('expensesCategory_id', '=', $category->id);
             foreach ($subcategories as $subcategory) {
