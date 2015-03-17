@@ -32,7 +32,7 @@
         </div>
         <div class="form-group">
             <input class="btn btn-info" type="submit" value="Crear">
-            <a href="/categories/earnings" class="btn btn-danger">Regresar</a>
+            <a href="{{ URL::previous() }}" class="btn btn-danger">Regresar</a>
         </div>
     </form>
 </div>

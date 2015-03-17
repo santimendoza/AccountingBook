@@ -7,7 +7,7 @@
 <div id="content" class="col-xs-12 col-sm-6 col-sm-offset-3">
     <div class="page-header">
         <div class="pull-left">
-            <a href="/categories/expenses" class="btn btn-warning">Regresar</a>
+            <a href="{{ URL::previous() }}" class="btn btn-warning">Regresar</a>
         </div>
         <div class="pull-right">
             <a href="/categories/expenses/{{$expensesCategory->id}}/edit" class="btn btn-info">Editar categoría</a>

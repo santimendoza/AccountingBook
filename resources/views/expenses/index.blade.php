@@ -40,7 +40,7 @@
                     <td>{{$expense->date}}</td>
                     <td>{{$expense->amount}}</td>
                     <td>{{$expense->description}}</td>
-                    <td>{{$expense->expensescategories->slug}}</td>
+                    <td><a href="/categories/expenses/{{$expense->expensescategories->id}}">{{$expense->expensescategories->slug}}</a></td>
                     <td>
                         <form id="delete-earning" action="/expenses/{{$expense->id}}" method="POST" accept-charset="UTF-8">
                             <input name="_method" type="hidden" value="DELETE">

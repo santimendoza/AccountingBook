@@ -22,7 +22,7 @@
             </div>
             <div class="form-group">
                 <input class="btn btn-success" type="submit" value="Agregar saldo"/>
-                <a href="/savings" class="btn btn-warning">Regresar</a>
+                <a href="{{ URL::previous() }}" class="btn btn-warning">Regresar</a>
             </div>
         </form>
     </div>
