@@ -33,7 +33,7 @@ Route::group(['middleware' => 'auth'], function() {
     Route::get('/dashboard', 'DashboardController@dashboard');
 });
 
-Route::group(['prefix' => 'api' ,'middleware' => 'auth.basic'], function() {
+Route::group(['prefix' => 'api', 'middleware' => 'auth.basic'], function() {
     //Categories routes
     Route::resource('/categories/earnings', 'EarningsCategoriesController');
     Route::resource('/categories/expenses', 'ExpensesCategoriesController');

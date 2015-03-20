@@ -14,7 +14,7 @@ use Auth;
 
 class ExpensesController extends Controller {
 
-    public function index() {
+    public function index(Request $request) {
         $dates = DateFunctions::firstAndLastDayOfActualMonth();
         $monthstartday = $dates[0];
         $monthendday = $dates[1];
@@ -29,13 +29,19 @@ class ExpensesController extends Controller {
         $totalexpenses = ExpensesFunctions::calculateTotalExpenses($expenses);
         $data = ['expenses' => $expenses, 'date1' => $monthstartday,
             'date2' => $monthendday, 'totalexpenses' => $totalexpenses];
+        if ($request->route()->getPrefix() == 'api/') {
+            return response()->json($data, 200);
+        }
         return view('expenses.index')->with($data);
     }
 
-    public function create() {
+    public function create(Request $request) {
         $categories = ExpensesCategories::whereRaw('user_id = ?', [Auth::user()->id])->get();
         if ($categories->count() < 1) {
             return redirect('/categories/expenses/create')->withErrors('Parece que aún no tienes categorías. Crea una en el siguiente formulario.', 'expensesCategoriesError');
+        }
+        if ($request->route()->getPrefix() == 'api/') {
+            return response()->json($categories, 200);
         }
         return view('expenses.create')->with('categories', $categories);
     }
@@ -53,20 +59,38 @@ class ExpensesController extends Controller {
         Expenses::create($request->all());
         $user = User::find(Auth::user()->id);
         $user->balance = $user->balance - $request['amount'];
-        $user->save();
-        return redirect('/expenses');
+        if ($user->save()) {
+            if ($request->route()->getPrefix() == 'api/') {
+                return response()->json(['Gasto creado'], 201);
+            }
+            return redirect('/expenses');
+        } else {
+            if ($request->route()->getPrefix() == 'api/') {
+                return response()->json(['Parace que hubo un error, intentalo de nuevo.'], 400);
+            }
+            return redirect()->back()->withInput()->withErrors('Parece que hubo un error, intentalo de nuevo.', 'expensesError');
+        }
     }
 
-    public function show($id) {
+    public function show(Request $request, $id) {
+        if ($request->route()->getPrefix() == 'api/') {
+            return redirect('/api/expenses/' . $id . '/edit');
+        }
         return redirect('/expenses/' . $id . '/edit');
     }
 
-    public function edit($id) {
+    public function edit(Request $request, $id) {
         $expense = Expenses::find($id);
         $date = strtotime($expense->date);
+
         $expense->date = date('Y-m-d', $date);
+
         $categories = ExpensesCategories::whereRaw('user_id = ?', [Auth::user()->id])->get();
         $data = ['expense' => $expense, 'categories' => $categories];
+        if ($request->route()->getPrefix() == 'api/') {
+            return response()->json($data, 200);
+        }
+
         return view('expenses.edit')->with($data);
     }
 
@@ -84,20 +108,36 @@ class ExpensesController extends Controller {
         $expense->description = $request['description'];
         $expense->expensesCategory_id = $request['expensesCategory_id'];
         $expense->date = str_replace('-', '', $request['date']);
-        $expense->save();
         $user = User::find(Auth::user()->id);
         $user->balance += $difference;
-        $user->save();
-        return redirect('expenses');
+        if ($user->save() && $expense->save()) {
+            if ($request->route()->getPrefix() == 'api/') {
+                return response()->json(['Actualizado correctamente'], 200);
+            }
+            return redirect('expenses');
+        } else {
+            if ($request->route()->getPrefix() == 'api/') {
+                return response()->json(['Ha ocurrido un error. Intentalo de nuevo.'], 401);
+            }
+            return redirect()->back()->withInput()->withErrors('Parece que hubo un error, intentalo de nuevo.', 'expensesError');
+        }
     }
 
-    public function destroy($id) {
+    public function destroy(Request $request, $id) {
         $expense = Expenses::find($id);
-        if ($expense->count() >= 1) {
-            $user = User::find(Auth::user()->id);
-            $user->balance = $user->balance + $expense->amount;
-            $expense->delete();
-            $user->save();
+        if ($expense->count() < 1) {
+            if ($request->route()->getPrefix() == 'api/') {
+                return response()->json(['No existe el gasto que quieres eliminar'], 400);
+            }
+            return redirect('expenses')->withErrors('No existe el gasto que quieres eliminar', 'expensesError');
+        }
+        $user = User::find(Auth::user()->id);
+        $user->balance = $user->balance + $expense->amount;
+        if ($user->save() && $expense->delete()) {
+            if ($request->route()->getPrefix() == 'api/') {
+                return response()->json(['Eliminado correctamente'], 200);
+            }
+            return redirect('expenses');
         }
         return redirect('expenses');
     }
