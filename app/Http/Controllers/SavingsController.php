@@ -33,8 +33,12 @@ class SavingsController extends Controller {
             'title' => 'required',
         ];
         $this->validate($request, $rules);
-        $request['user_id'] = Auth::user()->id;
+        $userid = Auth::user()->id;
+        $user = User::find($userid);
+        $request['user_id'] = $userid;
         Savings::create($request->all());
+        $user->balane = $user->balance - $request['amount'];
+        $user->save();
         return redirect('savings');
     }
 
