@@ -11,14 +11,6 @@
         </file>
     </editor-bookmarks>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
-        <group>
-            <file>file:/C:/Users/Practicante%20Sistemas/Documents/GitHub/AccountingBook/app/Http/Middleware/Authenticate.php</file>
-            <file>file:/C:/Users/Practicante%20Sistemas/Documents/GitHub/AccountingBook/app/Http/routes.php</file>
-            <file>file:/C:/Users/Practicante%20Sistemas/Documents/GitHub/AccountingBook/vendor/laravel/framework/src/Illuminate/Session/Middleware/StartSession.php</file>
-            <file>file:/C:/Users/Practicante%20Sistemas/Documents/GitHub/AccountingBook/app/Http/Middleware/VerifyCsrfToken.php</file>
-            <file>file:/C:/Users/Practicante%20Sistemas/Documents/GitHub/AccountingBook/app/Http/Kernel.php</file>
-            <file>file:/C:/Users/Practicante%20Sistemas/Documents/GitHub/AccountingBook/app/Http/Controllers/ExpensesController.php</file>
-            <file>file:/C:/Users/Practicante%20Sistemas/Documents/GitHub/AccountingBook/app/Http/Middleware/CheckToken.php</file>
-        </group>
+        <group/>
     </open-files>
 </project-private>

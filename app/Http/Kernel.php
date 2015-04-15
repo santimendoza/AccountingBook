@@ -17,7 +17,8 @@ class Kernel extends HttpKernel {
         'Illuminate\Cookie\Middleware\AddQueuedCookiesToResponse',
         'Illuminate\Session\Middleware\StartSession',
         'Illuminate\View\Middleware\ShareErrorsFromSession',
-        'App\Http\Middleware\VerifyCsrfToken',
+        //'App\Http\Middleware\VerifyCsrfToken',
+        'LucaDegasperi\OAuth2Server\Middleware\OAuthExceptionHandlerMiddleware',
     ];
 
     /**
@@ -31,6 +32,7 @@ class Kernel extends HttpKernel {
         'guest' => 'App\Http\Middleware\RedirectIfAuthenticated',
         'csrf' => 'App\Http\Middleware\VerifyCsrfToken',
         'checktoken' => 'App\Http\Middleware\CheckToken',
+        'csrf' => 'App\Http\Middleware\VerifyCsrfToken',
     ];
 
 }
