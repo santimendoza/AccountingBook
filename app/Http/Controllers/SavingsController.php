@@ -37,7 +37,7 @@ class SavingsController extends Controller {
         $user = User::find($userid);
         $request['user_id'] = $userid;
         Savings::create($request->all());
-        $user->balane = $user->balance - $request['amount'];
+        $user->balance = $user->balance - $request['amount'];
         $user->save();
         return redirect('savings');
     }
