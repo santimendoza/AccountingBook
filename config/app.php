@@ -129,8 +129,6 @@ return [
         'App\Providers\ConfigServiceProvider',
         'App\Providers\EventServiceProvider',
         'App\Providers\RouteServiceProvider',
-        'LucaDegasperi\OAuth2Server\Storage\FluentStorageServiceProvider',
-        'LucaDegasperi\OAuth2Server\OAuth2ServerServiceProvider',
     ],
     /*
       |--------------------------------------------------------------------------
@@ -178,6 +176,5 @@ return [
         'View' => 'Illuminate\Support\Facades\View',
         'Form' => 'Illuminate\Html\FormFacade',
         'Html' => 'Illuminate\Html\HtmlFacade',
-        'Authorizer' => 'LucaDegasperi\OAuth2Server\Facades\AuthorizerFacade',
     ],
 ];

@@ -7,12 +7,19 @@ Route::group(['middleware' => 'auth'], function() {
     Route::post('/categories/expenses/{id}/reports', 'ReportsController@expensesCategoryReport');
 
     //Earnings
+    Route::get('/earnings/reports', function(){
+        return redirect('/earnings');
+    });
     Route::resource('/earnings', 'EarningsController');
     Route::post('/earnings/reports', 'ReportsController@earningsreport');
 
     //Expenses
+    Route::get('/expenses/reports', function(){
+        return redirect('/expenses');
+    });
     Route::resource('/expenses', 'ExpensesController');
     Route::post('/expenses/reports', 'ReportsController@expensesreport');
+   
 
     //Savings
     Route::resource('/savings', 'SavingsController');

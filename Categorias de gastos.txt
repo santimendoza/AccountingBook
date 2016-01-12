@@ -1,0 +1,14 @@
+Categorías base:
+
+- Servicios básicos
+- Vivienda
+- Alimentación
+- Vestimenta
+- Educación
+- Salud
+- Entretenimiento
+- Transporte
+- Créditos
+- Iglesia
+- Otros egresos
+- Ahorro
